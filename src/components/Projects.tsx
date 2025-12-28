@@ -199,24 +199,47 @@ export default function Projects() {
                       )}
                     </div>
                   </div>
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-3 min-h-[4.5rem]">
                     {project.description}
                   </p>
                   
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.slice(0, 4).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs text-gray-400"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.tags.length > 4 && (
-                      <span className="text-xs text-gray-500 flex items-center">
-                        +{project.tags.length - 4}
-                      </span>
+                  <div className="space-y-3 mb-4 h-24 overflow-hidden">
+                    {project.techStack?.main && project.techStack.main.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.techStack.main.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-0.5 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded text-[10px] text-cyber-cyan font-mono"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {project.techStack?.tools && project.techStack.tools.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 opacity-60">
+                        {project.techStack.tools.map((tool) => (
+                          <span
+                            key={tool}
+                            className="px-2 py-0.5 bg-white/5 border border-white/10 rounded text-[9px] text-gray-400 font-mono"
+                          >
+                            {tool}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {(!project.techStack || project.techStack.main.length === 0) && (
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] text-gray-400"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     )}
                   </div>
 

@@ -1,30 +1,24 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import { 
   Code2, Server, Database, Cloud, 
   Layers, Terminal, Box, GitBranch,
-  Layout, Cpu, Shield, Zap
+  Layout, Cpu, Shield, Zap,
+  CircleDot, Network, Pause, Play
 } from 'lucide-react';
 import { skills, skillCategories } from '@/data';
+import CircularSkillChart from './CircularSkillChart';
+
+type ViewMode = 'grid' | 'orbital';
 
 interface SkillCategory {
   icon: typeof Code2;
   titleKey: string;
   skills: { name: string; level: number; color: string }[];
 }
-
-// 将技能数据按类别分组
-const getSkillsByCategory = (category: string) => {
-  return skills
-    .filter(skill => skill.category === category)
-    .map(skill => ({
-      name: skill.name,
-      level: skill.level * 20, // 将1-5级别转换为0-100%
-      color: getSkillColor(skill.name)
-    }));
-};
 
 // 为技能分配颜色
 const getSkillColor = (skillName: string): string => {
@@ -40,7 +34,7 @@ const getSkillColor = (skillName: string): string => {
     'AWS': 'from-orange-400 to-orange-600',
     'Docker': 'from-blue-400 to-blue-600',
     'Git': 'from-orange-400 to-red-500',
-    'Tailwind CSS': 'from-cyan-400 to-teal-400',
+    'Tailwind': 'from-cyan-400 to-teal-400',
     'Vue.js': 'from-green-400 to-emerald-500',
     'Express': 'from-gray-600 to-black',
     'GraphQL': 'from-pink-500 to-purple-500',
@@ -52,7 +46,7 @@ const getSkillColor = (skillName: string): string => {
     'SASS': 'from-pink-500 to-red-500',
     'Webpack': 'from-blue-500 to-indigo-600',
     'Jenkins': 'from-yellow-500 to-orange-600',
-    'Kubernetes': 'from-blue-500 to-cyan-500',
+    'K8s': 'from-blue-500 to-cyan-500',
     'Redis': 'from-red-500 to-red-700',
     'MySQL': 'from-blue-400 to-blue-600',
     'C#': 'from-purple-500 to-purple-700',
@@ -84,10 +78,22 @@ const getSkillColor = (skillName: string): string => {
   return colorMap[skillName] || 'from-gray-400 to-gray-600';
 };
 
+// 将技能数据按类别分组
+const getSkillsByCategory = (category: string) => {
+  return skills
+    .filter(skill => skill.category === category)
+    .map(skill => ({
+      name: skill.name,
+      level: skill.level * 20, // 将1-5级别转换为0-100%
+      color: getSkillColor(skill.name)
+    }));
+};
+
 const skillCategoryIcons: { [key: string]: any } = {
   'Frontend': Layout,
   'Backend': Server,
   'Database': Database,
+  'AI & LLM': Cpu,
   'DevOps': Terminal,
   'Cloud': Cloud,
 };
@@ -96,6 +102,7 @@ const skillCategoryTitles: { [key: string]: string } = {
   'Frontend': 'Skills.frontend',
   'Backend': 'Skills.backend',
   'Database': 'Skills.database',
+  'AI & LLM': 'Skills.ai',
   'DevOps': 'Skills.devops',
   'Cloud': 'Skills.cloud',
 };
@@ -108,6 +115,33 @@ const skillCategoriesData: SkillCategory[] = skillCategories.map(category => ({
 
 export default function Skills() {
   const { t } = useLanguage();
+  const [viewMode, setViewMode] = useState<ViewMode>('orbital');
+  const [activeCategory, setActiveCategory] = useState(skillCategories[0]);
+  const [isAutoRotating, setIsAutoRotating] = useState(true);
+
+  // 自动轮播逻辑
+  useEffect(() => {
+    if (!isAutoRotating || viewMode !== 'orbital') return;
+
+    const interval = setInterval(() => {
+      setActiveCategory((current) => {
+        const currentIndex = skillCategories.indexOf(current);
+        const nextIndex = (currentIndex + 1) % skillCategories.length;
+        return skillCategories[nextIndex];
+      });
+    }, 4000); // 每4秒切换一次
+
+    return () => clearInterval(interval);
+  }, [isAutoRotating, viewMode]);
+
+  const handleCategoryManualSelect = (category: string) => {
+    setActiveCategory(category);
+    setIsAutoRotating(false); // 用户手动选择后暂停自动轮播
+  };
+
+  const toggleAutoRotate = () => {
+    setIsAutoRotating(!isAutoRotating);
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -149,60 +183,139 @@ export default function Skills() {
           </motion.span>
           <h2 className="section-title">{t('Skills.title')}</h2>
           <p className="section-subtitle mx-auto">{t('Skills.subtitle')}</p>
+
+          {/* View Toggle */}
+          <div className="flex justify-center gap-4 mt-8">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${
+                viewMode === 'grid' 
+                  ? 'bg-cyber-cyan/20 border-cyber-cyan text-cyber-cyan' 
+                  : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+              }`}
+            >
+              <Layers className="w-4 h-4" />
+              <span className="text-sm font-mono">Grid</span>
+            </button>
+            <button
+              onClick={() => setViewMode('orbital')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${
+                viewMode === 'orbital' 
+                  ? 'bg-cyber-purple/20 border-cyber-purple text-cyber-purple' 
+                  : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+              }`}
+            >
+              <CircleDot className="w-4 h-4" />
+              <span className="text-sm font-mono">Orbital</span>
+            </button>
+          </div>
         </motion.div>
 
-        {/* Skills grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {skillCategoriesData.map((category, categoryIndex) => (
+        <AnimatePresence mode="wait">
+          {viewMode === 'grid' ? (
             <motion.div
-              key={categoryIndex}
-              variants={itemVariants}
-              className="glass-card p-6 group"
+              key="grid"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
             >
-              {/* Category header */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-cyber-cyan/20 to-cyber-purple/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <category.icon className="w-6 h-6 text-cyber-cyan" />
-                </div>
-                <span className="font-display font-semibold text-lg">{t(category.titleKey)}</span>
-              </div>
+              {skillCategoriesData.map((category, categoryIndex) => (
+                <motion.div
+                  key={categoryIndex}
+                  variants={itemVariants}
+                  className="glass-card p-6 group"
+                >
+                  {/* Category header */}
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-cyber-cyan/20 to-cyber-purple/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <category.icon className="w-6 h-6 text-cyber-cyan" />
+                    </div>
+                    <span className="font-display font-semibold text-lg">{t(category.titleKey)}</span>
+                  </div>
 
-              {/* Skills list */}
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skillIndex}
-                    className="relative"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
-                  >
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-gray-300">{skill.name}</span>
-                      <span className="text-xs font-mono text-cyber-cyan">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                  {/* Skills list */}
+                  <div className="space-y-4">
+                    {category.skills.map((skill, skillIndex) => (
                       <motion.div
-                        className={`h-full bg-gradient-to-r ${skill.color} rounded-full`}
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
+                        key={skillIndex}
+                        className="relative"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.05, ease: 'easeOut' }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
+                        transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
+                      >
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-sm text-gray-300">{skill.name}</span>
+                          <span className="text-xs font-mono text-cyber-cyan">{skill.level}%</span>
+                        </div>
+                        <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                          <motion.div
+                            className={`h-full bg-gradient-to-r ${skill.color} rounded-full`}
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${skill.level}%` }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.05, ease: 'easeOut' }}
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="orbital"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="flex flex-col items-center"
+            >
+              {/* Category Selector for Orbital View */}
+              <div className="flex flex-col items-center gap-6 mb-12">
+                <div className="flex flex-wrap justify-center gap-3">
+                  {skillCategories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => handleCategoryManualSelect(category)}
+                      className={`px-6 py-2 rounded-xl text-sm font-display transition-all duration-300 ${
+                        activeCategory === category
+                          ? 'bg-cyber-cyan/20 border border-cyber-cyan text-cyber-cyan shadow-[0_0_15px_rgba(0,255,242,0.3)]'
+                          : 'bg-white/5 border border-white/10 text-gray-400 hover:border-white/20'
+                      }`}
+                    >
+                      {t(skillCategoryTitles[category])}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Auto-rotate toggle */}
+                <button
+                  onClick={toggleAutoRotate}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-gray-500 hover:text-cyber-cyan transition-colors"
+                >
+                  {isAutoRotating ? (
+                    <>
+                      <Pause className="w-3 h-3" />
+                      <span>AUTOSCAN ACTIVE</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-3 h-3" />
+                      <span>AUTOSCAN PAUSED</span>
+                    </>
+                  )}
+                </button>
+              </div>
+              
+              <div className="w-full flex justify-center items-center py-10 min-h-[500px]">
+                <CircularSkillChart activeCategory={activeCategory} />
               </div>
             </motion.div>
-          ))}
-        </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Floating badges */}
         <motion.div

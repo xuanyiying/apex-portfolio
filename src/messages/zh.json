@@ -14,7 +14,10 @@
     "subtitle": "我精通各种现代技术，能够高效地构建复杂的前后端应用。",
     "frontend": "前端开发",
     "backend": "后端开发",
+    "database": "数据库",
+    "ai": "人工智能",
     "devops": "DevOps",
+    "cloud": "云计算",
     "tools": "工具与设计"
   },
   "Projects": {

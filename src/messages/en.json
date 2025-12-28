@@ -14,7 +14,10 @@
     "subtitle": "I master various modern technologies to efficiently build complex full-stack applications.",
     "frontend": "Frontend",
     "backend": "Backend",
+    "database": "Database",
+    "ai": "AI & LLM",
     "devops": "DevOps",
+    "cloud": "Cloud",
     "tools": "Tools & Design"
   },
   "Projects": {

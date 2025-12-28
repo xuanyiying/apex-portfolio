@@ -1,102 +1,115 @@
----
-AIGC:
-    ContentProducer: Minimax Agent AI
-    ContentPropagator: Minimax Agent AI
-    Label: AIGC
-    ProduceID: "00000000000000000000000000000000"
-    PropagateID: "00000000000000000000000000000000"
-    ReservedCode1: 3046022100c078fdbbe0896ea7880a9a403eeba6cac19b6bf4c6a4602c8fcbcd5dacadb152022100ef3877921e3323bedd1c60b5c8f638f3ffbca16686d437235aea9482111d1c02
-    ReservedCode2: 3045022100e86cb0c812602709b53b9761f2517c45d03454c8c3ddcaa3b48b7d7024e99df502207710f9e7a4899e16b098386582578a909ed7e2be6be29181ab159a3967a162f9
----
+# Apex Portfolio v1.0.0
 
-# Apex Portfolio - Full Stack Developer Portfolio
+Apex Portfolio 是一个为现代全栈开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。
 
-A modern, stunning portfolio website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion. Features a cyberpunk-inspired design with glassmorphism effects, smooth animations, and bilingual (EN/ZH) support.
+## 1. 主要功能和目标
 
-## Tech Stack
+- **响应式设计**：完美适配桌面、平板和移动端。
+- **中英双语支持**：内置完善的国际化（i18n）方案，支持一键切换语言。
+- **3D 交互视觉**：利用 Three.js 实现炫酷的 3D 背景和交互元素。
+- **平滑动画**：基于 Framer Motion 实现的丝滑页面过渡和入场动画。
+- **自动化集成**：支持通过脚本自动从 GitHub 获取最新的开源项目信息。
+- **深色模式优化**：原生支持深色模式，提供极致的视觉体验。
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **3D Graphics**: React Three Fiber (Three.js)
-- **Icons**: Lucide React
-- **Internationalization**: Custom i18n solution
-- **Form Handling**: Canvas Confetti for success animations
+## 2. 核心技术栈和依赖项
 
-## Features
+### 核心框架
+- **Next.js 14 (App Router)**: 用于构建高性能 React 应用的基础框架。
+- **TypeScript**: 提供强类型检查，提升代码质量和可维护性。
 
-- 🎨 Modern cyberpunk + glassmorphism design
-- ✨ Smooth animations and transitions
-- 🌍 Bilingual support (English/Chinese)
-- 📱 Fully responsive design
-- 🎮 Interactive 3D elements
-- 💬 Contact form with confetti celebration
-- 🔥 Dark mode optimized
-- ⚡ Performance optimized
+### UI & 动画
+- **Tailwind CSS**: 实用优先的 CSS 框架，用于构建响应式布局。
+- **Framer Motion**: 用于实现复杂的交互动画和页面过渡。
+- **Lucide React**: 简洁美观的图标库。
+- **Canvas Confetti**: 用于表单提交成功后的烟花特效。
 
-## Getting Started
+### 3. 系统架构和模块划分
 
-1. Install dependencies:
+项目采用清晰的模块化开发模式，便于扩展和维护：
+
+```text
+apex-portfolio/
+├── scripts/              # 自动化脚本（如：GitHub 数据抓取）
+├── src/
+│   ├── app/              # Next.js App Router 路由、布局和全局样式
+│   ├── components/       # 可复用的 UI 组件（Hero, Projects, Skills 等）
+│   ├── data/             # 静态数据配置文件（项目、经历、技能等）
+│   ├── lib/              # 核心库逻辑（i18n, Context Provider, 工具函数）
+│   ├── messages/         # 国际化翻译文件（JSON 格式）
+│   └── types/            # 全局 TypeScript 类型定义
+├── public/               # 静态资源（图片、字体等）
+└── tailwind.config.ts    # 样式配置与主题定义
+```
+
+## 4. 安装部署说明
+
+### 环境要求
+- Node.js 18.x 或更高版本
+- npm / pnpm / yarn
+
+### 本地开发
+1. 克隆仓库：
+   ```bash
+   git clone https://github.com/xuanyiying/apex-portfolio.git
+   cd apex-portfolio
+   ```
+
+2. 安装依赖：
    ```bash
    npm install
    ```
 
-2. Run the development server:
+3. 启动开发服务器：
    ```bash
    npm run dev
    ```
+   访问 [http://localhost:3000](http://localhost:3000) 即可查看效果。
 
-3. Open [http://localhost:3000](http://localhost:3000) with your browser.
+### 构建与生产环境部署
+1. 执行构建：
+   ```bash
+   npm run build
+   ```
 
-## Project Structure
+2. 启动生产服务器：
+   ```bash
+   npm run start
+   ```
 
-```
-src/
-├── app/
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Home page
-│   ├── globals.css         # Global styles
-│   └── [locale]/           # Internationalized routes
-├── components/
-│   ├── Navigation.tsx      # Navigation bar
-│   ├── Hero.tsx            # Hero section with 3D
-│   ├── Skills.tsx          # Skills showcase
-│   ├── Projects.tsx        # Projects gallery
-│   ├── Experience.tsx      # Experience timeline
-│   ├── Contact.tsx         # Contact form
-│   └── Footer.tsx          # Footer
-├── lib/
-│   ├── i18n.ts             # Internationalization
-│   ├── utils.ts            # Utility functions
-│   └── LanguageContext.tsx # Language provider
-└── messages/
-    ├── en.json             # English translations
-    └── zh.json             # Chinese translations
-```
+## 5. 使用方法和示例
 
-## Customization
+### 自定义内容
+- **个人信息**：编辑 `src/data/hero.ts` 和 `src/data/contact.ts`。
+- **技能列表**：编辑 `src/data/skills.ts`。
+- **工作经历**：编辑 `src/data/experience.ts`。
 
-### Colors
-Edit `tailwind.config.ts` to customize the cyberpunk color palette:
+### 同步 GitHub 项目
+项目提供了一个便捷的脚本，可以根据用户名自动抓取 GitHub 仓库并生成项目列表：
 
-```typescript
-colors: {
-  cyber: {
-    cyan: '#00F0FF',
-    purple: '#7000FF',
-    pink: '#FF006E',
-    // ...
-  }
-}
-```
+1. 打开 `scripts/fetch-github-projects.ts`。
+2. 修改 `GITHUB_USERNAME` 为你的用户名。
+3. 运行同步脚本：
+   ```bash
+   npm run update-projects
+   ```
 
-### Content
-Edit `messages/en.json` and `messages/zh.json` to customize the content.
+### 多语言配置
+在 `src/messages/` 目录下编辑 `en.json` 和 `zh.json` 即可完成文案的更新。
 
-### Projects
-Edit the `projects` array in `src/components/Projects.tsx` to add your own projects.
+## 6. 贡献指南
 
-## License
+欢迎通过 Pull Request 或 Issue 来帮助改进这个项目！
 
-MIT License
+1. Fork 本项目。
+2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)。
+3. 提交你的更改 (`git commit -m 'Add some AmazingFeature'`)。
+4. 推送到分支 (`git push origin feature/AmazingFeature`)。
+5. 开启一个 Pull Request。
+
+## 7. 许可证信息
+
+本项目采用 [MIT License](LICENSE) 许可。你可以自由地使用、修改和分发本项目。
+
+---
+
+© 2025 Alex Chen. Built with ❤️ and Next.js.
