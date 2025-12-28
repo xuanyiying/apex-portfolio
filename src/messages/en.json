@@ -1,0 +1,68 @@
+{
+  "Hero": {
+    "greeting": "Hello, I'm",
+    "name": "Alex Chen",
+    "role": "Full Stack Developer",
+    "tagline": "Building the Digital Future",
+    "description": "I'm a passionate full-stack developer focused on creating stunning digital experiences. From front-end UI to back-end architecture, I turn ideas into reality through code.",
+    "ctaPrimary": "View Projects",
+    "ctaSecondary": "Contact Me",
+    "scrollHint": "Scroll Down"
+  },
+  "Skills": {
+    "title": "Tech Stack",
+    "subtitle": "I master various modern technologies to efficiently build complex full-stack applications.",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "devops": "DevOps",
+    "tools": "Tools & Design"
+  },
+  "Projects": {
+    "title": "Featured Projects",
+    "subtitle": "These are the projects I'm proud of, each representing my pursuit of technology and user experience.",
+    "viewDetails": "View Details",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "featured": "Featured"
+  },
+  "Experience": {
+    "title": "Experience",
+    "subtitle": "My professional journey is filled with challenges and growth, each stage making me a better developer.",
+    "present": "Present",
+    "responsibilities": "Key Responsibilities",
+    "achievements": "Key Achievements"
+  },
+  "Contact": {
+    "title": "Get In Touch",
+    "subtitle": "Whether it's an opportunity for a new project or just a simple hello, I'd love to hear from you.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "error": "Failed to send. Please try again."
+    },
+    "email": "Email",
+    "social": "Social"
+  },
+  "Footer": {
+    "rights": "All rights reserved.",
+    "built": "Built with",
+    "with": "by"
+  },
+  "Nav": {
+    "home": "Home",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "Hero": {
+    "greeting": "你好，我是",
+    "name": "Alex Chen",
+    "role": "Full Stack Developer",
+    "tagline": "构建数字未来",
+    "description": "我是一名充满热情的全栈开发者，专注于创造令人惊叹的数字体验。从前端 UI 到后端架构，我用代码将创意变为现实。",
+    "ctaPrimary": "查看项目",
+    "ctaSecondary": "联系我",
+    "scrollHint": "向下滚动"
+  },
+  "Skills": {
+    "title": "技术栈",
+    "subtitle": "我精通各种现代技术，能够高效地构建复杂的前后端应用。",
+    "frontend": "前端开发",
+    "backend": "后端开发",
+    "devops": "DevOps",
+    "tools": "工具与设计"
+  },
+  "Projects": {
+    "title": "精选项目",
+    "subtitle": "这些是我引以为豪的项目，每一个都代表着我对技术和用户体验的追求。",
+    "viewDetails": "查看详情",
+    "liveDemo": "在线演示",
+    "sourceCode": "源代码",
+    "featured": "精选"
+  },
+  "Experience": {
+    "title": "工作经历",
+    "subtitle": "我的职业旅程充满了挑战与成长，每一个阶段都让我成为更好的开发者。",
+    "present": "至今",
+    "responsibilities": "主要职责",
+    "achievements": "主要成就"
+  },
+  "Contact": {
+    "title": "联系我",
+    "subtitle": "无论是一个新项目的机会，还是只是简单的问候，我都很乐意收到你的消息。",
+    "form": {
+      "name": "姓名",
+      "email": "邮箱",
+      "subject": "主题",
+      "message": "消息内容",
+      "send": "发送消息",
+      "sending": "发送中...",
+      "success": "消息已发送！",
+      "error": "发送失败，请重试。"
+    },
+    "email": "邮箱",
+    "social": "社交媒体"
+  },
+  "Footer": {
+    "rights": "保留所有权利。",
+    "built": "用心打造",
+    "with": "with"
+  },
+  "Nav": {
+    "home": "首页",
+    "skills": "技能",
+    "projects": "项目",
+    "experience": "经历",
+    "contact": "联系"
+  },
+  "Common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "retry": "重试"
+  }
+}
