@@ -11,14 +11,12 @@ export interface HeroContent {
   avatar: string;
   socialLinks: {
     github: string;
-    linkedin: string;
-    twitter: string;
     portfolio: string;
   };
 }
 
 export const heroContent: HeroContent = {
-  name: 'Alex Johnson',
+  name: 'Yiying Xuan',
   title: 'Senior Full Stack Developer',
   description: 'I build exceptional digital experiences that are fast, accessible, visually appealing, and responsive. Even if you don\'t hire me, these skills are transferable to your team.',
   ctaText: 'Get In Touch',
@@ -27,9 +25,7 @@ export const heroContent: HeroContent = {
   email: 'alex.johnson@example.com',
   avatar: '/images/avatar.jpg',
   socialLinks: {
-    github: 'https://github.com/alexjohnson',
-    linkedin: 'https://linkedin.com/in/alexjohnson',
-    twitter: 'https://twitter.com/alexjohnson',
-    portfolio: 'https://alexjohnson.dev'
+    github: 'https://github.com/xuanyiying',
+    portfolio: 'https://xuanyiying.dev'
   }
 };

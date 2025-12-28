@@ -1,12 +1,4 @@
 // src/data/contact.ts
-
-export interface ContactFormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
 export interface ContactInfo {
   title: string;
   subtitle: string;
@@ -16,8 +8,6 @@ export interface ContactInfo {
   location?: string;
   socialLinks: {
     github: string;
-    linkedin: string;
-    twitter: string;
     portfolio: string;
   };
   formFields: {
@@ -51,14 +41,12 @@ export const contactInfo: ContactInfo = {
   title: 'Get In Touch',
   subtitle: 'Contact Me',
   description: 'I\'m currently looking for new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I\'ll try my best to get back to you!',
-  email: 'alex.johnson@example.com',
+  email: 'keexi2025@outlook.com',
   phone: '+1 (555) 123-4567',
   location: 'San Francisco, CA',
   socialLinks: {
-    github: 'https://github.com/alexjohnson',
-    linkedin: 'https://linkedin.com/in/alexjohnson',
-    twitter: 'https://twitter.com/alexjohnson',
-    portfolio: 'https://alexjohnson.dev'
+    github: 'https://github.com/xuanyiying',
+    portfolio: 'https://xuanyiying.dev',
   },
   formFields: {
     name: {

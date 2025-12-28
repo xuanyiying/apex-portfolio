@@ -180,15 +180,31 @@ export default function Projects() {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="font-display font-bold text-xl mb-2 group-hover:text-cyber-cyan transition-colors duration-300">
-                    {project.title}
-                  </h3>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-display font-bold text-xl group-hover:text-cyber-cyan transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    <div className="flex items-center gap-3 text-xs text-gray-400">
+                      {project.stars > 0 && (
+                        <div className="flex items-center gap-1">
+                          <Zap className="w-3 h-3 text-yellow-400" />
+                          <span>{project.stars}</span>
+                        </div>
+                      )}
+                      {project.forks > 0 && (
+                        <div className="flex items-center gap-1">
+                          <Code2 className="w-3 h-3 text-blue-400" />
+                          <span>{project.forks}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                   <p className="text-gray-400 text-sm mb-4 line-clamp-2">
                     {project.description}
                   </p>
                   
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
@@ -198,11 +214,17 @@ export default function Projects() {
                       </span>
                     ))}
                     {project.tags.length > 4 && (
-                      <span className="px-2 py-1 bg-cyber-cyan/10 border border-cyber-cyan/20 rounded text-xs text-cyber-cyan">
+                      <span className="text-xs text-gray-500 flex items-center">
                         +{project.tags.length - 4}
                       </span>
                     )}
                   </div>
+
+                  {project.updatedAt && (
+                    <div className="text-[10px] text-gray-500 font-mono">
+                      Last updated: {project.updatedAt}
+                    </div>
+                  )}
                 </div>
 
                 {/* Glow effect on hover */}
