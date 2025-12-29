@@ -18,7 +18,7 @@ function AnimatedSphere() {
   useEffect(() => {
     setMounted(true);
   }, []);
-  
+
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.1;
@@ -29,28 +29,26 @@ function AnimatedSphere() {
   if (!mounted) return null;
 
   const currentTheme = resolvedTheme || theme;
-  const colors = currentTheme === 'light' 
-    ? ['#00B4C8', '#7000FF'] // Cyber Cyan to Cyber Purple (Light)
+  const colors = currentTheme === 'light'
+    ? ['#2DD4BF', '#A855F7'] // Lighter Cyan/Teal to Lighter Purple (Light)
     : ['#00F0FF', '#7000FF']; // Cyber Cyan to Cyber Purple (Dark)
 
   return (
     <Float
-      speed={2} 
-      rotationIntensity={1.5} 
+      speed={2}
+      rotationIntensity={1.5}
       floatIntensity={2}
     >
       <Sphere args={[1, 128, 128]} ref={meshRef} scale={1.4}>
         <MeshDistortMaterial
           distort={0.3}
           speed={2}
-          roughness={0.2}
-          metalness={0.8}
-          emissive={colors[0]}
-          emissiveIntensity={currentTheme === 'light' ? 0.5 : 1}
+          roughness={0.1}
+          metalness={0.1}
         >
           <GradientTexture
-            stops={[0, 1]} 
-            colors={colors} 
+            stops={[0, 1]}
+            colors={colors}
             size={1024}
           />
         </MeshDistortMaterial>
@@ -77,9 +75,9 @@ function HeroScene() {
 
   return (
     <div className="w-full h-full min-h-[300px] lg:min-h-[400px]">
-      <Canvas 
+      <Canvas
         key={currentTheme}
-        camera={{ position: [0, 0, 4.5], fov: 45 }} 
+        camera={{ position: [0, 0, 4.5], fov: 45 }}
         dpr={[1, 2]}
       >
         <ambientLight intensity={ambientIntensity} />
@@ -88,7 +86,7 @@ function HeroScene() {
         <pointLight position={[-10, -10, -10]} intensity={lightIntensity * 0.5} color="#7000FF" />
         {/* Rim light effect */}
         <pointLight position={[0, 0, 5]} intensity={lightIntensity * 0.8} color="#00F0FF" />
-        
+
         <AnimatedSphere />
         <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
       </Canvas>
@@ -102,9 +100,9 @@ export default function Hero() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ 
-        x: (e.clientX / window.innerWidth) * 2 - 1, 
-        y: -(e.clientY / window.innerHeight) * 2 + 1 
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1
       });
     };
 
@@ -270,7 +268,7 @@ export default function Hero() {
                 animate={{ rotate: -360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
               />
-              
+
               {/* Center glow */}
               <motion.div
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-cyber-cyan/30 to-cyber-purple/30 rounded-full blur-3xl"
