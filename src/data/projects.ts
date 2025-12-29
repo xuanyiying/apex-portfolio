@@ -1,3 +1,4 @@
+
 export interface ProjectMetrics {
     codeQuality: number; // 0-100
     apiDesign: number;   // 0-100
@@ -29,7 +30,7 @@ export interface Project {
     language: string;
 }
 
-export const projects: Project[] = [
+export const projectsEn: Project[] = [
     {
         "id": "1123960731",
         "title": "MedAI-Consultant",
@@ -109,3 +110,86 @@ export const projects: Project[] = [
         "language": "TypeScript"
     }
 ];
+
+export const projectsZh: Project[] = [
+    {
+        "id": "1123960731",
+        "title": "MedAI-Consultant",
+        "description": "基于现代 AI 的全栈对话式应用，用于辅助医疗诊断，具有智能分型、预诊咨询和报告解读功能。",
+        "longDescription": "MedAI-Consultant 是一个先进的医疗保健解决方案，利用大语言模型 (LLM) 自动化患者指导和临床数据解读。它具有智能分型算法、结构化的预诊工作流程以及基于 RAG 架构的高精度医疗报告分析功能。",
+        "image": "/images/projects/ezento.svg",
+        "tags": ["AI/Healthcare", "Next.js", "RAG", "Full-Stack"],
+        "architecture": {
+            "frontend": ["React 18", "Next.js", "Tailwind CSS", "Framer Motion"],
+            "backend": ["Python (FastAPI)", "Node.js", "LangChain"],
+            "database": ["PostgreSQL", "Vector DB (Pinecone)", "Redis"],
+            "devops": ["Docker", "Kubernetes", "AWS HealthLake"]
+        },
+        "metrics": {
+            "codeQuality": 96,
+            "apiDesign": 94,
+            "deployment": 90
+        },
+        "github": "https://github.com/xuanyiying/ezento",
+        "demo": "",
+        "featured": true,
+        "stars": 0,
+        "forks": 0,
+        "updatedAt": "2025-12-28",
+        "language": "TypeScript"
+    },
+    {
+        "id": "1123603049",
+        "title": "cleanup-cli",
+        "description": "由本地 Ollama LLM 驱动的智能 CLI 工具，通过深度内容分析自动整理混乱的桌面和目录。",
+        "longDescription": "cleanup-cli 是一个高性能的系统实用工具，利用本地大语言模型 (通过 Ollama) 理解文件语义。它根据实际内容而不仅仅是扩展名，自动将文档 (PDF, DOCX, TXT)、图片和代码文件归类到结构化的层级中。功能包括跨平台支持 (macOS/Windows/Linux)、智能重命名以及带有实时进度反馈的可自定义整理规则。",
+        "image": "/images/projects/cleanup-cli.svg",
+        "tags": ["Go", "Ollama", "LLM", "System Tools"],
+        "architecture": {
+            "frontend": ["Cobra CLI", "Bubble Tea (TUI)", "Lip Gloss"],
+            "backend": ["Go", "Ollama API", "Concurrent File Walker"],
+            "database": ["Local Config (YAML)", "Embedded Key-Value Store"],
+            "devops": ["GitHub Actions", "Docker", "Cross-Compilation"]
+        },
+        "metrics": {
+            "codeQuality": 98,
+            "apiDesign": 94,
+            "deployment": 92
+        },
+        "github": "https://github.com/xuanyiying/cleanup-assistant",
+        "demo": "",
+        "featured": true,
+        "stars": 1,
+        "forks": 0,
+        "updatedAt": "2025-12-27",
+        "language": "Go"
+    },
+    {
+        "id": "1105497096",
+        "title": "ai-ace-job",
+        "description": "利用 LLM 进行职业智能分析的 AI 驱动全栈生态系统，采用解耦合的服务导向架构。",
+        "longDescription": "一个集成了多个 AI 模型 (Gemini, OpenAI) 的智能职业平台，通过中心化的代理层进行管理。设计具有高扩展性和模块化，可处理密集的 AI 推理工作流。",
+        "image": "/images/projects/ai-ace-job.svg",
+        "tags": ["AI/LLM", "Next.js", "Microservices", "Agentic UI"],
+        "architecture": {
+            "frontend": ["React", "Next.js", "Framer Motion", "Ant Design"],
+            "backend": ["Node.js", "LangChain", "OpenAI/Gemini API"],
+            "database": ["MongoDB", "Vector DB", "Prisma"],
+            "devops": ["Docker", "Kubernetes", "CI/CD Pipeline"]
+        },
+        "metrics": {
+            "codeQuality": 92,
+            "apiDesign": 96,
+            "deployment": 85
+        },
+        "github": "https://github.com/xuanyiying/ai-ace-job",
+        "demo": "",
+        "featured": true,
+        "stars": 0,
+        "forks": 0,
+        "updatedAt": "2025-12-23",
+        "language": "TypeScript"
+    }
+];
+
+export const projects = projectsEn;

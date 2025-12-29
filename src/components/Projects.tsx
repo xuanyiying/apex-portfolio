@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import { Github, ExternalLink, Code2, Zap, Server, Database, Activity, Layout } from 'lucide-react';
-import { projects } from '@/data';
+import { projectsEn, projectsZh } from '@/data';
 
 // 为项目分配颜色
 const getProjectColor = (index: number): string => {
@@ -53,7 +53,8 @@ const ArchitectureBadge = ({ icon: Icon, title, items }: { icon: any, title: str
 );
 
 export default function Projects() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const projects = locale === 'zh' ? projectsZh : projectsEn;
   const [activeFilter, setActiveFilter] = useState('All');
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
@@ -61,8 +62,8 @@ export default function Projects() {
   const allCategories = ['All', 'Full-Stack', 'AI/LLM', 'System Design', 'SaaS'];
   const filters = allCategories;
 
-  const filteredProjects = activeFilter === 'All' 
-    ? projects 
+  const filteredProjects = activeFilter === 'All'
+    ? projects
     : projects.filter(p => p.tags.includes(activeFilter));
 
   const containerVariants = {
@@ -77,8 +78,8 @@ export default function Projects() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.5, ease: 'easeOut' }
     },
@@ -88,7 +89,7 @@ export default function Projects() {
     <section id="projects" className="relative py-20 sm:py-32">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-purple/5 to-transparent pointer-events-none" />
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section header */}
         <motion.div
@@ -113,11 +114,10 @@ export default function Projects() {
             <motion.button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeFilter === filter
-                  ? 'bg-cyber-cyan text-black'
-                  : 'bg-muted/20 border border-border text-muted-foreground hover:text-foreground hover:border-cyber-cyan/30'
-              }`}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === filter
+                ? 'bg-cyber-cyan text-black'
+                : 'bg-muted/20 border border-border text-muted-foreground hover:text-foreground hover:border-cyber-cyan/30'
+                }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -152,7 +152,7 @@ export default function Projects() {
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  
+
                   {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
@@ -225,47 +225,47 @@ export default function Projects() {
 
                   {/* Architecture Grid */}
                   <div className="grid grid-cols-2 gap-2 mb-6">
-                    <ArchitectureBadge 
-                      icon={Layout} 
-                      title="Frontend" 
-                      items={project.architecture.frontend.slice(0, 2)} 
+                    <ArchitectureBadge
+                      icon={Layout}
+                      title="Frontend"
+                      items={project.architecture.frontend.slice(0, 2)}
                     />
-                    <ArchitectureBadge 
-                      icon={Server} 
-                      title="Backend" 
-                      items={project.architecture.backend.slice(0, 2)} 
+                    <ArchitectureBadge
+                      icon={Server}
+                      title="Backend"
+                      items={project.architecture.backend.slice(0, 2)}
                     />
-                    <ArchitectureBadge 
-                      icon={Database} 
-                      title="Storage" 
-                      items={project.architecture.database.slice(0, 2)} 
+                    <ArchitectureBadge
+                      icon={Database}
+                      title="Storage"
+                      items={project.architecture.database.slice(0, 2)}
                     />
-                    <ArchitectureBadge 
-                      icon={Activity} 
-                      title="Infrastructure" 
-                      items={project.architecture.devops.slice(0, 2)} 
+                    <ArchitectureBadge
+                      icon={Activity}
+                      title="Infrastructure"
+                      items={project.architecture.devops.slice(0, 2)}
                     />
                   </div>
 
                   {/* Quality Metrics */}
                   <div className="space-y-3 mb-6 p-4 bg-muted/20 rounded-xl border border-border">
-                    <MetricBar 
-                      label="Code Quality" 
-                      value={project.metrics.codeQuality} 
-                      color={projectColor} 
+                    <MetricBar
+                      label="Code Quality"
+                      value={project.metrics.codeQuality}
+                      color={projectColor}
                     />
-                    <MetricBar 
-                      label="API Architecture" 
-                      value={project.metrics.apiDesign} 
-                      color={projectColor} 
+                    <MetricBar
+                      label="API Architecture"
+                      value={project.metrics.apiDesign}
+                      color={projectColor}
                     />
-                    <MetricBar 
-                      label="Deployment Readiness" 
-                      value={project.metrics.deployment} 
-                      color={projectColor} 
+                    <MetricBar
+                      label="Deployment Readiness"
+                      value={project.metrics.deployment}
+                      color={projectColor}
                     />
                   </div>
-                  
+
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tech) => (

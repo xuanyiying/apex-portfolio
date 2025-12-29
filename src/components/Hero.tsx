@@ -7,7 +7,7 @@ import { OrbitControls, Sphere, MeshDistortMaterial, Float, GradientTexture } fr
 import * as THREE from 'three';
 import { useLanguage } from '@/lib/LanguageContext';
 import { Github, Mail } from 'lucide-react';
-import { heroContent } from '@/data';
+import { heroContentEn, heroContentZh } from '@/data';
 import { useTheme } from 'next-themes';
 
 function AnimatedSphere() {
@@ -95,7 +95,8 @@ function HeroScene() {
 }
 
 export default function Hero() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const heroContent = locale === 'zh' ? heroContentZh : heroContentEn;
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {

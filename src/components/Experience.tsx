@@ -2,16 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
-import { Briefcase, Calendar, MapPin, Award, Users, Code2, Lightbulb } from 'lucide-react';
-import { experiences } from '@/data';
+import { Briefcase, Calendar, MapPin, Award, Users, Code2 } from 'lucide-react';
+import { experiencesEn, experiencesZh } from '@/data';
 
-
-const experienceIcons = {
-  'full-time': Briefcase,
-  'part-time': Calendar,
-  'contract': Code2,
-  'internship': Lightbulb
-};
 
 const experienceColors = [
   'from-cyan-400 to-blue-500',
@@ -23,7 +16,8 @@ const experienceColors = [
 ];
 
 export default function Experience() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const experiences = locale === 'zh' ? experiencesZh : experiencesEn;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,8 +31,8 @@ export default function Experience() {
 
   const itemVariants = {
     hidden: { opacity: 0, x: -30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       transition: { duration: 0.6, ease: 'easeOut' }
     },
@@ -48,7 +42,7 @@ export default function Experience() {
     <section id="experience" className="relative py-20 sm:py-32">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-cyan/3 to-transparent pointer-events-none" />
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section header */}
         <motion.div
@@ -73,7 +67,7 @@ export default function Experience() {
             transition={{ duration: 1 }}
             style={{ transformOrigin: 'top' }}
           />
-          
+
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -82,16 +76,14 @@ export default function Experience() {
             className="space-y-12"
           >
             {experiences.map((experience, index) => {
-              const IconComponent = experienceIcons[experience.type] || Briefcase;
               const color = experienceColors[index % experienceColors.length];
-              
+
               return (
                 <motion.div
                   key={experience.id}
                   variants={itemVariants}
-                  className={`relative flex flex-col md:flex-row gap-8 ${
-                    index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                  }`}
+                  className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''
+                    }`}
                 >
                   {/* Timeline dot */}
                   <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4">
@@ -114,16 +106,12 @@ export default function Experience() {
 
                       {/* Header */}
                       <div className="relative z-10">
-                        <div className={`flex items-center gap-2 mb-2 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
-                          <span className={`px-3 py-1 bg-gradient-to-r ${color} text-black text-xs font-bold rounded-full`}>
-                            {experience.company}
-                          </span>
-                        </div>
-                        
+                        {/* Company name hidden as per request */}
+
                         <h3 className="font-display font-bold text-xl mb-2">
                           {experience.position}
                         </h3>
-                        
+
                         <div className={`flex flex-wrap gap-4 text-sm text-muted-foreground ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
@@ -196,10 +184,10 @@ export default function Experience() {
           transition={{ delay: 0.3 }}
         >
           {[
-            { icon: Briefcase, value: '5+', label: 'Years Experience' },
-            { icon: Code2, value: '50+', label: 'Projects Completed' },
-            { icon: Users, value: '20+', label: 'Happy Clients' },
-            { icon: Award, value: '10+', label: 'Awards Won' },
+            { icon: Briefcase, value: '8+', label: locale === 'zh' ? '工作年限' : 'Years Experience' },
+            { icon: Code2, value: '10+', label: locale === 'zh' ? '项目交付' : 'Projects Delivered' },
+            { icon: Users, value: '100+', label: locale === 'zh' ? '服务机构' : 'Institutions Served' },
+            { icon: Award, value: '10+', label: locale === 'zh' ? '获得荣誉' : 'Awards Won' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}

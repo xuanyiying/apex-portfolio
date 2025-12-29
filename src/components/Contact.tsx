@@ -5,10 +5,11 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import { Mail, Send, MapPin, Phone, Github, CheckCircle, AlertCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { contactInfo } from '@/data';
+import { contactInfoEn, contactInfoZh } from '@/data';
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const contactInfo = locale === 'zh' ? contactInfoZh : contactInfoEn;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,7 +24,7 @@ export default function Contact() {
 
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     // Success
     setStatus('success');
     confetti({
@@ -68,8 +69,8 @@ export default function Contact() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.6, ease: 'easeOut' }
     },
@@ -79,7 +80,7 @@ export default function Contact() {
     <section id="contact" className="relative py-20 sm:py-32">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-purple/5 to-transparent pointer-events-none" />
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section header */}
         <motion.div
@@ -110,7 +111,7 @@ export default function Contact() {
 
             {/* Contact info cards */}
             <div className="space-y-4 mb-8">
-              {contactInfoList.map((info, index) => (
+              {contactInfoList.map((info) => (
                 info.value ? (
                   <motion.a
                     key={info.label}
@@ -228,13 +229,12 @@ export default function Contact() {
               <motion.button
                 type="submit"
                 disabled={status === 'sending' || status === 'success'}
-                className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 ${
-                  status === 'success'
+                className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 ${status === 'success'
                     ? 'bg-cyber-green/20 border border-cyber-green/30 text-cyber-green'
                     : status === 'error'
-                    ? 'bg-red-500/20 border border-red-500/30 text-red-500'
-                    : 'btn-primary'
-                }`}
+                      ? 'bg-red-500/20 border border-red-500/30 text-red-500'
+                      : 'btn-primary'
+                  }`}
                 whileHover={status === 'idle' || status === 'sending' ? { scale: 1.02 } : {}}
                 whileTap={status === 'idle' || status === 'sending' ? { scale: 0.98 } : {}}
               >
