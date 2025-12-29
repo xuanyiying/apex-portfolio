@@ -48,7 +48,10 @@ const config: Config = {
         'typewriter': 'typewriter 2s steps(20) infinite',
         'scan-line': 'scan-line 3s linear infinite',
         'shimmer': 'shimmer 2s linear infinite',
+        'shimmer-slide': 'shimmer-slide 2s linear infinite',
         'gradient-shift': 'gradient-shift 3s ease infinite',
+        'spin-slow': 'spin 8s linear infinite',
+        'reverse-spin-slow': 'reverse-spin 8s linear infinite',
       },
       keyframes: {
         float: {
@@ -86,6 +89,14 @@ const config: Config = {
         'gradient-shift': {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
+        },
+        'reverse-spin': {
+          from: { transform: 'rotate(360deg)' },
+          to: { transform: 'rotate(0deg)' },
+        },
+        'shimmer-slide': {
+          '0%': { transform: 'translateX(-100%) skewX(-12deg)' },
+          '100%': { transform: 'translateX(200%) skewX(-12deg)' },
         },
       },
       backdropBlur: {

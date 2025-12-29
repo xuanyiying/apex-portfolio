@@ -107,31 +107,5 @@ export const projects: Project[] = [
         "forks": 0,
         "updatedAt": "2025-12-23",
         "language": "TypeScript"
-    },
-    {
-        "id": "1032539488",
-        "title": "WedMaster",
-        "description": "Professional SaaS platform for event management, showcasing enterprise-grade multi-tenancy and robust relational data modeling.",
-        "longDescription": "A specialized SaaS solution for wedding celebrants, built with a strict MVC pattern. It emphasizes data integrity, role-based access control (RBAC), and professional document generation workflows.",
-        "image": "/images/projects/wedmaster.svg",
-        "tags": ["SaaS", "Full-Stack", "B2B", "Relational Modeling"],
-        "architecture": {
-            "frontend": ["React", "Antd", "Redux Toolkit"],
-            "backend": ["Express.js", "RESTful API", "OpenAPI/Swagger"],
-            "database": ["PostgreSQL", "Sequelize ORM"],
-            "devops": ["GitHub Actions", "Docker-compose"]
-        },
-        "metrics": {
-            "codeQuality": 94,
-            "apiDesign": 94,
-            "deployment": 82
-        },
-        "github": "https://github.com/xuanyiying/wedding",
-        "demo": "",
-        "featured": true,
-        "stars": 0,
-        "forks": 0,
-        "updatedAt": "2025-09-28",
-        "language": "TypeScript"
     }
 ];

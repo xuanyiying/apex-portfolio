@@ -3,16 +3,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
-import { 
-  Code2, Server, Database, Cloud, 
-  Layers, Terminal, Box, GitBranch,
+import {
+  Code2, Server, Database, Cloud,
+  Terminal, Box, GitBranch,
   Layout, Cpu, Shield, Zap,
-  CircleDot, Network, Pause, Play
+  Network, Pause, Play
 } from 'lucide-react';
 import { skills, skillCategories } from '@/data';
 import CircularSkillChart from './CircularSkillChart';
-
-type ViewMode = 'grid' | 'orbital';
 
 interface SkillCategory {
   icon: typeof Code2;
@@ -115,13 +113,12 @@ const skillCategoriesData: SkillCategory[] = skillCategories.map(category => ({
 
 export default function Skills() {
   const { t } = useLanguage();
-  const [viewMode, setViewMode] = useState<ViewMode>('orbital');
   const [activeCategory, setActiveCategory] = useState(skillCategories[0]);
   const [isAutoRotating, setIsAutoRotating] = useState(true);
 
   // 自动轮播逻辑
   useEffect(() => {
-    if (!isAutoRotating || viewMode !== 'orbital') return;
+    if (!isAutoRotating) return;
 
     const interval = setInterval(() => {
       setActiveCategory((current) => {
@@ -132,7 +129,7 @@ export default function Skills() {
     }, 4000); // 每4秒切换一次
 
     return () => clearInterval(interval);
-  }, [isAutoRotating, viewMode]);
+  }, [isAutoRotating]);
 
   const handleCategoryManualSelect = (category: string) => {
     setActiveCategory(category);
@@ -143,30 +140,11 @@ export default function Skills() {
     setIsAutoRotating(!isAutoRotating);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' }
-    },
-  };
-
   return (
     <section id="skills" className="relative py-20 sm:py-32">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-cyan/5 to-transparent pointer-events-none" />
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section header */}
         <motion.div
@@ -178,153 +156,96 @@ export default function Skills() {
         >
           <h2 className="section-title">{t('Skills.title')}</h2>
           <p className="section-subtitle mx-auto">{t('Skills.subtitle')}</p>
+        </motion.div>
 
-          {/* View Toggle */}
-          <div className="flex justify-center gap-4 mt-8">
+        <motion.div
+          key="orbital"
+          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center"
+        >
+          {/* Category Selector for Orbital View */}
+          <div className="flex flex-col items-center gap-8 mb-4">
+            <div className="flex flex-wrap justify-center gap-3">
+              {skillCategories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleCategoryManualSelect(category)}
+                  className={`relative px-6 py-2 rounded-xl text-sm font-display transition-all duration-300 overflow-hidden group ${activeCategory === category
+                    ? 'text-cyber-cyan shadow-[0_0_20px_rgb(var(--cyber-cyan)/0.2)]'
+                    : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                >
+                  <div className={`absolute inset-0 rounded-xl border transition-all duration-300 ${activeCategory === category
+                    ? 'border-cyber-cyan bg-cyber-cyan/10'
+                    : 'border-border/50 bg-muted/20 group-hover:border-cyber-cyan/50'
+                    }`} />
+                  <span className="relative z-10">{t(skillCategoryTitles[category])}</span>
+                  {activeCategory === category && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 rounded-xl bg-cyber-cyan/5 -z-10"
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Auto-rotate toggle */}
             <button
-              onClick={() => setViewMode('grid')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${
-                viewMode === 'grid' 
-                  ? 'bg-cyber-cyan/20 border-cyber-cyan text-cyber-cyan' 
-                  : 'bg-muted/20 border-border text-muted-foreground hover:bg-muted/30'
-              }`}
+              onClick={toggleAutoRotate}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-full border text-[10px] font-mono transition-all duration-300 ${isAutoRotating
+                ? 'border-cyber-cyan/50 text-cyber-cyan bg-cyber-cyan/10 shadow-[0_0_10px_rgb(var(--cyber-cyan)/0.2)]'
+                : 'border-border/50 text-muted-foreground hover:border-cyber-cyan/30'
+                }`}
             >
-              <Layers className="w-4 h-4" />
-              <span className="text-sm font-mono">Grid</span>
+              {isAutoRotating ? (
+                <>
+                  <motion.div
+                    animate={{ opacity: [1, 0.5, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <Pause className="w-3 h-3" />
+                  </motion.div>
+                  <span className="tracking-wider">AUTOSCAN ACTIVE</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-3 h-3" />
+                  <span className="tracking-wider">AUTOSCAN PAUSED</span>
+                </>
+              )}
             </button>
-            <button
-              onClick={() => setViewMode('orbital')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${
-                viewMode === 'orbital' 
-                  ? 'bg-cyber-purple/20 border-cyber-purple text-cyber-purple' 
-                  : 'bg-muted/20 border-border text-muted-foreground hover:bg-muted/30'
-              }`}
-            >
-              <CircleDot className="w-4 h-4" />
-              <span className="text-sm font-mono">Orbital</span>
-            </button>
+          </div>
+
+          <div className="w-full flex justify-center items-center py-4 min-h-[550px]">
+            <CircularSkillChart activeCategory={skillCategoriesData[skillCategories.indexOf(activeCategory)] || skillCategoriesData[0]} />
           </div>
         </motion.div>
 
-        <AnimatePresence mode="wait">
-          {viewMode === 'grid' ? (
-            <motion.div
-              key="grid"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-            >
-              {skillCategoriesData.map((category, categoryIndex) => (
-                <motion.div
-                  key={categoryIndex}
-                  variants={itemVariants}
-                  className="glass-card p-6 group"
-                >
-                  {/* Category header */}
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-cyber-cyan/20 to-cyber-purple/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <category.icon className="w-6 h-6 text-cyber-cyan" />
-                    </div>
-                    <span className="font-display font-semibold text-lg">{t(category.titleKey)}</span>
-                  </div>
-
-                  {/* Skills list */}
-                  <div className="space-y-4">
-                    {category.skills.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skillIndex}
-                        className="relative"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
-                      >
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm text-muted-foreground">{skill.name}</span>
-                          <span className="text-xs font-mono text-cyber-cyan">{skill.level}%</span>
-                        </div>
-                        <div className="h-2 bg-muted/20 rounded-full overflow-hidden">
-                          <motion.div
-                            className={`h-full bg-gradient-to-r ${skill.color} rounded-full`}
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.level}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.05, ease: 'easeOut' }}
-                          />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.div
-              key="orbital"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="flex flex-col items-center"
-            >
-              {/* Category Selector for Orbital View */}
-              <div className="flex flex-col items-center gap-6 mb-12">
-                <div className="flex flex-wrap justify-center gap-3">
-                  {skillCategories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => handleCategoryManualSelect(category)}
-                      className={`px-6 py-2 rounded-xl text-sm font-display transition-all duration-300 ${
-                        activeCategory === category
-                          ? 'bg-cyber-cyan/20 border border-cyber-cyan text-cyber-cyan shadow-[0_0_15px_rgb(var(--cyber-cyan)/0.3)]'
-                          : 'bg-muted/20 border border-border text-muted-foreground hover:border-muted-foreground/30'
-                      }`}
-                    >
-                      {t(skillCategoryTitles[category])}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Auto-rotate toggle */}
-                <button
-                  onClick={toggleAutoRotate}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/20 border border-border text-[10px] font-mono text-muted-foreground hover:text-cyber-cyan transition-colors"
-                >
-                  {isAutoRotating ? (
-                    <>
-                      <Pause className="w-3 h-3" />
-                      <span>AUTOSCAN ACTIVE</span>
-                    </>
-                  ) : (
-                    <>
-                      <Play className="w-3 h-3" />
-                      <span>AUTOSCAN PAUSED</span>
-                    </>
-                  )}
-                </button>
-              </div>
-              
-              <div className="w-full flex justify-center items-center py-10 min-h-[500px]">
-                <CircularSkillChart activeCategory={activeCategory} />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* Floating badges */}
         <motion.div
-          className="flex flex-wrap justify-center gap-4 mt-12"
+          className="flex flex-wrap justify-center gap-3 mt-16 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          {skills.slice(0, 10).map((skill, index) => (
+          {skills.slice(0, 15).map((skill, index) => (
             <motion.span
               key={skill.name}
-              className="px-4 py-2 bg-muted/20 border border-border rounded-lg text-sm text-muted-foreground hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300 cursor-default"
-              whileHover={{ scale: 1.05, y: -2 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 + index * 0.05 }}
+              whileHover={{
+                scale: 1.1,
+                backgroundColor: "rgba(var(--cyber-cyan), 0.15)",
+                borderColor: "rgba(var(--cyber-cyan), 0.5)",
+                boxShadow: "0 0 15px rgba(var(--cyber-cyan), 0.2)"
+              }}
+              className="px-4 py-1.5 bg-muted/20 border border-white/5 rounded-full text-xs font-mono text-muted-foreground transition-all duration-300 cursor-default backdrop-blur-sm"
             >
               {skill.name}
             </motion.span>
