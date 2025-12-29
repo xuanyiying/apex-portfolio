@@ -3,14 +3,15 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import { Github, Linkedin, Mail, Heart, Code2 } from 'lucide-react';
+import { heroContent, contactInfo } from '@/data';
 
 export default function Footer() {
   const { t } = useLanguage();
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
+    { icon: Github, href: contactInfo.socialLinks.github, label: 'GitHub' },
     { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:hello@alexchen.dev', label: 'Email' },
+    { icon: Mail, href: `mailto:${contactInfo.email}`, label: 'Email' },
   ];
 
   const footerLinks = [
@@ -33,11 +34,13 @@ export default function Footer() {
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-gradient-to-br from-cyber-cyan to-cyber-purple rounded-xl flex items-center justify-center">
-                <span className="font-display font-bold text-black text-lg">AC</span>
+                <span className="font-display font-bold text-black text-lg">
+                  {heroContent.name.split(' ').map(n => n[0]).join('')}
+                </span>
               </div>
               <span className="font-display font-bold text-xl">
-                <span className="text-foreground">Alex</span>
-                <span className="text-cyber-cyan">Chen</span>
+                <span className="text-foreground">{heroContent.name.split(' ')[0]}</span>
+                <span className="text-cyber-cyan ml-1">{heroContent.name.split(' ').slice(1).join(' ')}</span>
               </span>
             </div>
             <p className="text-muted-foreground text-sm mb-4">
@@ -113,7 +116,7 @@ export default function Footer() {
           transition={{ delay: 0.3 }}
         >
           <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Alex Chen. {t('Footer.rights')}
+            © {new Date().getFullYear()} {heroContent.name}. {t('Footer.rights')}
           </div>
           
           <div className="flex items-center gap-2 text-sm text-muted-foreground">

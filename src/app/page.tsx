@@ -7,10 +7,11 @@ import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { LanguageProvider } from '@/lib/LanguageContext';
+import { heroContent } from '@/data';
 
 export const metadata: Metadata = {
-  title: 'Alex Chen | Full Stack Developer',
-  description: 'Passionate full-stack developer creating stunning digital experiences. Building the digital future with modern technologies.',
+  title: `${heroContent.name} | ${heroContent.title}`,
+  description: heroContent.description,
 };
 
 export default function Home() {

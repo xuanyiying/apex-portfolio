@@ -112,4 +112,4 @@ apex-portfolio/
 
 ---
 
-© 2025 Alex Chen. Built with ❤️ and Next.js.
+© 2025 Yiying Xuan. Built with ❤️ and Next.js.

@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/lib/ThemeProvider';
+import { heroContent } from '@/data';
 
 export const metadata: Metadata = {
-  title: 'Alex Chen | Full Stack Developer',
-  description: 'Passionate full-stack developer creating stunning digital experiences. Building the digital future with modern technologies.',
+  title: `${heroContent.name} | ${heroContent.title}`,
+  description: heroContent.description,
   keywords: ['Full Stack Developer', 'React', 'Node.js', 'TypeScript', 'Portfolio'],
-  authors: [{ name: 'Alex Chen' }],
+  authors: [{ name: heroContent.name }],
   openGraph: {
-    title: 'Alex Chen | Full Stack Developer',
-    description: 'Passionate full-stack developer creating stunning digital experiences.',
+    title: `${heroContent.name} | ${heroContent.title}`,
+    description: heroContent.description,
     type: 'website',
   },
 };

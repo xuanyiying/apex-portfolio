@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import { cn } from '@/lib/utils';
 import ThemeToggle from './ThemeToggle';
+import { heroContent } from '@/data';
 
 interface NavItem {
   id: string;
@@ -68,11 +69,13 @@ export default function Navigation() {
               onClick={() => scrollToSection('home')}
             >
               <div className="w-10 h-10 bg-gradient-to-br from-cyber-cyan to-cyber-purple rounded-xl flex items-center justify-center">
-                <span className="font-display font-bold text-black text-lg">AC</span>
+                <span className="font-display font-bold text-black text-lg">
+                  {heroContent.name.split(' ').map(n => n[0]).join('')}
+                </span>
               </div>
               <span className="font-display font-bold text-xl hidden sm:block">
-                <span className="text-foreground">Alex</span>
-                <span className="text-cyber-cyan">Chen</span>
+                <span className="text-foreground">{heroContent.name.split(' ')[0]}</span>
+                <span className="text-cyber-cyan ml-1">{heroContent.name.split(' ').slice(1).join(' ')}</span>
               </span>
             </motion.div>
 
