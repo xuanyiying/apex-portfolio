@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import {
   Code2, Server, Database, Cloud,
-  Terminal, Box, GitBranch,
-  Layout, Cpu, Shield, Zap,
-  Network, Pause, Play
+  Terminal, 
+  Layout, Cpu, 
+  Pause, Play
 } from 'lucide-react';
 import { skills, skillCategories } from '@/data';
 import CircularSkillChart from './CircularSkillChart';

@@ -2,21 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
-import { Briefcase, Calendar, MapPin, Award, TrendingUp, Users, Code2, Lightbulb } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, Award, Users, Code2, Lightbulb } from 'lucide-react';
 import { experiences } from '@/data';
 
-interface ExperienceData {
-  id: string;
-  company: string;
-  position: string;
-  duration: string;
-  location: string;
-  description: string;
-  achievements: string[];
-  technologies: string[];
-  logo?: string;
-  type: 'full-time' | 'part-time' | 'contract' | 'internship';
-}
 
 const experienceIcons = {
   'full-time': Briefcase,

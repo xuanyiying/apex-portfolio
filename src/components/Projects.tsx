@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
-import { Github, ExternalLink, Code2, Zap, Globe, Smartphone, Server, Database, Activity, Layout } from 'lucide-react';
-import { projects, Project } from '@/data';
+import { Github, ExternalLink, Code2, Zap, Server, Database, Activity, Layout } from 'lucide-react';
+import { projects } from '@/data';
 
 // 为项目分配颜色
 const getProjectColor = (index: number): string => {
