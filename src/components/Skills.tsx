@@ -176,11 +176,6 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.span
-            className="inline-block px-4 py-2 bg-cyber-cyan/10 border border-cyber-cyan/20 rounded-full text-cyber-cyan text-sm font-mono mb-6"
-          >
-            Tech Stack
-          </motion.span>
           <h2 className="section-title">{t('Skills.title')}</h2>
           <p className="section-subtitle mx-auto">{t('Skills.subtitle')}</p>
 

@@ -3,7 +3,7 @@
 import { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
-import { Mail, Send, MapPin, Phone, Github, Linkedin, Twitter, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Send, MapPin, Phone, Github, CheckCircle, AlertCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { contactInfo } from '@/data';
 
@@ -53,9 +53,7 @@ export default function Contact() {
   ];
 
   const socialLinks = [
-    { icon: Github, href: contactInfo.socialLinks.github, label: 'GitHub' },
-    { icon: Linkedin, href: contactInfo.socialLinks.linkedin, label: 'LinkedIn' },
-    { icon: Twitter, href: contactInfo.socialLinks.twitter, label: 'Twitter' },
+    { icon: Github, href: contactInfo.socialLinks.github, label: 'GitHub' }
   ];
 
   const containerVariants = {
@@ -91,11 +89,6 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.span
-            className="inline-block px-4 py-2 bg-cyber-pink/10 border border-cyber-pink/20 rounded-full text-cyber-pink text-sm font-mono mb-6"
-          >
-            Contact
-          </motion.span>
           <h2 className="section-title">{contactInfo.title}</h2>
           <p className="section-subtitle mx-auto">{contactInfo.subtitle}</p>
         </motion.div>

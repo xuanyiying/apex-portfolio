@@ -98,11 +98,6 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.span
-            className="inline-block px-4 py-2 bg-cyber-purple/10 border border-cyber-purple/20 rounded-full text-cyber-purple text-sm font-mono mb-6"
-          >
-            Portfolio
-          </motion.span>
           <h2 className="section-title">{t('Projects.title')}</h2>
           <p className="section-subtitle mx-auto">{t('Projects.subtitle')}</p>
         </motion.div>

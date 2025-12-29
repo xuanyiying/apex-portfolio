@@ -70,11 +70,6 @@ export default function Experience() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.span
-            className="inline-block px-4 py-2 bg-cyber-green/10 border border-cyber-green/20 rounded-full text-cyber-green text-sm font-mono mb-6"
-          >
-            Career
-          </motion.span>
           <h2 className="section-title">{t('Experience.title')}</h2>
           <p className="section-subtitle mx-auto">{t('Experience.subtitle')}</p>
         </motion.div>
