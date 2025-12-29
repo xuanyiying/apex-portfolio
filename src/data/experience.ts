@@ -16,7 +16,7 @@ export interface Experience {
 export const experiencesZh: Experience[] = [
   {
     id: 'exp1',
-    company: '卫宁健康科技集团有限公司',
+    company: '',
     position: '高级研发/架构师',
     duration: '2022.08 - 2024.05',
     description: '负责临床专科产科、全院上报项目后端架构设计，主导核心业务系统的重构与性能调优，解决复杂场景下的技术难题。',
@@ -31,7 +31,7 @@ export const experiencesZh: Experience[] = [
   },
   {
     id: 'exp2',
-    company: '深圳坐标软件',
+    company: '',
     position: '高级研发工程师',
     duration: '2021.01 - 2022.07',
     description: '核心负责体检及职业病体检系统的后端研发；主导健康管理项目从0到1的架构设计与核心功能落地。',
@@ -46,7 +46,7 @@ export const experiencesZh: Experience[] = [
   },
   {
     id: 'exp3',
-    company: '北京和桥技术有限公司',
+    company: '',
     position: '初/中级研发工程师',
     duration: '2017.09 - 2020.09',
     description: '负责 ROSETTA Phoenix Server 后端研发；独立承担 ROSETTA License Server 从0到1的架构设计与核心开发。',
