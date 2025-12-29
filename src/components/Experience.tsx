@@ -96,9 +96,9 @@ export default function Experience() {
                   </div>
 
                   {/* Content */}
-                  <div className={`flex-1 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
+                  <div className={`flex-1 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
                     <motion.div
-                      className="glass-card p-6 relative overflow-hidden"
+                      className="glass-card p-6 relative overflow-hidden text-left"
                       whileHover={{ scale: 1.02 }}
                     >
                       {/* Decorative gradient */}
@@ -112,7 +112,7 @@ export default function Experience() {
                           {experience.position}
                         </h3>
 
-                        <div className={`flex flex-wrap gap-4 text-sm text-muted-foreground ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
+                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
                             {experience.duration}
@@ -125,7 +125,7 @@ export default function Experience() {
                       </div>
 
                       {/* Divider */}
-                      <div className={`h-px bg-gradient-to-r ${index % 2 === 0 ? 'from-transparent via-border/50 to-border/50' : 'from-border/50 via-border/50 to-transparent'} my-4`} />
+                      <div className="h-px bg-gradient-to-r from-border/50 via-border/50 to-transparent my-4" />
 
                       {/* Description */}
                       <p className="text-muted-foreground text-sm mb-4 relative z-10">
@@ -133,21 +133,16 @@ export default function Experience() {
                       </p>
 
                       {/* Achievements */}
-                      <div className={`space-y-2 mb-4 ${index % 2 === 0 ? 'md:text-right' : ''}`}>
+                      <div className="space-y-2 mb-4">
                         <h4 className="text-cyber-cyan text-sm font-medium flex items-center gap-2">
                           <Award className="w-4 h-4" />
                           {t('Experience.achievements')}
                         </h4>
-                        <ul className={`space-y-1 ${index % 2 === 0 ? 'md:pl-0 md:pr-4' : 'md:pl-4'}`}>
+                        <ul className="space-y-1 pl-4">
                           {experience.achievements.slice(0, 3).map((achievement, i) => (
                             <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                              {index % 2 === 0 ? null : (
-                                <span className="text-cyber-cyan mt-1">▹</span>
-                              )}
+                              <span className="text-cyber-cyan mt-1">▹</span>
                               <span>{achievement}</span>
-                              {index % 2 === 1 ? null : (
-                                <span className="text-cyber-cyan mt-1">◃</span>
-                              )}
                             </li>
                           ))}
                         </ul>
