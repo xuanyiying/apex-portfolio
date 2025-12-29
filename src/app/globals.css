@@ -4,10 +4,37 @@
 
 @layer base {
   :root {
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+    --muted: 241 245 249;
+    --muted-foreground: 100 116 139;
+    --border: 226 232 240;
+    --cyber-cyan: 0 180 200;
+    --cyber-purple: 100 0 200;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --grid-opacity: 0.05;
+  }
+
+  .dark {
     --background: 6 6 6;
     --foreground: 226 232 240;
+    --muted: 30 41 59;
+    --muted-foreground: 148 163 184;
+    --border: 30 41 59;
     --cyber-cyan: 0 240 255;
     --cyber-purple: 112 0 255;
+    --bg-primary: #050505;
+    --bg-secondary: #0f172a;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --grid-opacity: 0.03;
   }
 
   html {
@@ -16,12 +43,20 @@
   }
 
   body {
-    @apply bg-cyber-black text-gray-100 antialiased;
-    background: 
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(112, 0, 255, 0.15), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(0, 240, 255, 0.08), transparent),
-      linear-gradient(180deg, #050505 0%, #0F172A 50%, #050505 100%);
+    @apply antialiased transition-colors duration-300;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgb(var(--cyber-purple) / 0.1), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 60%, rgb(var(--cyber-cyan) / 0.05), transparent);
     min-height: 100vh;
+  }
+
+  .dark body {
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgb(var(--cyber-purple) / 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 60%, rgb(var(--cyber-cyan) / 0.08), transparent),
+      linear-gradient(180deg, #050505 0%, #0F172A 50%, #050505 100%);
   }
 
   ::selection {
@@ -35,7 +70,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-cyber-black;
+    background-color: rgb(var(--background));
   }
 
   ::-webkit-scrollbar-thumb {
@@ -63,21 +98,29 @@
   /* Glow effects */
   .glow-cyan {
     box-shadow: 
-      0 0 20px rgba(0, 240, 255, 0.3),
-      0 0 40px rgba(0, 240, 255, 0.2),
-      0 0 60px rgba(0, 240, 255, 0.1);
+      0 0 20px rgb(var(--cyber-cyan) / 0.3),
+      0 0 40px rgb(var(--cyber-cyan) / 0.2),
+      0 0 60px rgb(var(--cyber-cyan) / 0.1);
   }
 
   .glow-purple {
     box-shadow: 
-      0 0 20px rgba(112, 0, 255, 0.3),
-      0 0 40px rgba(112, 0, 255, 0.2),
-      0 0 60px rgba(112, 0, 255, 0.1);
+      0 0 20px rgb(var(--cyber-purple) / 0.3),
+      0 0 40px rgb(var(--cyber-purple) / 0.2),
+      0 0 60px rgb(var(--cyber-purple) / 0.1);
   }
 
   /* Glassmorphism card */
   .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+    @apply backdrop-blur-xl border rounded-2xl;
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .dark .glass-card {
     box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -87,15 +130,14 @@
   /* Neon text */
   .neon-text {
     text-shadow: 
-      0 0 10px rgba(0, 240, 255, 0.5),
-      0 0 20px rgba(0, 240, 255, 0.3),
-      0 0 40px rgba(0, 240, 255, 0.2);
+      0 0 10px rgb(var(--cyber-cyan) / 0.5),
+      0 0 20px rgb(var(--cyber-cyan) / 0.3);
   }
 
   /* Gradient border */
   .gradient-border {
     position: relative;
-    background: linear-gradient(#0F172A, #0F172A) padding-box,
+    background: var(--bg-secondary) padding-box,
                 linear-gradient(135deg, #00F0FF, #7000FF) border-box;
     border: 2px solid transparent;
     border-radius: 16px;
@@ -105,8 +147,8 @@
   .cyber-grid-bg {
     background-size: 50px 50px;
     background-image: 
-      linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+      linear-gradient(rgb(var(--cyber-cyan) / var(--grid-opacity)) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--cyber-cyan) / var(--grid-opacity)) 1px, transparent 1px);
   }
 }
 
@@ -119,9 +161,10 @@
   }
 
   .btn-secondary {
-    @apply px-8 py-4 bg-white/5 border border-white/10 rounded-xl text-white font-medium
+    @apply px-8 py-4 bg-muted/20 border border-border rounded-xl font-medium
            transition-all duration-300;
-    @apply hover:bg-white/10 hover:border-white/20;
+    color: var(--text-primary);
+    @apply hover:bg-muted/30 hover:border-border/50;
     @apply active:scale-95;
   }
 
@@ -130,12 +173,21 @@
   }
 
   .section-title {
-    @apply text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-cyber-cyan to-cyber-purple 
-           bg-clip-text text-transparent mb-4;
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold mb-4;
+    background: linear-gradient(to right, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .dark .section-title {
+    background: linear-gradient(to right, #ffffff, #00F0FF, #7000FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .section-subtitle {
-    @apply text-lg sm:text-xl text-gray-400 max-w-2xl;
+    @apply text-lg sm:text-xl max-w-2xl;
+    color: var(--text-secondary);
   }
 
   /* Card hover effect */
@@ -147,8 +199,11 @@
 
   /* Input field */
   .input-field {
-    @apply w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-white
-           placeholder:text-gray-500 transition-all duration-300;
+    @apply w-full px-6 py-4 rounded-xl transition-all duration-300;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    @apply placeholder:text-muted-foreground;
     @apply focus:border-cyber-cyan/50 focus:outline-none focus:ring-2 focus:ring-cyber-cyan/20;
   }
 

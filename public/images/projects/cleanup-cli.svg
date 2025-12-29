@@ -1,0 +1,78 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#0F172A"/>
+  <defs>
+    <radialGradient id="cleanup_bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 540) rotate(90) scale(540 960)">
+      <stop stop-color="#1E293B"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#cleanup_bg)"/>
+
+  <!-- Left: Messy Desktop Concept -->
+  <g opacity="0.4">
+    <rect x="100" y="200" width="120" height="140" rx="8" fill="#334155" />
+    <text x="110" y="320" font-family="monospace" font-size="12" fill="#94A3B8">proposal.pdf</text>
+    <rect x="250" y="150" width="120" height="140" rx="8" fill="#334155" />
+    <text x="260" y="270" font-family="monospace" font-size="12" fill="#94A3B8">img_992.jpg</text>
+    <rect x="180" y="380" width="120" height="140" rx="8" fill="#334155" />
+    <text x="190" y="500" font-family="monospace" font-size="12" fill="#94A3B8">notes.txt</text>
+    <rect x="350" y="450" width="120" height="140" rx="8" fill="#334155" />
+    <text x="360" y="570" font-family="monospace" font-size="12" fill="#94A3B8">todo.docx</text>
+    <path d="M500 400 L650 400" stroke="#475569" stroke-width="4" stroke-dasharray="10 10" marker-end="url(#arrowhead)" />
+  </g>
+
+  <!-- Center: Ollama LLM Core -->
+  <circle cx="960" cy="400" r="120" fill="#1E293B" stroke="#38BDF8" stroke-width="4" />
+  <path d="M920 360 L1000 360 L1000 440 L920 440 Z" fill="#38BDF8" opacity="0.2" />
+  <text x="960" y="390" font-family="sans-serif" font-weight="bold" font-size="24" fill="#38BDF8" text-anchor="middle">OLLAMA</text>
+  <text x="960" y="420" font-family="sans-serif" font-size="16" fill="#7DD3FC" text-anchor="middle">Local LLM Engine</text>
+  <path d="M960 520 L960 650" stroke="#38BDF8" stroke-width="2" stroke-dasharray="5 5" />
+
+  <!-- Right: Organized Structure -->
+  <g x="1300" y="150">
+    <rect x="1350" y="150" width="450" height="500" rx="16" fill="#1E293B" stroke="#10B981" stroke-width="2" />
+    <text x="1380" y="200" font-family="sans-serif" font-weight="bold" font-size="24" fill="white">~/Desktop/Organized</text>
+    
+    <path d="M1380 240 L1410 240 L1410 270 L1380 270 Z" fill="#FBBF24" />
+    <text x="1425" y="260" font-family="sans-serif" font-size="18" fill="#E2E8F0">/Documents/Financials</text>
+    
+    <path d="M1380 300 L1410 300 L1410 330 L1380 330 Z" fill="#FBBF24" />
+    <text x="1425" y="320" font-family="sans-serif" font-size="18" fill="#E2E8F0">/Images/Projects</text>
+    
+    <path d="M1380 360 L1410 360 L1410 390 L1380 390 Z" fill="#FBBF24" />
+    <text x="1425" y="380" font-family="sans-serif" font-size="18" fill="#E2E8F0">/Code/React-Apps</text>
+  </g>
+
+  <!-- Bottom: CLI Terminal -->
+  <rect x="460" y="650" width="1000" height="350" rx="16" fill="#000000" stroke="#334155" />
+  <rect x="460" y="650" width="1000" height="40" rx="16" fill="#334155" />
+  <circle cx="490" cy="670" r="6" fill="#FF5F56"/>
+  <circle cx="515" cy="670" r="6" fill="#FFBD2E"/>
+  <circle cx="540" cy="670" r="6" fill="#27C93F"/>
+  <text x="490" y="730" font-family="monospace" font-size="18" fill="#38BDF8">
+    <tspan x="490" dy="0">$ cleanup-cli organize --path ~/Desktop</tspan>
+    <tspan x="490" dy="30" fill="#94A3B8">Analyzing file content with llama3...</tspan>
+    <tspan x="490" dy="30" fill="#10B981">✓ "proposal.pdf" -> /Documents/Financials (Match: 98%)</tspan>
+    <tspan x="490" dy="30" fill="#10B981">✓ "img_992.jpg" -> /Images/Projects (Match: 95%)</tspan>
+    <tspan x="490" dy="30" fill="#94A3B8">[====================] 100% Complete</tspan>
+    <tspan x="490" dy="40" fill="#FBBF24">Successfully organized 42 files in 1.2s</tspan>
+  </text>
+
+  <!-- Badges & Labels -->
+  <rect x="1500" y="800" width="120" height="40" rx="20" fill="#38BDF8" fill-opacity="0.1" stroke="#38BDF8" />
+  <text x="1560" y="825" font-family="sans-serif" font-weight="bold" font-size="14" fill="#38BDF8" text-anchor="middle">v1.2.0</text>
+  
+  <rect x="1630" y="800" width="180" height="40" rx="20" fill="#10B981" fill-opacity="0.1" stroke="#10B981" />
+  <text x="1720" y="825" font-family="sans-serif" font-weight="bold" font-size="14" fill="#10B981" text-anchor="middle">CROSS-PLATFORM</text>
+
+  <!-- Title -->
+  <text x="1770" y="950" font-family="sans-serif" font-weight="900" font-size="72" fill="white" text-anchor="end">cleanup-cli</text>
+  <text x="1770" y="1000" font-family="sans-serif" font-size="24" fill="#38BDF8" text-anchor="end">AI-POWERED DESKTOP ORGANIZATION</text>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569" />
+    </marker>
+  </defs>
+</svg>

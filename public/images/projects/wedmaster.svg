@@ -1,0 +1,62 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#FFFBFB"/>
+  <defs>
+    <linearGradient id="wedding_bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF1F2"/>
+      <stop offset="1" stop-color="#FFE4E6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#wedding_bg)"/>
+
+  <!-- SaaS Dashboard Layout -->
+  <!-- Sidebar -->
+  <rect x="150" y="100" width="280" height="880" rx="24" fill="white" stroke="#FDA4AF" stroke-opacity="0.3"/>
+  <text x="190" y="160" font-family="serif" font-weight="bold" font-size="28" fill="#E11D48">WedMaster</text>
+  
+  <rect x="180" y="220" width="220" height="40" rx="8" fill="#FFF1F2"/>
+  <text x="230" y="247" font-family="sans-serif" font-size="16" fill="#E11D48">Dashboard</text>
+  
+  <text x="230" y="307" font-family="sans-serif" font-size="16" fill="#888">Calendar</text>
+  <text x="230" y="367" font-family="sans-serif" font-size="16" fill="#888">Scripts</text>
+  <text x="230" y="427" font-family="sans-serif" font-size="16" fill="#888">Clients</text>
+
+  <!-- Main Content Area -->
+  <!-- Calendar View -->
+  <rect x="460" y="100" width="800" height="880" rx="24" fill="white" stroke="#FDA4AF" stroke-opacity="0.3"/>
+  <text x="500" y="160" font-family="serif" font-weight="bold" font-size="24" fill="#333">September 2025</text>
+  
+  <!-- Calendar Grid -->
+  <rect x="500" y="200" width="720" height="600" rx="12" fill="#FAFAFA"/>
+  <path d="M500 285H1220M500 370H1220M500 455H1220M500 540H1220M500 625H1220" stroke="#EEE"/>
+  <path d="M603 200V800M706 200V800M809 200V800M912 200V800M1015 200V800M1118 200V800" stroke="#EEE"/>
+  
+  <!-- Bookings -->
+  <rect x="610" y="380" width="95" height="60" rx="6" fill="#E11D48" fill-opacity="0.1" stroke="#E11D48" stroke-width="1"/>
+  <text x="615" y="405" font-family="sans-serif" font-size="10" fill="#E11D48" font-weight="bold">Sarah &amp; Tom</text>
+  <text x="615" y="420" font-family="sans-serif" font-size="9" fill="#E11D48">Central Park</text>
+
+  <rect x="920" y="550" width="95" height="60" rx="6" fill="#F59E0B" fill-opacity="0.1" stroke="#F59E0B" stroke-width="1"/>
+  <text x="925" y="575" font-family="sans-serif" font-size="10" fill="#F59E0B" font-weight="bold">Mike &amp; Elena</text>
+  <text x="925" y="590" font-family="sans-serif" font-size="9" fill="#F59E0B">Sky Garden</text>
+
+  <!-- Script Editor Preview -->
+  <rect x="1290" y="100" width="480" height="880" rx="24" fill="white" stroke="#FDA4AF" stroke-opacity="0.3"/>
+  <text x="1330" y="160" font-family="serif" font-weight="bold" font-size="24" fill="#333">Ceremony Script</text>
+  
+  <rect x="1330" y="200" width="400" height="600" rx="12" fill="#FFF" stroke="#EEE"/>
+  <text x="1360" y="260" font-family="serif" font-size="18" fill="#555" font-style="italic">"We are gathered here today..."</text>
+  <rect x="1360" y="280" width="300" height="2" fill="#EEE"/>
+  <text x="1360" y="320" font-family="serif" font-size="16" fill="#333">
+    <tspan x="1360" dy="0">Dear friends and family, we join Sarah</tspan>
+    <tspan x="1360" dy="30">and Tom in this beautiful celebration</tspan>
+    <tspan x="1360" dy="30">of love and commitment.</tspan>
+  </text>
+  
+  <rect x="1360" y="420" width="340" height="100" rx="8" fill="#F8F8F8" stroke="#DDD" stroke-dasharray="4 4"/>
+  <text x="1380" y="450" font-family="sans-serif" font-size="12" fill="#999">[INSERT PERSONAL VOWS HERE]</text>
+
+  <!-- Title & Labels -->
+  <text x="1530" y="940" font-family="serif" font-weight="900" font-size="64" fill="#E11D48" text-anchor="middle">WedMaster</text>
+  <text x="1530" y="980" font-family="sans-serif" font-size="20" fill="#F43F5E" text-anchor="middle" letter-spacing="4">SAAS FOR CELEBRANTS</text>
+</svg>

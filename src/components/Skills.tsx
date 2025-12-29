@@ -191,7 +191,7 @@ export default function Skills() {
               className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${
                 viewMode === 'grid' 
                   ? 'bg-cyber-cyan/20 border-cyber-cyan text-cyber-cyan' 
-                  : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+                  : 'bg-muted/20 border-border text-muted-foreground hover:bg-muted/30'
               }`}
             >
               <Layers className="w-4 h-4" />
@@ -202,7 +202,7 @@ export default function Skills() {
               className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${
                 viewMode === 'orbital' 
                   ? 'bg-cyber-purple/20 border-cyber-purple text-cyber-purple' 
-                  : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+                  : 'bg-muted/20 border-border text-muted-foreground hover:bg-muted/30'
               }`}
             >
               <CircleDot className="w-4 h-4" />
@@ -247,10 +247,10 @@ export default function Skills() {
                         transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
                       >
                         <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm text-gray-300">{skill.name}</span>
+                          <span className="text-sm text-muted-foreground">{skill.name}</span>
                           <span className="text-xs font-mono text-cyber-cyan">{skill.level}%</span>
                         </div>
-                        <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-2 bg-muted/20 rounded-full overflow-hidden">
                           <motion.div
                             className={`h-full bg-gradient-to-r ${skill.color} rounded-full`}
                             initial={{ width: 0 }}
@@ -282,8 +282,8 @@ export default function Skills() {
                       onClick={() => handleCategoryManualSelect(category)}
                       className={`px-6 py-2 rounded-xl text-sm font-display transition-all duration-300 ${
                         activeCategory === category
-                          ? 'bg-cyber-cyan/20 border border-cyber-cyan text-cyber-cyan shadow-[0_0_15px_rgba(0,255,242,0.3)]'
-                          : 'bg-white/5 border border-white/10 text-gray-400 hover:border-white/20'
+                          ? 'bg-cyber-cyan/20 border border-cyber-cyan text-cyber-cyan shadow-[0_0_15px_rgb(var(--cyber-cyan)/0.3)]'
+                          : 'bg-muted/20 border border-border text-muted-foreground hover:border-muted-foreground/30'
                       }`}
                     >
                       {t(skillCategoryTitles[category])}
@@ -294,7 +294,7 @@ export default function Skills() {
                 {/* Auto-rotate toggle */}
                 <button
                   onClick={toggleAutoRotate}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-gray-500 hover:text-cyber-cyan transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/20 border border-border text-[10px] font-mono text-muted-foreground hover:text-cyber-cyan transition-colors"
                 >
                   {isAutoRotating ? (
                     <>
@@ -328,7 +328,7 @@ export default function Skills() {
           {skills.slice(0, 10).map((skill, index) => (
             <motion.span
               key={skill.name}
-              className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-400 hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300 cursor-default"
+              className="px-4 py-2 bg-muted/20 border border-border rounded-lg text-sm text-muted-foreground hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300 cursor-default"
               whileHover={{ scale: 1.05, y: -2 }}
             >
               {skill.name}

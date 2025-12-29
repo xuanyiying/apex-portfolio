@@ -110,7 +110,7 @@ export default function Contact() {
           >
             <motion.div variants={itemVariants} className="mb-8">
               <h3 className="font-display font-bold text-2xl mb-4">Let's talk about your project</h3>
-              <p className="text-gray-400">
+              <p className="text-muted-foreground">
                 {contactInfo.description}
               </p>
             </motion.div>
@@ -130,8 +130,8 @@ export default function Contact() {
                       <info.icon className="w-5 h-5 text-cyber-cyan" />
                     </div>
                     <div>
-                      <div className="text-sm text-gray-500">{info.label}</div>
-                      <div className="text-white font-medium">{info.value}</div>
+                      <div className="text-sm text-muted-foreground">{info.label}</div>
+                      <div className="text-foreground font-medium">{info.value}</div>
                     </div>
                   </motion.a>
                 ) : null
@@ -140,7 +140,7 @@ export default function Contact() {
 
             {/* Social links */}
             <motion.div variants={itemVariants}>
-              <h4 className="text-sm text-gray-500 mb-4">{t('Contact.social')}</h4>
+              <h4 className="text-sm text-muted-foreground mb-4">{t('Contact.social')}</h4>
               <div className="flex gap-4">
                 {socialLinks.map((social) => (
                   <motion.a
@@ -148,7 +148,7 @@ export default function Contact() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl text-gray-400 hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300"
+                    className="w-12 h-12 flex items-center justify-center bg-muted/20 border border-border rounded-xl text-muted-foreground hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300"
                     whileHover={{ scale: 1.1, y: -3 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -169,7 +169,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="glass-card p-8">
               <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm text-gray-400 mb-2">
+                  <label htmlFor="name" className="block text-sm text-muted-foreground mb-2">
                     {contactInfo.formFields.name.label}
                   </label>
                   <input
@@ -184,7 +184,7 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm text-gray-400 mb-2">
+                  <label htmlFor="email" className="block text-sm text-muted-foreground mb-2">
                     {contactInfo.formFields.email.label}
                   </label>
                   <input
@@ -201,7 +201,7 @@ export default function Contact() {
               </div>
 
               <div className="mb-6">
-                <label htmlFor="subject" className="block text-sm text-gray-400 mb-2">
+                <label htmlFor="subject" className="block text-sm text-muted-foreground mb-2">
                   {contactInfo.formFields.subject.label}
                 </label>
                 <input
@@ -217,7 +217,7 @@ export default function Contact() {
               </div>
 
               <div className="mb-6">
-                <label htmlFor="message" className="block text-sm text-gray-400 mb-2">
+                <label htmlFor="message" className="block text-sm text-muted-foreground mb-2">
                   {contactInfo.formFields.message.label}
                 </label>
                 <textarea

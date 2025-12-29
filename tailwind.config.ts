@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,11 +10,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        border: 'rgb(var(--border) / <alpha-value>)',
+        input: 'rgb(var(--border) / <alpha-value>)',
+        ring: 'rgb(var(--cyber-cyan) / <alpha-value>)',
+        background: 'rgb(var(--background) / <alpha-value>)',
+        foreground: 'rgb(var(--foreground) / <alpha-value>)',
+        muted: {
+          DEFAULT: 'rgb(var(--muted) / <alpha-value>)',
+          foreground: 'rgb(var(--muted-foreground) / <alpha-value>)',
+        },
         cyber: {
           black: '#050505',
           dark: '#0F172A',
-          cyan: '#00F0FF',
-          purple: '#7000FF',
+          cyan: 'rgb(var(--cyber-cyan) / <alpha-value>)',
+          purple: 'rgb(var(--cyber-purple) / <alpha-value>)',
           pink: '#FF006E',
           green: '#00FF88',
           yellow: '#FACC15',
@@ -26,7 +36,7 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'cyber-grid': 'linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px)',
+        'cyber-grid': 'linear-gradient(rgb(var(--cyber-cyan) / var(--grid-opacity)) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--cyber-cyan) / var(--grid-opacity)) 1px, transparent 1px)',
         'neon-glow': 'conic-gradient(from 0deg, transparent, var(--cyber-cyan), transparent)',
       },
       animation: {
@@ -46,8 +56,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' },
         },
         'pulse-glow': {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(0, 240, 255, 0.3)' },
-          '50%': { boxShadow: '0 0 40px rgba(0, 240, 255, 0.6)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgb(var(--cyber-cyan) / 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgb(var(--cyber-cyan) / 0.6)' },
         },
         'slide-up': {
           '0%': { opacity: '0', transform: 'translateY(30px)' },

@@ -22,7 +22,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-white/10 bg-cyber-black/50 backdrop-blur-xl">
+    <footer className="relative border-t border-border bg-background/50 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
@@ -33,14 +33,14 @@ export default function Footer() {
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-gradient-to-br from-cyber-cyan to-cyber-purple rounded-xl flex items-center justify-center">
-                <span className="font-display font-bold text-cyber-black text-lg">AC</span>
+                <span className="font-display font-bold text-black text-lg">AC</span>
               </div>
               <span className="font-display font-bold text-xl">
-                <span className="text-white">Alex</span>
+                <span className="text-foreground">Alex</span>
                 <span className="text-cyber-cyan">Chen</span>
               </span>
             </div>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-muted-foreground text-sm mb-4">
               Passionate full-stack developer creating stunning digital experiences. Building the digital future with modern technologies.
             </p>
             <div className="flex gap-4">
@@ -50,7 +50,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300"
+                  className="w-10 h-10 flex items-center justify-center bg-muted/20 border border-border rounded-lg text-muted-foreground hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300"
                   whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -73,7 +73,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-cyber-cyan transition-colors duration-300 text-sm flex items-center gap-2"
+                    className="text-muted-foreground hover:text-cyber-cyan transition-colors duration-300 text-sm flex items-center gap-2"
                   >
                     <span className="w-1 h-1 bg-cyber-cyan rounded-full" />
                     {link.label}
@@ -95,7 +95,7 @@ export default function Footer() {
               {['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker', 'AWS', 'Tailwind'].map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400"
+                  className="px-3 py-1 bg-muted/20 border border-border rounded-full text-xs text-muted-foreground"
                 >
                   {tech}
                 </span>
@@ -106,17 +106,17 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <motion.div
-          className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-white/5"
+          className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-border"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Alex Chen. {t('Footer.rights')}
           </div>
           
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{t('Footer.built')}</span>
             <motion.span
               className="text-cyber-pink"

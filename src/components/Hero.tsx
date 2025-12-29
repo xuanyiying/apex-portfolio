@@ -2,15 +2,17 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Canvas, useFrame, ThreeElements } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { useLanguage } from '@/lib/LanguageContext';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Mail } from 'lucide-react';
 import { heroContent } from '@/data';
+import { useTheme } from 'next-themes';
 
 function AnimatedSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
+  const { theme } = useTheme();
   
   useFrame((state) => {
     if (meshRef.current) {
@@ -19,10 +21,12 @@ function AnimatedSphere() {
     }
   });
 
+  const sphereColor = theme === 'light' ? '#00B4C8' : '#00F0FF';
+
   return (
     <Sphere args={[1, 64, 64]} ref={meshRef} scale={2}>
       <MeshDistortMaterial
-        color="#00F0FF"
+        color={sphereColor}
         attach="material"
         distort={0.5}
         speed={2}
@@ -34,11 +38,15 @@ function AnimatedSphere() {
 }
 
 function Scene() {
+  const { theme } = useTheme();
+  const lightIntensity = theme === 'light' ? 0.8 : 1;
+  const ambientIntensity = theme === 'light' ? 0.7 : 0.5;
+
   return (
     <Canvas camera={{ position: [0, 0, 5] }}>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#7000FF" />
+      <ambientLight intensity={ambientIntensity} />
+      <pointLight position={[10, 10, 10]} intensity={lightIntensity} />
+      <pointLight position={[-10, -10, -10]} intensity={lightIntensity * 0.5} color="#7000FF" />
       <AnimatedSphere />
       <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
     </Canvas>
@@ -118,7 +126,7 @@ export default function Hero() {
       </div>
 
       {/* Grid lines */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-cyber-black/50 to-cyber-black pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -139,9 +147,9 @@ export default function Hero() {
             </motion.div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold mb-4">
-              <span className="text-gray-400">{t('Hero.greeting')}</span>
+              <span className="text-muted-foreground">{t('Hero.greeting')}</span>
               <br />
-              <span className="bg-gradient-to-r from-white via-cyber-cyan to-cyber-purple bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-foreground via-cyber-cyan to-cyber-purple bg-clip-text text-transparent">
                 {heroContent.name}
               </span>
             </h1>
@@ -161,7 +169,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.p
-              className="text-lg text-gray-400 max-w-xl mb-8 leading-relaxed"
+              className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -212,15 +220,14 @@ export default function Hero() {
             >
               {[
                 { icon: Github, href: heroContent.socialLinks.github },
-                { icon: Linkedin, href: heroContent.socialLinks.linkedin },
                 { icon: Mail, href: `mailto:${heroContent.email}` },
-              ].map((social, index) => (
+              ].map((social) => (
                 <motion.a
                   key={social.href}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl text-gray-400 hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300"
+                  className="w-12 h-12 flex items-center justify-center bg-muted/20 border border-border rounded-xl text-muted-foreground hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300"
                   whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -267,9 +274,9 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
         >
-          <span className="text-sm text-gray-500">{t('Hero.scrollHint')}</span>
+          <span className="text-sm text-muted-foreground">{t('Hero.scrollHint')}</span>
           <motion.div
-            className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2"
+            className="w-6 h-10 border-2 border-border/50 rounded-full flex justify-center pt-2"
           >
             <motion.div
               className="w-1.5 h-3 bg-cyber-cyan rounded-full"

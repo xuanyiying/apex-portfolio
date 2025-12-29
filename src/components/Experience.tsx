@@ -112,7 +112,7 @@ export default function Experience() {
                 >
                   {/* Timeline dot */}
                   <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4">
-                    <div className={`w-4 h-4 rounded-full bg-gradient-to-br ${color} ring-4 ring-cyber-black`} />
+                    <div className={`w-4 h-4 rounded-full bg-gradient-to-br ${color} ring-4 ring-background`} />
                     <motion.div
                       className={`absolute inset-0 rounded-full bg-gradient-to-br ${color}`}
                       animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
@@ -132,7 +132,7 @@ export default function Experience() {
                       {/* Header */}
                       <div className="relative z-10">
                         <div className={`flex items-center gap-2 mb-2 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
-                          <span className={`px-3 py-1 bg-gradient-to-r ${color} text-cyber-black text-xs font-bold rounded-full`}>
+                          <span className={`px-3 py-1 bg-gradient-to-r ${color} text-black text-xs font-bold rounded-full`}>
                             {experience.company}
                           </span>
                         </div>
@@ -141,7 +141,7 @@ export default function Experience() {
                           {experience.position}
                         </h3>
                         
-                        <div className={`flex flex-wrap gap-4 text-sm text-gray-400 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
+                        <div className={`flex flex-wrap gap-4 text-sm text-muted-foreground ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
                             {experience.duration}
@@ -154,10 +154,10 @@ export default function Experience() {
                       </div>
 
                       {/* Divider */}
-                      <div className={`h-px bg-gradient-to-r ${index % 2 === 0 ? 'from-transparent via-white/10 to-white/10' : 'from-white/10 via-white/10 to-transparent'} my-4`} />
+                      <div className={`h-px bg-gradient-to-r ${index % 2 === 0 ? 'from-transparent via-border/50 to-border/50' : 'from-border/50 via-border/50 to-transparent'} my-4`} />
 
                       {/* Description */}
-                      <p className="text-gray-400 text-sm mb-4 relative z-10">
+                      <p className="text-muted-foreground text-sm mb-4 relative z-10">
                         {experience.description}
                       </p>
 
@@ -169,7 +169,7 @@ export default function Experience() {
                         </h4>
                         <ul className={`space-y-1 ${index % 2 === 0 ? 'md:pl-0 md:pr-4' : 'md:pl-4'}`}>
                           {experience.achievements.slice(0, 3).map((achievement, i) => (
-                            <li key={i} className="text-sm text-gray-400 flex items-start gap-2">
+                            <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
                               {index % 2 === 0 ? null : (
                                 <span className="text-cyber-cyan mt-1">▹</span>
                               )}
@@ -187,7 +187,7 @@ export default function Experience() {
                         {experience.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className={`px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400 hover:border-${color.split(' ')[1].replace('to-', '').replace('-500', '')}/30 transition-colors`}
+                            className={`px-3 py-1 bg-muted/20 border border-border rounded-full text-xs text-muted-foreground hover:border-${color.split(' ')[1].replace('to-', '').replace('-500', '')}/30 transition-colors`}
                           >
                             {tech}
                           </span>
@@ -228,7 +228,7 @@ export default function Experience() {
               <div className="text-3xl font-display font-bold bg-gradient-to-r from-cyber-cyan to-cyber-purple bg-clip-text text-transparent">
                 {stat.value}
               </div>
-              <div className="text-sm text-gray-400">{stat.label}</div>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>

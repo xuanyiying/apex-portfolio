@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import { cn } from '@/lib/utils';
+import ThemeToggle from './ThemeToggle';
 
 interface NavItem {
   id: string;
@@ -53,7 +54,7 @@ export default function Navigation() {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
           scrolled 
-            ? 'py-4 bg-cyber-black/80 backdrop-blur-xl border-b border-white/5' 
+            ? 'py-4 bg-background/80 backdrop-blur-xl border-b border-border' 
             : 'py-6 bg-transparent'
         )}
       >
@@ -67,10 +68,10 @@ export default function Navigation() {
               onClick={() => scrollToSection('home')}
             >
               <div className="w-10 h-10 bg-gradient-to-br from-cyber-cyan to-cyber-purple rounded-xl flex items-center justify-center">
-                <span className="font-display font-bold text-cyber-black text-lg">AC</span>
+                <span className="font-display font-bold text-black text-lg">AC</span>
               </div>
               <span className="font-display font-bold text-xl hidden sm:block">
-                <span className="text-white">Alex</span>
+                <span className="text-foreground">Alex</span>
                 <span className="text-cyber-cyan">Chen</span>
               </span>
             </motion.div>
@@ -81,7 +82,7 @@ export default function Navigation() {
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-gray-400 hover:text-cyber-cyan transition-colors duration-300 font-medium"
+                  className="text-muted-foreground hover:text-cyber-cyan transition-colors duration-300 font-medium"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -90,17 +91,19 @@ export default function Navigation() {
               ))}
             </div>
 
-            {/* Language Toggle & CTA */}
+            {/* Language Toggle & Theme Toggle & CTA */}
             <div className="flex items-center gap-4">
+              <ThemeToggle />
+
               <motion.button
                 onClick={toggleLanguage}
-                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyber-cyan/30 transition-all duration-300"
+                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-muted/20 border border-border rounded-lg hover:border-cyber-cyan/30 transition-all duration-300"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="font-mono text-sm text-cyber-cyan">{locale === 'zh' ? '中文' : 'EN'}</span>
-                <span className="text-gray-500">/</span>
-                <span className="font-mono text-sm text-gray-400">{locale === 'zh' ? 'EN' : 'ZH'}</span>
+                <span className="text-muted-foreground">/</span>
+                <span className="font-mono text-sm text-muted-foreground">{locale === 'zh' ? 'EN' : 'ZH'}</span>
               </motion.button>
 
               <motion.button
@@ -115,7 +118,7 @@ export default function Navigation() {
               {/* Mobile Menu Button */}
               <motion.button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden w-10 h-10 flex items-center justify-center bg-white/5 border border-white/10 rounded-lg"
+                className="lg:hidden w-10 h-10 flex items-center justify-center bg-muted/20 border border-border rounded-lg"
                 whileTap={{ scale: 0.95 }}
               >
                 <div className="flex flex-col gap-1.5">
@@ -125,7 +128,7 @@ export default function Navigation() {
                   />
                   <motion.span
                     animate={{ opacity: mobileMenuOpen ? 0 : 1 }}
-                    className="w-5 h-0.5 bg-white block"
+                    className="w-5 h-0.5 bg-foreground block"
                   />
                   <motion.span
                     animate={{ rotate: mobileMenuOpen ? -45 : 0, y: mobileMenuOpen ? -6 : 0 }}
@@ -149,21 +152,22 @@ export default function Navigation() {
             className="fixed inset-0 z-40 lg:hidden"
           >
             <div 
-              className="absolute inset-0 bg-cyber-black/95 backdrop-blur-xl"
+              className="absolute inset-0 bg-background/95 backdrop-blur-xl"
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
-              className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-cyber-dark/50 backdrop-blur-xl border-l border-white/10 p-8"
+              className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-background border-l border-border p-8"
             >
-              <div className="flex flex-col items-end mb-8">
+              <div className="flex flex-col items-end mb-8 gap-4">
+                <ThemeToggle />
                 <motion.button
                   onClick={toggleLanguage}
-                  className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg"
+                  className="flex items-center gap-2 px-4 py-2 bg-muted/20 border border-border rounded-lg"
                   whileTap={{ scale: 0.95 }}
                 >
                   <span className="font-mono text-sm text-cyber-cyan">{locale === 'zh' ? '中文' : 'EN'}</span>
-                  <span className="text-gray-500">/</span>
-                  <span className="font-mono text-sm text-gray-400">{locale === 'zh' ? 'EN' : 'ZH'}</span>
+                  <span className="text-muted-foreground">/</span>
+                  <span className="font-mono text-sm text-muted-foreground">{locale === 'zh' ? 'EN' : 'ZH'}</span>
                 </motion.button>
               </div>
 
@@ -172,7 +176,7 @@ export default function Navigation() {
                   <motion.button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="text-3xl font-display font-bold text-left text-gray-400 hover:text-cyber-cyan transition-colors duration-300"
+                    className="text-3xl font-display font-bold text-left text-muted-foreground hover:text-cyber-cyan transition-colors duration-300"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
