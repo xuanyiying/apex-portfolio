@@ -108,7 +108,33 @@ export const projectsEn: Project[] = [
         "forks": 0,
         "updatedAt": "2025-12-23",
         "language": "TypeScript"
-    }
+    },
+    {
+        "id": "1123603050",
+        "title": "Quant-Trader",
+        "description": "High-performance quant trading engine designed for high concurrency and low latency, featuring WASM-isolated strategy execution.",
+        "longDescription": "Professional algorithmic trading infrastructure providing a complete pipeline from real-time market data ingestion via NATS JetStream to isolated strategy execution using WASM sandboxing (wazero). It includes paper trading, risk management, and a Stripe-integrated strategy marketplace.",
+        "image": "/images/projects/cleanup-cli.svg",
+        "tags": ["Quant", "Trading", "Go", "WASM", "NATS"],
+        "architecture": {
+            "frontend": ["React", "Vite", "ECharts", "Tailwind CSS"],
+            "backend": ["Go", "Gin", "GORM", "Wazero (WASM)"],
+            "database": ["TimescaleDB", "Redis"],
+            "devops": ["NATS JetStream", "Docker", "Stripe API"]
+        },
+        "metrics": {
+            "codeQuality": 95,
+            "apiDesign": 92,
+            "deployment": 88
+        },
+        "github": "https://github.com/xuanyiying/quant-trader",
+        "demo": "",
+        "featured": true,
+        "stars": 2,
+        "forks": 1,
+        "updatedAt": "2025-12-30",
+        "language": "Go"
+    },
 ];
 
 export const projectsZh: Project[] = [
@@ -189,6 +215,32 @@ export const projectsZh: Project[] = [
         "forks": 0,
         "updatedAt": "2025-12-23",
         "language": "TypeScript"
+    },
+    {
+        "id": "1123603050",
+        "title": "Quant-Trader",
+        "description": "专为高并发、低延迟设计的高性能量化交易引擎，支持 WASM 隔离的策略执行。",
+        "longDescription": "专业的算法交易基础设施，提供从基于 NATS JetStream 的实时行情接入到基于 WASM 沙箱 (wazero) 的策略隔离执行的完整流水线。包含模拟交易、风控系统以及集成 Stripe 的策略市场。",
+        "image": "/images/projects/cleanup-cli.svg",
+        "tags": ["量化", "交易", "Go", "WASM", "NATS"],
+        "architecture": {
+            "frontend": ["React", "Vite", "ECharts", "Tailwind CSS"],
+            "backend": ["Go", "Gin", "GORM", "Wazero (WASM)"],
+            "database": ["TimescaleDB", "Redis"],
+            "devops": ["NATS JetStream", "Docker", "Stripe API"]
+        },
+        "metrics": {
+            "codeQuality": 95,
+            "apiDesign": 92,
+            "deployment": 88
+        },
+        "github": "https://github.com/xuanyiying/quant-trader",
+        "demo": "",
+        "featured": true,
+        "stars": 2,
+        "forks": 1,
+        "updatedAt": "2025-12-30",
+        "language": "Go"
     }
 ];
 
