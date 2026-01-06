@@ -81,20 +81,6 @@ function HeroScene() {
 
   return (
     <div className="w-full h-full min-h-[400px] lg:min-h-[500px]">
-      <Canvas
-        key={currentTheme}
-        camera={{ position: [0, 0, 6], fov: 45 }}
-        dpr={[1, 2]}
-      >
-        <ambientLight intensity={0.5} />
-        {/* Dynamic colored lights */}
-        <spotLight position={[10, 10, 10]} angle={0.3} penumbra={1} intensity={lightIntensity} color="#00F0FF" />
-        <pointLight position={[-10, -10, -10]} intensity={lightIntensity} color="#7000FF" />
-        <pointLight position={[0, 5, 0]} intensity={lightIntensity} color="#FF0080" />
-
-        <AnimatedSphere />
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={1} />
-      </Canvas>
     </div>
   );
 }
@@ -149,7 +135,6 @@ export default function Hero() {
               transition={{ delay: 0.2 }}
             >
               <span className="w-2 h-2 bg-cyber-cyan rounded-full animate-pulse shadow-[0_0_10px_#00F0FF]" />
-              <span className="text-cyber-cyan text-sm font-mono tracking-wider">OPEN FOR OPPORTUNITIES</span>
             </motion.div>
 
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black mb-6 tracking-tighter leading-[1.1]">

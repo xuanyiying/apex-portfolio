@@ -115,24 +115,9 @@ const SkillNode = ({ position, skill, onSelect, isSelected }: any) => {
                 />
             </mesh>
 
-            {/* Rotating Tech Ring */}
-            <mesh rotation={[Math.PI / 3, 0, 0]}>
-                <torusGeometry args={[0.6, 0.02, 16, 32]} />
-                <meshBasicMaterial color={color} transparent opacity={0.6} blending={THREE.AdditiveBlending} />
-            </mesh>
 
-            {/* Distorted Field (Atmosphere) */}
-            <mesh scale={[1.2, 1.2, 1.2]}>
-                <sphereGeometry args={[0.35, 32, 32]} />
-                <MeshDistortMaterial
-                    color={color}
-                    transparent
-                    opacity={0.1}
-                    distort={0.4}
-                    speed={3}
-                    roughness={0}
-                />
-            </mesh>
+
+
 
             {/* Glow Halo */}
             <mesh ref={glowRef}>
@@ -154,56 +139,6 @@ const SkillNode = ({ position, skill, onSelect, isSelected }: any) => {
         </group>
     );
 };
-
-const HolographicBase = () => {
-    const { theme, resolvedTheme } = useTheme();
-    const isDark = resolvedTheme === 'dark';
-
-    // Theme Colors
-    const baseColor = isDark ? "#00F0FF" : "#2563EB"; // Neon Cyan vs Royal Blue
-    const coreColor = isDark ? "#A855F7" : "#4F46E5"; // Purple vs Indigo
-
-    return (
-        <group position={[0, -4, 0]}>
-            {/* Liquid Metal Central Base */}
-            <mesh position={[0, 2, 0]} scale={[2, 1, 2]}>
-                <sphereGeometry args={[1, 64, 64]} />
-                <MeshDistortMaterial
-                    color={baseColor}
-                    envMapIntensity={1}
-                    clearcoat={1}
-                    clearcoatRoughness={0}
-                    metalness={0.9}
-                    roughness={0.1}
-                    distort={0.4}
-                    speed={2}
-                />
-            </mesh>
-
-            {/* Soft Glow Floor */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.1, 0]}>
-                <ringGeometry args={[0, 6, 64]} />
-                <meshBasicMaterial
-                    color={baseColor}
-                    transparent
-                    opacity={isDark ? 0.1 : 0.05}
-                    side={THREE.DoubleSide}
-                />
-            </mesh>
-
-            {/* Orbiting Rings */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]}>
-                <ringGeometry args={[4.4, 4.5, 64]} />
-                <meshBasicMaterial color={baseColor} transparent opacity={isDark ? 0.3 : 0.2} side={THREE.DoubleSide} />
-            </mesh>
-            <mesh rotation={[-Math.PI / 2, 0, 0]}>
-                <ringGeometry args={[3, 3.05, 64]} />
-                <meshBasicMaterial color={coreColor} transparent opacity={isDark ? 0.2 : 0.1} side={THREE.DoubleSide} />
-            </mesh>
-        </group>
-    );
-};
-
 const SceneContent = ({ activeCategory }: HolographicSkillChartProps) => {
     const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
     const groupRef = useRef<THREE.Group>(null);
@@ -235,8 +170,6 @@ const SceneContent = ({ activeCategory }: HolographicSkillChartProps) => {
             <ambientLight intensity={ambientIntensity} />
             <pointLight position={[10, 10, 10]} intensity={1} color={spotColor} />
             <pointLight position={[-10, 5, -10]} intensity={0.5} color={pointColor} />
-
-            <HolographicBase />
 
             <group ref={groupRef}>
                 {skills.map((skill, index) => {
