@@ -5,14 +5,14 @@ import { useLanguage } from '@/lib/LanguageContext';
 import { Briefcase, Calendar, MapPin, Award, Users, Code2 } from 'lucide-react';
 import { experiencesEn, experiencesZh } from '@/data';
 
-
+// Cyber-Tech Unified Palette (Cyan -> Purple -> Blue)
 const experienceColors = [
   'from-cyan-400 to-blue-500',
-  'from-purple-400 to-pink-500',
-  'from-green-400 to-emerald-500',
-  'from-yellow-400 to-orange-500',
-  'from-pink-400 to-rose-500',
-  'from-indigo-400 to-purple-500'
+  'from-blue-400 to-indigo-500',
+  'from-indigo-400 to-purple-500',
+  'from-purple-400 to-fuchsia-500',
+  'from-fuchsia-400 to-pink-500',
+  'from-pink-400 to-cyan-500' // Loop back
 ];
 
 export default function Experience() {
@@ -39,9 +39,12 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="relative py-20 sm:py-32">
+    <section id="experience" className="relative py-20 sm:py-32 overflow-hidden">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-cyan/3 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-950/10 to-transparent pointer-events-none" />
+
+      {/* Grid Lines Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section header */}
@@ -50,110 +53,119 @@ export default function Experience() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="section-title">{t('Experience.title')}</h2>
-          <p className="section-subtitle mx-auto">{t('Experience.subtitle')}</p>
+          {/*<div className="inline-block mb-3 px-3 py-1 rounded-full border border-cyber-cyan/30 bg-cyber-cyan/10 text-cyber-cyan text-xs font-mono tracking-widest uppercase">*/}
+          {/*  {t('Experience.subtitle') || 'Career Trajectory'}*/}
+          {/*</div>*/}
+          <h2 className="text-4xl md:text-5xl font-bold font-display tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-cyber-cyan to-cyber-purple drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+            {t('Experience.title')}
+          </h2>
         </motion.div>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Center line */}
-          <motion.div
-            className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-cyber-cyan via-cyber-purple to-cyber-pink"
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            style={{ transformOrigin: 'top' }}
-          />
+          {/* Center line with animated gradient */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-gray-800/50">
+            <motion.div
+              className="absolute top-0 left-0 right-0 w-full bg-gradient-to-b from-cyber-cyan via-purple-500 to-cyan-500"
+              initial={{ height: "0%" }}
+              whileInView={{ height: "100%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+            />
+          </div>
 
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="space-y-12"
+            className="space-y-16"
           >
             {experiences.map((experience, index) => {
               const color = experienceColors[index % experienceColors.length];
+              const isEvent = index % 2 === 0;
 
               return (
                 <motion.div
                   key={experience.id}
                   variants={itemVariants}
-                  className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                    }`}
+                  className={`relative flex flex-col md:flex-row gap-8 ${isEvent ? 'md:flex-row-reverse' : ''}`}
                 >
-                  {/* Timeline dot */}
-                  <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4">
-                    <div className={`w-4 h-4 rounded-full bg-gradient-to-br ${color} ring-4 ring-background`} />
-                    <motion.div
-                      className={`absolute inset-0 rounded-full bg-gradient-to-br ${color}`}
-                      animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
+                  {/* Timeline Node (Holographic) */}
+                  <div className="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 w-6 h-6 z-10">
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      <div className={`absolute w-full h-full rounded-full bg-gray-900 border-2 border-cyber-cyan shadow-[0_0_10px_rgba(34,211,238,0.5)] z-20`} />
+                      <motion.div
+                        className={`absolute inset-0 bg-cyber-cyan rounded-full`}
+                        initial={{ scale: 1 }}
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0, 0.3] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                      <div className="absolute w-2 h-2 bg-white rounded-full z-30" />
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div className={`flex-1 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
+                  {/* Connector Line */}
+                  <div className={`hidden md:block absolute top-3 h-[2px] w-8 bg-cyber-cyan/30 ${isEvent ? 'right-1/2 mr-3' : 'left-1/2 ml-3'}`} />
+
+                  {/* Content Card */}
+                  <div className={`flex-1 ml-16 md:ml-0 ${isEvent ? 'md:pr-12' : 'md:pl-12'}`}>
                     <motion.div
-                      className="glass-card p-6 relative overflow-hidden text-left"
-                      whileHover={{ scale: 1.02 }}
+                      className="group relative p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-xl border border-white/10 overflow-hidden hover:border-cyber-cyan/40 transition-colors duration-500"
+                      whileHover={{ y: -5 }}
                     >
-                      {/* Decorative gradient */}
-                      <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${color} opacity-10 rounded-full blur-2xl`} />
+                      {/* Holographic Gradient bg on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyber-cyan/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+
 
                       {/* Header */}
-                      <div className="relative z-10">
-                        {/* Company name hidden as per request */}
-
-                        <h3 className="font-display font-bold text-xl mb-2">
-                          {experience.position}
-                        </h3>
-
-                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
+                      <div className="relative z-10 mb-4 border-b border-white/10 pb-4">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+                          <h3 className="text-xl md:text-2xl font-bold font-display text-white group-hover:text-cyber-cyan transition-colors">
+                            {experience.position}
+                          </h3>
+                          <div className="flex items-center gap-2 text-xs font-mono text-cyber-cyan bg-cyber-cyan/10 px-2 py-1 rounded border border-cyber-cyan/20">
+                            <Calendar className="w-3 h-3" />
                             {experience.duration}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            {experience.location}
-                          </span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-sm text-gray-400">
+                          <MapPin className="w-3.5 h-3.5" />
+                          {experience.location}
                         </div>
                       </div>
 
-                      {/* Divider */}
-                      <div className="h-px bg-gradient-to-r from-border/50 via-border/50 to-transparent my-4" />
-
                       {/* Description */}
-                      <p className="text-muted-foreground text-sm mb-4 relative z-10">
+                      <p className="text-gray-300 text-sm leading-relaxed mb-6 font-light relative z-10">
                         {experience.description}
                       </p>
 
                       {/* Achievements */}
-                      <div className="space-y-2 mb-4">
-                        <h4 className="text-cyber-cyan text-sm font-medium flex items-center gap-2">
-                          <Award className="w-4 h-4" />
+                      <div className="space-y-3 mb-6 relative z-10">
+                        <h4 className="text-xs font-bold uppercase tracking-widest text-cyber-purple flex items-center gap-2">
+                          <Award className="w-3.5 h-3.5" />
                           {t('Experience.achievements')}
                         </h4>
-                        <ul className="space-y-1 pl-4">
-                          {experience.achievements.slice(0, 3).map((achievement, i) => (
-                            <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                              <span className="text-cyber-cyan mt-1">▹</span>
-                              <span>{achievement}</span>
+                        <ul className="space-y-2">
+                          {experience.achievements.map((achievement, i) => (
+                            <li key={i} className="text-sm text-gray-400 flex items-start gap-2.5 group/list">
+                              <span className="mt-1.5 w-1 h-1 rounded-full bg-cyber-purple group-hover/list:bg-cyber-cyan transition-colors" />
+                              <span className="group-hover/list:text-gray-200 transition-colors">{achievement}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
                       {/* Technologies */}
-                      <div className="flex flex-wrap gap-2">
-                        {experience.technologies.map((tech) => (
+                      <div className="flex flex-wrap gap-2 relative z-10">
+                        {experience.technologies.slice(0, 6).map((tech) => (
                           <span
                             key={tech}
-                            className={`px-3 py-1 bg-muted/20 border border-border rounded-full text-xs text-muted-foreground hover:border-${color.split(' ')[1].replace('to-', '').replace('-500', '')}/30 transition-colors`}
+                            className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold rounded bg-white/5 border border-white/10 text-gray-400 group-hover:text-cyber-cyan group-hover:border-cyber-cyan/30 transition-all"
                           >
                             {tech}
                           </span>
@@ -162,7 +174,7 @@ export default function Experience() {
                     </motion.div>
                   </div>
 
-                  {/* Empty space for the other side */}
+                  {/* Empty space for the other side to keep timeline centered */}
                   <div className="flex-1 hidden md:block" />
                 </motion.div>
               )
@@ -170,34 +182,33 @@ export default function Experience() {
           </motion.div>
         </div>
 
-        {/* Stats row */}
+        {/* Stats Row with HUD style */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
+          className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
           {[
-            { icon: Briefcase, value: '8+', label: locale === 'zh' ? '工作年限' : 'Years Experience' },
-            { icon: Code2, value: '10+', label: locale === 'zh' ? '项目交付' : 'Projects Delivered' },
-            { icon: Users, value: '100+', label: locale === 'zh' ? '服务机构' : 'Institutions Served' },
-            { icon: Award, value: '10+', label: locale === 'zh' ? '获得荣誉' : 'Awards Won' },
+            { icon: Briefcase, value: '8+', label: locale === 'zh' ? '工作年限' : 'Years Exp' },
+            { icon: Code2, value: '10+', label: locale === 'zh' ? '项目交付' : 'Projects' },
+            { icon: Users, value: '100+', label: locale === 'zh' ? '服务机构' : 'Clients' },
+            { icon: Award, value: '10+', label: locale === 'zh' ? '获得荣誉' : 'Awards' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
-              className="glass-card p-6 text-center"
-              whileHover={{ y: -5 }}
-              transition={{ delay: index * 0.1 }}
+              className="relative group p-4 bg-black/20 border border-white/5 hover:border-cyber-cyan/30 transition-colors rounded-xl text-center overflow-hidden"
+              whileHover={{ y: -2 }}
             >
-              <stat.icon className="w-8 h-8 text-cyber-cyan mx-auto mb-3" />
-              <div className="text-3xl font-display font-bold bg-gradient-to-r from-cyber-cyan to-cyber-purple bg-clip-text text-transparent">
-                {stat.value}
-              </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl from-cyber-cyan/10 to-transparent rounded-bl-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <stat.icon className="w-6 h-6 mx-auto mb-2 text-gray-500 group-hover:text-cyber-cyan transition-colors" />
+              <div className="text-2xl font-bold font-display text-white group-hover:text-cyber-cyan transition-colors mb-1">{stat.value}</div>
+              <div className="text-[10px] uppercase tracking-widest text-gray-500">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
+
       </div>
     </section>
   );

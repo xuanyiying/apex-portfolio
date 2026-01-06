@@ -3,6 +3,7 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html, Float, MeshDistortMaterial, Billboard } from '@react-three/drei';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as THREE from 'three';
 import { useTheme } from 'next-themes';
 
@@ -67,9 +68,60 @@ const getUniqueVibrantColor = (skillName: string, colorClass: string) => {
     return `hsl(${finalHue}, ${saturation}%, ${lightness}%)`;
 };
 
+const GlowSphere = ({ color }: { color: string }) => {
+    const materialRef = useRef<THREE.ShaderMaterial>(null);
+
+    useFrame((state) => {
+        if (materialRef.current) {
+            materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
+        }
+    });
+
+    const shaderArgs = useMemo(() => ({
+        uniforms: {
+            uColor: { value: new THREE.Color(color) },
+            uTime: { value: 0 }
+        },
+        vertexShader: `
+            varying vec3 vNormal;
+            varying vec3 vViewPosition;
+            void main() {
+                vNormal = normalize(normalMatrix * normal);
+                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                vViewPosition = -mvPosition.xyz;
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `,
+        fragmentShader: `
+            uniform vec3 uColor;
+            varying vec3 vNormal;
+            varying vec3 vViewPosition;
+            void main() {
+                vec3 normal = normalize(vNormal);
+                vec3 viewDir = normalize(vViewPosition);
+                float intensity = dot(normal, viewDir);
+                intensity = pow(intensity, 1.5); // Adjust falloff
+                gl_FragColor = vec4(uColor, intensity * 0.9);
+            }
+        `,
+        transparent: true,
+        depthWrite: false, // Important for inner glow look
+    }), [color]);
+
+    return (
+        <mesh>
+            <sphereGeometry args={[0.3, 32, 32]} />
+            <shaderMaterial
+                ref={materialRef}
+                args={[shaderArgs]}
+                blending={THREE.AdditiveBlending}
+            />
+        </mesh>
+    );
+};
+
 const SkillNode = ({ position, skill, onSelect, isSelected }: any) => {
-    const meshRef = useRef<THREE.Mesh>(null);
-    const glowRef = useRef<THREE.Mesh>(null);
+    const meshRef = useRef<THREE.Group>(null);
     const [hovered, setHovered] = useState(false);
 
     const color = useMemo(() => {
@@ -78,52 +130,31 @@ const SkillNode = ({ position, skill, onSelect, isSelected }: any) => {
 
     useFrame((state, delta) => {
         if (meshRef.current) {
-            meshRef.current.rotation.x += delta;
-            meshRef.current.rotation.y += delta;
+            meshRef.current.rotation.x += delta * 0.2;
+            meshRef.current.rotation.y += delta * 0.2;
 
-            const targetScale = hovered || isSelected ? 1.5 : 1;
+            const targetScale = hovered || isSelected ? 1.4 : 1;
             meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
-        }
-
-        if (glowRef.current) {
-            const scale = 1.2 + Math.sin(state.clock.elapsedTime * 2) * 0.1;
-            glowRef.current.scale.set(scale, scale, scale);
         }
     });
 
     return (
         <group position={position}>
-            {/* Inner Glowing Core */}
-            <mesh ref={meshRef}>
-                <sphereGeometry args={[0.25, 32, 32]} />
-                <meshStandardMaterial
-                    color={color}
-                    emissive={color}
-                    emissiveIntensity={3}
-                    toneMapped={false}
-                />
-            </mesh>
+            <group ref={meshRef}>
+                {/* Inner Glowing Gradient Sphere */}
+                <GlowSphere color={color} />
 
-            {/* Outer Wireframe Shell */}
-            <mesh scale={[1.1, 1.1, 1.1]}>
-                <dodecahedronGeometry args={[0.4, 0]} />
-                <meshBasicMaterial
-                    color={color}
-                    wireframe
-                    transparent
-                    opacity={0.3}
-                />
-            </mesh>
-
-
-
-
-
-            {/* Glow Halo */}
-            <mesh ref={glowRef}>
-                <sphereGeometry args={[0.45, 16, 16]} />
-                <meshBasicMaterial color={color} transparent opacity={0.15} depthWrite={false} />
-            </mesh>
+                {/* Outer Wireframe Shell */}
+                <mesh scale={[1.1, 1.1, 1.1]}>
+                    <dodecahedronGeometry args={[0.4, 0]} />
+                    <meshBasicMaterial
+                        color={color}
+                        wireframe
+                        transparent
+                        opacity={0.3}
+                    />
+                </mesh>
+            </group>
 
             {/* Floating Label */}
             <Html position={[0, 0.8, 0]} center distanceFactor={10} style={{ pointerEvents: 'none' }}>
@@ -142,7 +173,7 @@ const SkillNode = ({ position, skill, onSelect, isSelected }: any) => {
 const SceneContent = ({ activeCategory }: HolographicSkillChartProps) => {
     const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
     const groupRef = useRef<THREE.Group>(null);
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const isDark = resolvedTheme === 'dark';
 
     // Theme Colors
@@ -195,12 +226,32 @@ const SceneContent = ({ activeCategory }: HolographicSkillChartProps) => {
             <Float speed={2} rotationIntensity={0.2} floatIntensity={0.2}>
                 <Billboard>
                     <Html position={[0, 0, 0]} transform center>
-                        <div className="pointer-events-none text-center select-none">
-                            <div className={`${subTitleColor} text-xs font-mono tracking-[0.2em] opacity-80 uppercase mb-2`}>System Active</div>
-                            <div className={`${titleColor} text-xl font-bold font-display tracking-widest drop-shadow-lg`}>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.5, y: -20 }}
+                            transition={{
+                                duration: 0.5,
+                                ease: "backOut",
+                                type: "spring",
+                                stiffness: 200
+                            }}
+                            className="pointer-events-none text-center select-none"
+                        >
+                            <motion.div
+                                animate={{
+                                    textShadow: [
+                                        "0 0 10px rgba(0,240,255,0.5)",
+                                        "0 0 20px rgba(0,240,255,0.8)",
+                                        "0 0 10px rgba(0,240,255,0.5)"
+                                    ]
+                                }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                                className={`${titleColor} text-xl font-bold font-display tracking-widest drop-shadow-lg`}
+                            >
                                 {activeCategory.titleKey.replace('Skills.', '')}
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </Html>
                 </Billboard>
             </Float>
@@ -218,7 +269,6 @@ const SceneContent = ({ activeCategory }: HolographicSkillChartProps) => {
 };
 
 const HolographicSkillChart: React.FC<HolographicSkillChartProps> = (props) => {
-    const { theme, resolvedTheme } = useTheme();
     // Using Tailwind to handle Light/Dark UI text, but 3D needs internal logic
     return (
         <div className="w-full h-[600px] relative">
@@ -226,7 +276,6 @@ const HolographicSkillChart: React.FC<HolographicSkillChartProps> = (props) => {
                 <div className="w-6 h-6 border border-current rounded-full flex items-center justify-center">
                     <div className="w-1 h-1 bg-current rounded-full animate-ping" />
                 </div>
-                Interactive Hologram
             </div>
 
             <Canvas camera={{ position: [0, 2, 8], fov: 45 }} dpr={[1, 2]} gl={{ alpha: true }}>
