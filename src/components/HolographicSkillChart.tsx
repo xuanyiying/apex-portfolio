@@ -1,0 +1,306 @@
+'use client';
+
+import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Html, Float, MeshDistortMaterial, Billboard } from '@react-three/drei';
+import * as THREE from 'three';
+import { useTheme } from 'next-themes';
+
+interface Skill {
+    name: string;
+    level: number;
+    color: string;
+}
+
+interface SkillCategory {
+    titleKey: string;
+    skills: Skill[];
+}
+
+interface HolographicSkillChartProps {
+    activeCategory: SkillCategory;
+}
+
+// Generate a unique, vibrant HSL color for each skill
+const getUniqueVibrantColor = (skillName: string, colorClass: string) => {
+    let hue = 0;
+    const lowerClass = colorClass.toLowerCase();
+
+    // Determine Base Hue from Tailwind class hint
+    if (lowerClass.includes('red')) hue = 0;
+    else if (lowerClass.includes('orange')) hue = 30;
+    else if (lowerClass.includes('yellow')) hue = 50;
+    else if (lowerClass.includes('lime')) hue = 80;
+    else if (lowerClass.includes('green')) hue = 120;
+    else if (lowerClass.includes('emerald')) hue = 150;
+    else if (lowerClass.includes('teal')) hue = 170;
+    else if (lowerClass.includes('cyan')) hue = 190;
+    else if (lowerClass.includes('sky')) hue = 210;
+    else if (lowerClass.includes('blue')) hue = 240;
+    else if (lowerClass.includes('indigo')) hue = 260;
+    else if (lowerClass.includes('violet')) hue = 280;
+    else if (lowerClass.includes('purple')) hue = 290;
+    else if (lowerClass.includes('fuchsia')) hue = 300;
+    else if (lowerClass.includes('pink')) hue = 330;
+    else if (lowerClass.includes('rose')) hue = 350;
+    else {
+        // Fallback for gray/black -> Random vibrant hue
+        let hash = 0;
+        for (let i = 0; i < skillName.length; i++) {
+            hash = skillName.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        hue = Math.abs(hash % 360);
+    }
+
+    // Add deterministic variation based on name
+    let nameHash = 0;
+    for (let i = 0; i < skillName.length; i++) {
+        nameHash = skillName.charCodeAt(i) + ((nameHash << 5) - nameHash);
+    }
+    const hueVariation = (nameHash % 40) - 20;
+    const finalHue = (hue + hueVariation + 360) % 360;
+
+    // Force High Saturation and High Lightness
+    const saturation = 85 + (Math.abs(nameHash) % 15);
+    const lightness = 65 + (Math.abs(nameHash) % 15);
+
+    return `hsl(${finalHue}, ${saturation}%, ${lightness}%)`;
+};
+
+const SkillNode = ({ position, skill, onSelect, isSelected }: any) => {
+    const meshRef = useRef<THREE.Mesh>(null);
+    const glowRef = useRef<THREE.Mesh>(null);
+    const [hovered, setHovered] = useState(false);
+
+    const color = useMemo(() => {
+        return getUniqueVibrantColor(skill.name, skill.color);
+    }, [skill.name, skill.color]);
+
+    useFrame((state, delta) => {
+        if (meshRef.current) {
+            meshRef.current.rotation.x += delta;
+            meshRef.current.rotation.y += delta;
+
+            const targetScale = hovered || isSelected ? 1.5 : 1;
+            meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+        }
+
+        if (glowRef.current) {
+            const scale = 1.2 + Math.sin(state.clock.elapsedTime * 2) * 0.1;
+            glowRef.current.scale.set(scale, scale, scale);
+        }
+    });
+
+    return (
+        <group position={position}>
+            {/* Inner Glowing Core */}
+            <mesh ref={meshRef}>
+                <sphereGeometry args={[0.25, 32, 32]} />
+                <meshStandardMaterial
+                    color={color}
+                    emissive={color}
+                    emissiveIntensity={3}
+                    toneMapped={false}
+                />
+            </mesh>
+
+            {/* Outer Wireframe Shell */}
+            <mesh scale={[1.1, 1.1, 1.1]}>
+                <dodecahedronGeometry args={[0.4, 0]} />
+                <meshBasicMaterial
+                    color={color}
+                    wireframe
+                    transparent
+                    opacity={0.3}
+                />
+            </mesh>
+
+            {/* Rotating Tech Ring */}
+            <mesh rotation={[Math.PI / 3, 0, 0]}>
+                <torusGeometry args={[0.6, 0.02, 16, 32]} />
+                <meshBasicMaterial color={color} transparent opacity={0.6} blending={THREE.AdditiveBlending} />
+            </mesh>
+
+            {/* Distorted Field (Atmosphere) */}
+            <mesh scale={[1.2, 1.2, 1.2]}>
+                <sphereGeometry args={[0.35, 32, 32]} />
+                <MeshDistortMaterial
+                    color={color}
+                    transparent
+                    opacity={0.1}
+                    distort={0.4}
+                    speed={3}
+                    roughness={0}
+                />
+            </mesh>
+
+            {/* Glow Halo */}
+            <mesh ref={glowRef}>
+                <sphereGeometry args={[0.45, 16, 16]} />
+                <meshBasicMaterial color={color} transparent opacity={0.15} depthWrite={false} />
+            </mesh>
+
+            {/* Floating Label */}
+            <Html position={[0, 0.8, 0]} center distanceFactor={10} style={{ pointerEvents: 'none' }}>
+                <div className={`transition-all duration-300 ${hovered || isSelected ? 'opacity-100 scale-100' : 'opacity-60 scale-90'}`}>
+                    <div className="bg-black/80 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-lg flex flex-col items-center min-w-[100px]">
+                        <span className="text-white text-xs font-bold whitespace-nowrap">{skill.name}</span>
+                        <div className="w-full h-1 bg-gray-800 rounded-full mt-1 overflow-hidden">
+                            <div className="h-full bg-white" style={{ width: `${skill.level}%`, backgroundColor: color }} />
+                        </div>
+                    </div>
+                </div>
+            </Html>
+        </group>
+    );
+};
+
+const HolographicBase = () => {
+    const { theme, resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === 'dark';
+
+    // Theme Colors
+    const baseColor = isDark ? "#00F0FF" : "#2563EB"; // Neon Cyan vs Royal Blue
+    const coreColor = isDark ? "#A855F7" : "#4F46E5"; // Purple vs Indigo
+
+    return (
+        <group position={[0, -4, 0]}>
+            {/* Liquid Metal Central Base */}
+            <mesh position={[0, 2, 0]} scale={[2, 1, 2]}>
+                <sphereGeometry args={[1, 64, 64]} />
+                <MeshDistortMaterial
+                    color={baseColor}
+                    envMapIntensity={1}
+                    clearcoat={1}
+                    clearcoatRoughness={0}
+                    metalness={0.9}
+                    roughness={0.1}
+                    distort={0.4}
+                    speed={2}
+                />
+            </mesh>
+
+            {/* Soft Glow Floor */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.1, 0]}>
+                <ringGeometry args={[0, 6, 64]} />
+                <meshBasicMaterial
+                    color={baseColor}
+                    transparent
+                    opacity={isDark ? 0.1 : 0.05}
+                    side={THREE.DoubleSide}
+                />
+            </mesh>
+
+            {/* Orbiting Rings */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]}>
+                <ringGeometry args={[4.4, 4.5, 64]} />
+                <meshBasicMaterial color={baseColor} transparent opacity={isDark ? 0.3 : 0.2} side={THREE.DoubleSide} />
+            </mesh>
+            <mesh rotation={[-Math.PI / 2, 0, 0]}>
+                <ringGeometry args={[3, 3.05, 64]} />
+                <meshBasicMaterial color={coreColor} transparent opacity={isDark ? 0.2 : 0.1} side={THREE.DoubleSide} />
+            </mesh>
+        </group>
+    );
+};
+
+const SceneContent = ({ activeCategory }: HolographicSkillChartProps) => {
+    const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+    const groupRef = useRef<THREE.Group>(null);
+    const { theme, resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === 'dark';
+
+    // Theme Colors
+    const ambientIntensity = isDark ? 0.5 : 1.5; // Brighter in light mode
+    const spotColor = isDark ? "#00F0FF" : "#3B82F6";
+    const pointColor = isDark ? "#7000FF" : "#6366F1";
+    const titleColor = isDark ? "text-white" : "text-slate-800";
+    const subTitleColor = isDark ? "text-cyber-cyan" : "text-blue-600";
+
+    useEffect(() => {
+        setSelectedSkill(null);
+    }, [activeCategory]);
+
+    useFrame(() => {
+        if (groupRef.current) {
+            groupRef.current.rotation.y += 0.002;
+        }
+    });
+
+    const skills = activeCategory.skills;
+    const radius = 3.5;
+
+    return (
+        <>
+            <ambientLight intensity={ambientIntensity} />
+            <pointLight position={[10, 10, 10]} intensity={1} color={spotColor} />
+            <pointLight position={[-10, 5, -10]} intensity={0.5} color={pointColor} />
+
+            <HolographicBase />
+
+            <group ref={groupRef}>
+                {skills.map((skill, index) => {
+                    const angle = (index / skills.length) * Math.PI * 2;
+                    const x = Math.cos(angle) * radius;
+                    const z = Math.sin(angle) * radius;
+                    const y = Math.sin(angle * 2) * 1.5;
+
+                    return (
+                        <SkillNode
+                            key={skill.name}
+                            skill={skill}
+                            index={index}
+                            total={skills.length}
+                            position={[x, y, z]}
+                            isSelected={selectedSkill?.name === skill.name}
+                            onSelect={setSelectedSkill}
+                        />
+                    );
+                })}
+            </group>
+
+            <Float speed={2} rotationIntensity={0.2} floatIntensity={0.2}>
+                <Billboard>
+                    <Html position={[0, 0, 0]} transform center>
+                        <div className="pointer-events-none text-center select-none">
+                            <div className={`${subTitleColor} text-xs font-mono tracking-[0.2em] opacity-80 uppercase mb-2`}>System Active</div>
+                            <div className={`${titleColor} text-xl font-bold font-display tracking-widest drop-shadow-lg`}>
+                                {activeCategory.titleKey.replace('Skills.', '')}
+                            </div>
+                        </div>
+                    </Html>
+                </Billboard>
+            </Float>
+
+            <OrbitControls
+                enablePan={false}
+                enableZoom={false}
+                minPolarAngle={Math.PI / 4}
+                maxPolarAngle={Math.PI / 2}
+                autoRotate={!selectedSkill}
+                autoRotateSpeed={0.5}
+            />
+        </>
+    );
+};
+
+const HolographicSkillChart: React.FC<HolographicSkillChartProps> = (props) => {
+    const { theme, resolvedTheme } = useTheme();
+    // Using Tailwind to handle Light/Dark UI text, but 3D needs internal logic
+    return (
+        <div className="w-full h-[600px] relative">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-cyber-cyan/50 dark:text-cyber-cyan/50 text-blue-500/50 text-[10px] uppercase tracking-widest pointer-events-none z-10 flex flex-col items-center gap-1">
+                <div className="w-6 h-6 border border-current rounded-full flex items-center justify-center">
+                    <div className="w-1 h-1 bg-current rounded-full animate-ping" />
+                </div>
+                Interactive Hologram
+            </div>
+
+            <Canvas camera={{ position: [0, 2, 8], fov: 45 }} dpr={[1, 2]} gl={{ alpha: true }}>
+                <SceneContent {...props} />
+            </Canvas>
+        </div>
+    );
+};
+
+export default HolographicSkillChart;

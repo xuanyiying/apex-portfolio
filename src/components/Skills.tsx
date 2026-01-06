@@ -5,12 +5,12 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import {
   Code2, Server, Database, Cloud,
-  Terminal, 
-  Layout, Cpu, 
+  Terminal,
+  Layout, Cpu,
   Pause, Play
 } from 'lucide-react';
 import { skills, skillCategories } from '@/data';
-import CircularSkillChart from './CircularSkillChart';
+import HolographicSkillChart from './HolographicSkillChart';
 
 interface SkillCategory {
   icon: typeof Code2;
@@ -126,7 +126,7 @@ export default function Skills() {
         const nextIndex = (currentIndex + 1) % skillCategories.length;
         return skillCategories[nextIndex];
       });
-    }, 4000); // 每4秒切换一次
+    }, 5000); // Slower interval for 3D view
 
     return () => clearInterval(interval);
   }, [isAutoRotating]);
@@ -141,7 +141,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="relative py-20 sm:py-32">
+    <section id="skills" className="relative py-20 sm:py-32 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-cyan/5 to-transparent pointer-events-none" />
 
@@ -152,43 +152,33 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8"
         >
           <h2 className="section-title">{t('Skills.title')}</h2>
           <p className="section-subtitle mx-auto">{t('Skills.subtitle')}</p>
         </motion.div>
 
         <motion.div
-          key="orbital"
-          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          key="holographic"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.8 }}
           className="flex flex-col items-center"
         >
-          {/* Category Selector for Orbital View */}
-          <div className="flex flex-col items-center gap-8 mb-4">
-            <div className="flex flex-wrap justify-center gap-3">
+          {/* Category Selector */}
+          <div className="flex flex-col items-center gap-6 mb-4 relative z-20">
+            <div className="flex flex-wrap justify-center gap-2">
               {skillCategories.map((category) => (
                 <button
                   key={category}
                   onClick={() => handleCategoryManualSelect(category)}
-                  className={`relative px-6 py-2 rounded-xl text-sm font-display transition-all duration-300 overflow-hidden group ${activeCategory === category
-                    ? 'text-cyber-cyan shadow-[0_0_20px_rgb(var(--cyber-cyan)/0.2)]'
-                    : 'text-muted-foreground hover:text-foreground'
+                  className={`relative px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 overflow-hidden group border ${activeCategory === category
+                    ? 'text-black bg-cyber-cyan border-cyber-cyan shadow-[0_0_15px_rgb(var(--cyber-cyan)/0.5)]'
+                    : 'text-muted-foreground border-white/10 bg-black/40 hover:border-cyber-cyan/50 hover:text-white'
                     }`}
                 >
-                  <div className={`absolute inset-0 rounded-xl border transition-all duration-300 ${activeCategory === category
-                    ? 'border-cyber-cyan bg-cyber-cyan/10'
-                    : 'border-border/50 bg-muted/20 group-hover:border-cyber-cyan/50'
-                    }`} />
                   <span className="relative z-10">{t(skillCategoryTitles[category])}</span>
-                  {activeCategory === category && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-0 rounded-xl bg-cyber-cyan/5 -z-10"
-                    />
-                  )}
                 </button>
               ))}
             </div>
@@ -196,59 +186,44 @@ export default function Skills() {
             {/* Auto-rotate toggle */}
             <button
               onClick={toggleAutoRotate}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-full border text-[10px] font-mono transition-all duration-300 ${isAutoRotating
-                ? 'border-cyber-cyan/50 text-cyber-cyan bg-cyber-cyan/10 shadow-[0_0_10px_rgb(var(--cyber-cyan)/0.2)]'
-                : 'border-border/50 text-muted-foreground hover:border-cyber-cyan/30'
+              className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-mono transition-all duration-300 ${isAutoRotating
+                ? 'border-cyber-cyan/50 text-cyber-cyan bg-cyber-cyan/10'
+                : 'border-white/10 text-muted-foreground hover:border-white/30'
                 }`}
             >
               {isAutoRotating ? (
                 <>
-                  <motion.div
-                    animate={{ opacity: [1, 0.5, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <Pause className="w-3 h-3" />
-                  </motion.div>
-                  <span className="tracking-wider">AUTOSCAN ACTIVE</span>
+                  <Pause className="w-3 h-3" />
+                  <span>Cycle Active</span>
                 </>
               ) : (
                 <>
                   <Play className="w-3 h-3" />
-                  <span className="tracking-wider">AUTOSCAN PAUSED</span>
+                  <span>Cycle Paused</span>
                 </>
               )}
             </button>
           </div>
 
-          <div className="w-full flex justify-center items-center py-4 min-h-[550px]">
-            <CircularSkillChart activeCategory={skillCategoriesData[skillCategories.indexOf(activeCategory)] || skillCategoriesData[0]} />
+          <div className="w-full flex justify-center items-center -mt-10">
+            <HolographicSkillChart activeCategory={skillCategoriesData[skillCategories.indexOf(activeCategory)] || skillCategoriesData[0]} />
           </div>
         </motion.div>
 
-        {/* Floating badges */}
+        {/* Floating badges (Fallback/Accessibility) */}
         <motion.div
-          className="flex flex-wrap justify-center gap-3 mt-16 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="flex flex-wrap justify-center gap-2 mt-8 max-w-5xl mx-auto opacity-60 hover:opacity-100 transition-opacity"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.6 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
         >
-          {skills.slice(0, 15).map((skill, index) => (
-            <motion.span
+          {skills.map((skill) => (
+            <span
               key={skill.name}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 + index * 0.05 }}
-              whileHover={{
-                scale: 1.1,
-                backgroundColor: "rgba(var(--cyber-cyan), 0.15)",
-                borderColor: "rgba(var(--cyber-cyan), 0.5)",
-                boxShadow: "0 0 15px rgba(var(--cyber-cyan), 0.2)"
-              }}
-              className="px-4 py-1.5 bg-muted/20 border border-white/5 rounded-full text-xs font-mono text-muted-foreground transition-all duration-300 cursor-default backdrop-blur-sm"
+              className="px-2 py-1 text-[10px] text-muted-foreground/50 font-mono"
             >
               {skill.name}
-            </motion.span>
+            </span>
           ))}
         </motion.div>
       </div>

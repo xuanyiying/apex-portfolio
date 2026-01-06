@@ -109,15 +109,6 @@ export default function Navigation() {
                 <span className="font-mono text-sm text-muted-foreground">{locale === 'zh' ? 'EN' : 'ZH'}</span>
               </motion.button>
 
-              <motion.button
-                onClick={() => scrollToSection('contact')}
-                className="hidden sm:block btn-primary text-sm"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {t('Nav.contact')}
-              </motion.button>
-
               {/* Mobile Menu Button */}
               <motion.button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -189,16 +180,6 @@ export default function Navigation() {
                   </motion.button>
                 ))}
               </div>
-
-              <motion.button
-                onClick={() => scrollToSection('contact')}
-                className="mt-12 w-full btn-primary"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                {t('Nav.contact')}
-              </motion.button>
             </motion.div>
           </motion.div>
         )}

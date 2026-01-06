@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial, Float, GradientTexture } from '@react-three/drei';
+import { OrbitControls, Sphere, MeshDistortMaterial, Float, GradientTexture, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 import { useLanguage } from '@/lib/LanguageContext';
 import { Github, Mail } from 'lucide-react';
@@ -21,40 +21,47 @@ function AnimatedSphere() {
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.1;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.15;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
     }
   });
 
   if (!mounted) return null;
 
   const currentTheme = resolvedTheme || theme;
+
+  // Vibrant Cyberpunk Colors
   const colors = currentTheme === 'light'
-    ? ['#2DD4BF', '#A855F7'] // Lighter Cyan/Teal to Lighter Purple (Light)
-    : ['#00F0FF', '#7000FF']; // Cyber Cyan to Cyber Purple (Dark)
+    ? ['#00B4D8', '#7209B7', '#F72585'] // Cyan -> Purple -> Pink (Light)
+    : ['#00F0FF', '#7000FF', '#FF0080']; // Cyber Cyan -> Cyber Purple -> Neon Pink (Dark)
 
   return (
     <Float
-      speed={2}
-      rotationIntensity={1.5}
+      speed={4}
+      rotationIntensity={1}
       floatIntensity={2}
     >
-      <Sphere args={[1, 128, 128]} ref={meshRef} scale={1.4}>
+      <Sphere args={[1, 256, 256]} ref={meshRef} scale={1.8}>
         <MeshDistortMaterial
-          distort={0.3}
-          speed={2}
-          roughness={0.1}
-          metalness={0.1}
+          distort={0.4}
+          speed={3}
+          roughness={0.2}
+          metalness={0.8}
+          bumpScale={0.05}
         >
           <GradientTexture
-            stops={[0, 1]}
+            stops={[0, 0.5, 1]}
             colors={colors}
             size={1024}
           />
         </MeshDistortMaterial>
       </Sphere>
+
+      {/* Surrounding Particles/Stars for depth */}
+      <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={2} />
+
       {/* Inner glow light */}
-      <pointLight intensity={currentTheme === 'light' ? 10 : 20} color={colors[0]} />
+      <pointLight intensity={5} distance={10} color={colors[0]} />
     </Float>
   );
 }
@@ -70,25 +77,23 @@ function HeroScene() {
   if (!mounted) return null;
 
   const currentTheme = resolvedTheme || theme;
-  const lightIntensity = currentTheme === 'light' ? 1 : 1.5;
-  const ambientIntensity = currentTheme === 'light' ? 0.6 : 0.4;
+  const lightIntensity = currentTheme === 'light' ? 1.2 : 2;
 
   return (
-    <div className="w-full h-full min-h-[300px] lg:min-h-[400px]">
+    <div className="w-full h-full min-h-[400px] lg:min-h-[500px]">
       <Canvas
         key={currentTheme}
-        camera={{ position: [0, 0, 4.5], fov: 45 }}
+        camera={{ position: [0, 0, 6], fov: 45 }}
         dpr={[1, 2]}
       >
-        <ambientLight intensity={ambientIntensity} />
-        {/* Main directional lighting for highlights */}
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={lightIntensity} />
-        <pointLight position={[-10, -10, -10]} intensity={lightIntensity * 0.5} color="#7000FF" />
-        {/* Rim light effect */}
-        <pointLight position={[0, 0, 5]} intensity={lightIntensity * 0.8} color="#00F0FF" />
+        <ambientLight intensity={0.5} />
+        {/* Dynamic colored lights */}
+        <spotLight position={[10, 10, 10]} angle={0.3} penumbra={1} intensity={lightIntensity} color="#00F0FF" />
+        <pointLight position={[-10, -10, -10]} intensity={lightIntensity} color="#7000FF" />
+        <pointLight position={[0, 5, 0]} intensity={lightIntensity} color="#FF0080" />
 
         <AnimatedSphere />
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={1} />
       </Canvas>
     </div>
   );
@@ -97,30 +102,15 @@ function HeroScene() {
 export default function Hero() {
   const { t, locale } = useLanguage();
   const heroContent = locale === 'zh' ? heroContentZh : heroContentEn;
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const roles = ['Full Stack Developer', 'UI Designer', 'Tech Enthusiast'];
-  const [currentRole, setCurrentRole] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
+
+  const roles = ['Full Stack Developer', 'UI/UX Designer', 'Creative Technologist'];
+  const [currentRole, setCurrentRole] = useState(0);
 
   useEffect(() => {
     const role = roles[currentRole];
     let index = 0;
     setDisplayedText('');
-    setIsTyping(true);
 
     const typeInterval = setInterval(() => {
       if (index <= role.length) {
@@ -128,90 +118,64 @@ export default function Hero() {
         index++;
       } else {
         clearInterval(typeInterval);
-        setIsTyping(false);
         setTimeout(() => {
           setCurrentRole((prev) => (prev + 1) % roles.length);
         }, 2000);
       }
-    }, 100);
+    }, 80);
 
     return () => clearInterval(typeInterval);
   }, [currentRole]);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden cyber-grid-bg">
-      {/* 3D Background */}
-      <div className="absolute inset-0 z-0 opacity-30 lg:opacity-40">
-        <HeroScene />
-      </div>
+      {/* Background Glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyber-purple/20 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyber-cyan/20 blur-[100px] rounded-full pointer-events-none" />
 
-      {/* Animated background elements */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-cyber-cyan/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-cyber-purple/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </div>
-
-      {/* Grid lines */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-center lg:text-left"
           >
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 bg-cyber-cyan/10 border border-cyber-cyan/20 rounded-full mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-[0_0_15px_rgba(0,240,255,0.2)]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <span className="w-2 h-2 bg-cyber-cyan rounded-full animate-pulse" />
-              <span className="text-cyber-cyan text-sm font-mono">Available for hire</span>
+              <span className="w-2 h-2 bg-cyber-cyan rounded-full animate-pulse shadow-[0_0_10px_#00F0FF]" />
+              <span className="text-cyber-cyan text-sm font-mono tracking-wider">OPEN FOR OPPORTUNITIES</span>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold mb-4">
-              <span className="text-muted-foreground">{t('Hero.greeting')}</span>
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black mb-6 tracking-tighter leading-[1.1]">
+              <span className="text-inherit opacity-80">{t('Hero.greeting')}</span>
               <br />
-              <span className="bg-gradient-to-r from-foreground via-cyber-cyan to-cyber-purple bg-clip-text text-transparent">
+              <span className="animate-gradient-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-pink bg-clip-text text-transparent">
                 {heroContent.name}
               </span>
             </h1>
 
             <motion.div
-              className="text-2xl sm:text-3xl font-mono text-cyber-cyan mb-6 h-8"
+              className="text-2xl sm:text-3xl font-mono text-cyber-cyan mb-8 h-8 flex items-center justify-center lg:justify-start"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              {displayedText}
+              <span>{displayedText}</span>
               <motion.span
-                className="inline-block w-1 h-6 bg-cyber-cyan ml-1"
+                className="inline-block w-3 h-8 bg-cyber-pink ml-2"
                 animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 0.8, repeat: Infinity }}
+                transition={{ duration: 0.5, repeat: Infinity }}
               />
             </motion.div>
 
             <motion.p
-              className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed"
+              className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed font-light"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -219,85 +183,47 @@ export default function Hero() {
               {heroContent.description}
             </motion.p>
 
-            {/* Social links */}
+            {/* Buttons */}
             <motion.div
-              className="flex items-center gap-4"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
             >
-              {[
-                { icon: Github, href: heroContent.socialLinks.github },
-                { icon: Mail, href: `mailto:${heroContent.email}` },
-              ].map((social) => (
-                <motion.a
-                  key={social.href}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center bg-muted/20 border border-border rounded-xl text-muted-foreground hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300"
-                  whileHover={{ scale: 1.1, y: -3 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <social.icon className="w-5 h-5" />
-                </motion.a>
-              ))}
+              <a href="#projects" className="btn-primary">
+                View Work
+              </a>
+              <div className="flex gap-3">
+                {[
+                  { icon: Github, href: heroContent.socialLinks.github },
+                  { icon: Mail, href: `mailto:${heroContent.email}` },
+                ].map((social) => (
+                  <motion.a
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-14 h-14 flex items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white hover:bg-cyber-cyan hover:text-black hover:border-cyber-cyan transition-all duration-300 backdrop-blur-sm"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <social.icon className="w-6 h-6" />
+                  </motion.a>
+                ))}
+              </div>
             </motion.div>
           </motion.div>
 
           {/* Right content - 3D visual */}
           <motion.div
-            className="hidden lg:block relative"
+            className="hidden lg:block relative h-[600px] w-full"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="relative w-full aspect-square">
-              {/* Main 3D HeroScene in foreground */}
-              <div className="absolute inset-0 z-10">
-                <HeroScene />
-              </div>
-
-              {/* Decorative elements */}
-              <motion.div
-                className="absolute inset-0 border border-cyber-cyan/20 rounded-full"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              />
-              <motion.div
-                className="absolute inset-10 border border-cyber-purple/20 rounded-full"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-              />
-
-              {/* Center glow */}
-              <motion.div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-cyber-cyan/30 to-cyber-purple/30 rounded-full blur-3xl"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              />
-            </div>
+            <HeroScene />
           </motion.div>
         </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <span className="text-sm text-muted-foreground">{t('Hero.scrollHint')}</span>
-          <motion.div
-            className="w-6 h-10 border-2 border-border/50 rounded-full flex justify-center pt-2"
-          >
-            <motion.div
-              className="w-1.5 h-3 bg-cyber-cyan rounded-full"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );
