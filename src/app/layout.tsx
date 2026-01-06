@@ -1,7 +1,21 @@
 import type { Metadata } from 'next';
+import { Outfit, Orbitron } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/lib/ThemeProvider';
 import { heroContent } from '@/data';
+import CustomCursor from '@/components/CustomCursor';
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: `${heroContent.name} | ${heroContent.title}`,
@@ -21,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className={`scroll-smooth ${outfit.variable} ${orbitron.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
@@ -29,6 +43,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <CustomCursor />
           <div className="noise-overlay" />
           {children}
         </ThemeProvider>

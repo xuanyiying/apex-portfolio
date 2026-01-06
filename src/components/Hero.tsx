@@ -9,6 +9,7 @@ import { useLanguage } from '@/lib/LanguageContext';
 import { Github, Mail } from 'lucide-react';
 import { heroContentEn, heroContentZh } from '@/data';
 import { useTheme } from 'next-themes';
+import GlitchText from './GlitchText';
 
 function AnimatedSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -137,12 +138,13 @@ export default function Hero() {
               <span className="w-2 h-2 bg-cyber-cyan rounded-full animate-pulse shadow-[0_0_10px_#00F0FF]" />
             </motion.div>
 
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black mb-6 tracking-tighter leading-[1.1]">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 tracking-tighter leading-[1.1]">
               <span className="text-inherit opacity-80">{t('Hero.greeting')}</span>
               <br />
-              <span className="animate-gradient-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-pink bg-clip-text text-transparent">
-                {heroContent.name}
-              </span>
+              <GlitchText
+                text={heroContent.name}
+                className="animate-gradient-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-pink bg-clip-text text-transparent"
+              />
             </h1>
 
             <motion.div

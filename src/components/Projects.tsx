@@ -132,7 +132,7 @@ export default function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {filteredProjects.map((project, index) => {
             const projectColor = getProjectColor(index);
@@ -140,11 +140,31 @@ export default function Projects() {
               <motion.div
                 key={project.id}
                 variants={itemVariants}
-                className="glass-card overflow-hidden group cursor-pointer"
+                className="group relative bg-background/30 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-cyber-cyan/50"
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
                 whileHover={{ y: -5 }}
               >
+                {/* Tech Hover Border / Corners */}
+                <div className="absolute inset-0 pointer-events-none z-30">
+                  {/* Top Left */}
+                  <svg className="absolute top-0 left-0 w-8 h-8 text-cyber-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 32 32">
+                    <path d="M0,0 L32,0 L32,2 L2,2 L2,32 L0,32 Z" fill="currentColor" />
+                  </svg>
+                  {/* Top Right */}
+                  <svg className="absolute top-0 right-0 w-8 h-8 text-cyber-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 32 32">
+                    <path d="M0,0 L32,0 L32,32 L30,32 L30,2 L0,2 Z" fill="currentColor" />
+                  </svg>
+                  {/* Bottom Left */}
+                  <svg className="absolute bottom-0 left-0 w-8 h-8 text-cyber-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 32 32">
+                    <path d="M0,32 L0,0 L2,0 L2,30 L32,30 L32,32 Z" fill="currentColor" />
+                  </svg>
+                  {/* Bottom Right */}
+                  <svg className="absolute bottom-0 right-0 w-8 h-8 text-cyber-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 32 32">
+                    <path d="M32,32 L0,32 L0,30 L30,30 L30,0 L32,0 Z" fill="currentColor" />
+                  </svg>
+                </div>
+
                 {/* Image container */}
                 <div className="relative h-56 overflow-hidden">
                   <motion.img
@@ -159,7 +179,7 @@ export default function Projects() {
                   {/* Featured badge */}
                   {project.featured && (
                     <motion.div
-                      className="absolute top-4 left-4 z-20 px-3 py-1 bg-cyber-cyan text-black text-xs font-bold rounded-full"
+                      className="absolute top-4 left-4 z-20 px-3 py-1 bg-cyber-cyan text-black text-xs font-bold rounded-full font-display tracking-wider"
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
                     >
@@ -167,21 +187,24 @@ export default function Projects() {
                     </motion.div>
                   )}
 
-                  {/* Category badge - using first tag as category */}
-                  <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-background/50 backdrop-blur-sm border border-border rounded-full text-xs text-muted-foreground">
+                  {/* Category badge */}
+                  <div className="absolute top-4 right-4 z-20 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full text-xs text-white font-mono">
                     {project.tags[0] || 'Project'}
                   </div>
 
-                  {/* Hover overlay */}
+                  {/* Hover overlay - Holographic Scan */}
                   <motion.div
-                    className="absolute inset-0 z-20 flex items-center justify-center gap-4 bg-background/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 z-20 flex items-center justify-center gap-4 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
+                    {/* Scanline animation */}
+                    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.8)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20" />
+
                     {project.github && (
                       <motion.a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 flex items-center justify-center bg-muted/20 border border-border rounded-xl text-foreground hover:bg-cyber-cyan hover:text-black hover:border-cyber-cyan transition-all duration-300"
+                        className="relative z-30 w-12 h-12 flex items-center justify-center bg-black/50 border border-white/20 rounded-xl text-white hover:bg-cyber-cyan hover:text-black hover:border-cyber-cyan transition-all duration-300"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -193,7 +216,7 @@ export default function Projects() {
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 flex items-center justify-center bg-cyber-cyan/20 border border-cyber-cyan/30 rounded-xl text-cyber-cyan hover:bg-cyber-cyan hover:text-black transition-all duration-300"
+                        className="relative z-30 w-12 h-12 flex items-center justify-center bg-cyber-cyan/10 border border-cyber-cyan/50 rounded-xl text-cyber-cyan hover:bg-cyber-cyan hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(var(--cyber-cyan),0.3)]"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -204,27 +227,30 @@ export default function Projects() {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-display font-bold text-xl group-hover:text-cyber-cyan transition-colors duration-300">
+                <div className="p-6 relative">
+                  {/* Floating slight glow behind text area */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                  <div className="flex items-center justify-between mb-3 relative z-10">
+                    <h3 className="font-display font-bold text-xl group-hover:text-cyber-cyan transition-colors duration-300 tracking-tight">
                       {project.title}
                     </h3>
                     <div className="flex items-center gap-3 text-xs text-muted-foreground">
                       {project.stars > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Zap className="w-3 h-3 text-yellow-400" />
+                        <div className="flex items-center gap-1 font-mono text-yellow-400">
+                          <Zap className="w-3 h-3" />
                           <span>{project.stars}</span>
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <p className="text-muted-foreground text-sm mb-6 line-clamp-2 h-10">
+                  <p className="text-muted-foreground text-sm mb-6 line-clamp-2 h-10 relative z-10 leading-relaxed">
                     {project.description}
                   </p>
 
                   {/* Architecture Grid */}
-                  <div className="grid grid-cols-2 gap-2 mb-6">
+                  <div className="grid grid-cols-2 gap-2 mb-6 relative z-10">
                     <ArchitectureBadge
                       icon={Layout}
                       title="Frontend"
@@ -235,66 +261,29 @@ export default function Projects() {
                       title="Backend"
                       items={project.architecture.backend.slice(0, 2)}
                     />
-                    <ArchitectureBadge
-                      icon={Database}
-                      title="Storage"
-                      items={project.architecture.database.slice(0, 2)}
-                    />
-                    <ArchitectureBadge
-                      icon={Activity}
-                      title="Infrastructure"
-                      items={project.architecture.devops.slice(0, 2)}
-                    />
-                  </div>
-
-                  {/* Quality Metrics */}
-                  <div className="space-y-3 mb-6 p-4 bg-muted/20 rounded-xl border border-border">
-                    <MetricBar
-                      label="Code Quality"
-                      value={project.metrics.codeQuality}
-                      color={projectColor}
-                    />
-                    <MetricBar
-                      label="API Architecture"
-                      value={project.metrics.apiDesign}
-                      color={projectColor}
-                    />
-                    <MetricBar
-                      label="Deployment Readiness"
-                      value={project.metrics.deployment}
-                      color={projectColor}
-                    />
                   </div>
 
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tech) => (
+                  <div className="flex flex-wrap gap-2 mb-4 relative z-10">
+                    {project.tags.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-0.5 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded text-[9px] text-cyber-cyan font-mono"
+                        className="px-2 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] text-gray-400 group-hover:text-cyber-cyan group-hover:border-cyber-cyan/30 transition-colors font-mono uppercase"
                       >
                         {tech}
                       </span>
                     ))}
+                    {project.tags.length > 4 && (
+                      <span className="px-2 py-0.5 text-[10px] text-gray-500 font-mono self-center">+{project.tags.length - 4}</span>
+                    )}
                   </div>
-
-                  {project.updatedAt && (
-                    <div className="flex items-center justify-between">
-                      <div className="text-[10px] text-muted-foreground font-mono">
-                        MODULAR ARCHITECTURE • VERIFIED
-                      </div>
-                      <div className="text-[10px] text-muted-foreground font-mono">
-                        {project.updatedAt}
-                      </div>
-                    </div>
-                  )}
                 </div>
 
-                {/* Glow effect on hover */}
+                {/* Internal Glow Light */}
                 <motion.div
-                  className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
+                  className={`absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0`}
                   style={{
-                    background: `radial-gradient(600px circle at center, rgb(var(--cyber-cyan) / 0.1), transparent 70%)`,
+                    background: `radial-gradient(400px circle at 50% 50%, rgba(var(--cyber-cyan), 0.15), transparent 60%)`,
                   }}
                 />
               </motion.div>
