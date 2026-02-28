@@ -9,37 +9,46 @@ const GsapAnimations = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     // Hero Text Animation
-    gsap.from(".gsap-hero-text", {
-      duration: 1.5,
-      y: 50,
-      opacity: 0,
-      stagger: 0.2,
-      ease: "power3.out",
-      delay: 0.2
-    });
+    const heroText = document.querySelectorAll(".gsap-hero-text");
+    if (heroText.length > 0) {
+      gsap.from(heroText, {
+        duration: 1.5,
+        y: 50,
+        opacity: 0,
+        stagger: 0.2,
+        ease: "power3.out",
+        delay: 0.2
+      });
+    }
 
     // Reveal animations for About section
-    gsap.from(".gsap-reveal-left", {
-      scrollTrigger: {
-        trigger: ".gsap-reveal-left",
-        start: "top 80%",
-      },
-      duration: 1,
-      x: -50,
-      opacity: 0,
-      ease: "power2.out"
-    });
+    const revealLeft = document.querySelectorAll(".gsap-reveal-left");
+    if (revealLeft.length > 0) {
+      gsap.from(revealLeft, {
+        scrollTrigger: {
+          trigger: ".gsap-reveal-left",
+          start: "top 80%",
+        },
+        duration: 1,
+        x: -50,
+        opacity: 0,
+        ease: "power2.out"
+      });
+    }
 
-    gsap.from(".gsap-reveal-right", {
-      scrollTrigger: {
-        trigger: ".gsap-reveal-right",
-        start: "top 80%",
-      },
-      duration: 1,
-      x: 50,
-      opacity: 0,
-      ease: "power2.out"
-    });
+    const revealRight = document.querySelectorAll(".gsap-reveal-right");
+    if (revealRight.length > 0) {
+      gsap.from(revealRight, {
+        scrollTrigger: {
+          trigger: ".gsap-reveal-right",
+          start: "top 80%",
+        },
+        duration: 1,
+        x: 50,
+        opacity: 0,
+        ease: "power2.out"
+      });
+    }
 
     // Fade up animations
     const fadeUpElements = document.querySelectorAll(".gsap-fade-up");

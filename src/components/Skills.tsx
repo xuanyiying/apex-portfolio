@@ -1,93 +1,20 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import {
   Code2, Server, Database, Cloud,
-  Terminal,
-  Layout, Cpu,
-  Pause, Play
+  Terminal, Layout, Cpu,
+  Zap, Activity, Cpu as Chip, Database as Db,
+  Globe, Lock, Zap as Lightning, Server as ServerIcon,
+  Layers, Box, Hash, Binary, Webhook
 } from 'lucide-react';
 import { skills, skillCategories } from '@/data';
-import HolographicSkillChart from './HolographicSkillChart';
+import { Canvas, useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 
-interface SkillCategory {
-  icon: typeof Code2;
-  titleKey: string;
-  skills: { name: string; level: number; color: string }[];
-}
-
-// 为技能分配颜色
-const getSkillColor = (skillName: string): string => {
-  const colorMap: { [key: string]: string } = {
-    'JavaScript': 'from-yellow-400 to-yellow-600',
-    'TypeScript': 'from-blue-500 to-indigo-500',
-    'React': 'from-blue-400 to-cyan-400',
-    'Next.js': 'from-gray-300 to-gray-700',
-    'Node.js': 'from-green-500 to-green-700',
-    'Python': 'from-yellow-600 to-blue-600',
-    'PostgreSQL': 'from-blue-600 to-blue-800',
-    'MongoDB': 'from-green-500 to-green-700',
-    'AWS': 'from-orange-400 to-orange-600',
-    'Docker': 'from-blue-400 to-blue-600',
-    'Git': 'from-orange-400 to-red-500',
-    'Tailwind': 'from-cyan-400 to-teal-400',
-    'Vue.js': 'from-green-400 to-emerald-500',
-    'Express': 'from-gray-600 to-black',
-    'GraphQL': 'from-pink-500 to-purple-500',
-    'Redux': 'from-purple-500 to-purple-700',
-    'Jest': 'from-red-400 to-red-600',
-    'Figma': 'from-purple-400 to-pink-500',
-    'UI/UX': 'from-pink-400 to-rose-500',
-    'UI/UX Design': 'from-pink-400 to-rose-500',
-    'SASS': 'from-pink-500 to-red-500',
-    'Webpack': 'from-blue-500 to-indigo-600',
-    'Jenkins': 'from-yellow-500 to-orange-600',
-    'K8s': 'from-blue-500 to-cyan-500',
-    'Redis': 'from-red-500 to-red-700',
-    'MySQL': 'from-blue-400 to-blue-600',
-    'C#': 'from-purple-500 to-purple-700',
-    'Java': 'from-red-500 to-red-700',
-    'Go': 'from-cyan-400 to-blue-500',
-    'NestJS': 'from-gray-700 to-black',
-    'Prisma': 'from-blue-400 to-cyan-400',
-    'Supabase': 'from-teal-400 to-cyan-400',
-    'Firebase': 'from-yellow-400 to-orange-400',
-    'Stripe': 'from-blue-400 to-blue-600',
-    'Twilio': 'from-purple-400 to-blue-400',
-    'Socket.io': 'from-indigo-400 to-purple-400',
-    'Three.js': 'from-orange-400 to-yellow-400',
-    'Framer Motion': 'from-purple-400 to-pink-500',
-    'Zustand': 'from-red-400 to-pink-400',
-    'TanStack Query': 'from-yellow-400 to-orange-400',
-    'React Hook Form': 'from-teal-400 to-cyan-400',
-    'Storybook': 'from-pink-400 to-rose-400',
-    'Cypress': 'from-cyan-400 to-blue-400',
-    'Vitest': 'from-green-400 to-emerald-400',
-    'Vercel': 'from-gray-200 to-gray-800',
-    'Netlify': 'from-green-500 to-teal-500',
-    'Terraform': 'from-purple-500 to-indigo-500',
-    'Linux': 'from-gray-600 to-black',
-    'CI/CD': 'from-blue-500 to-purple-500',
-    'Testing': 'from-green-400 to-teal-500',
-  };
-
-  return colorMap[skillName] || 'from-gray-400 to-gray-600';
-};
-
-// 将技能数据按类别分组
-const getSkillsByCategory = (category: string) => {
-  return skills
-    .filter(skill => skill.category === category)
-    .map(skill => ({
-      name: skill.name,
-      level: skill.level * 20, // 将1-5级别转换为0-100%
-      color: getSkillColor(skill.name)
-    }));
-};
-
-const skillCategoryIcons: { [key: string]: any } = {
+const skillCategoryIcons: { [key: string]: typeof Layout } = {
   'Frontend': Layout,
   'Backend': Server,
   'Database': Database,
@@ -105,126 +32,438 @@ const skillCategoryTitles: { [key: string]: string } = {
   'Cloud': 'Skills.cloud',
 };
 
-const skillCategoriesData: SkillCategory[] = skillCategories.map(category => ({
-  icon: skillCategoryIcons[category] || Code2,
-  titleKey: skillCategoryTitles[category] || 'Skills.other',
-  skills: getSkillsByCategory(category)
-}));
+const categoryConfig: { [key: string]: { primary: string; secondary: string; accent: string; icon: typeof Layout } } = {
+  'Frontend': { primary: '#00F0FF', secondary: '#3B82F6', accent: '#06B6D4', icon: Layout },
+  'Backend': { primary: '#B400FF', secondary: '#8B5CF6', accent: '#A855F7', icon: Server },
+  'Database': { primary: '#00FF88', secondary: '#10B981', accent: '#34D399', icon: Database },
+  'AI & LLM': { primary: '#FF0080', secondary: '#EC4899', accent: '#F472B6', icon: Cpu },
+  'DevOps': { primary: '#FF6B00', secondary: '#F97316', accent: '#FB923C', icon: Terminal },
+  'Cloud': { primary: '#6366F1', secondary: '#4F46E5', accent: '#818CF8', icon: Cloud },
+};
+
+const getSkillsByCategory = (category: string) => {
+  return skills.filter(skill => skill.category === category);
+};
+
+function HolographicNode({ position, skill, color, delay }: { 
+  position: [number, number, number]; 
+  skill: { name: string; level: number };
+  color: string;
+  delay: number;
+}) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const [hovered, setHovered] = useState(false);
+  
+  useFrame((state) => {
+    if (!meshRef.current) return;
+    const time = state.clock.getElapsedTime();
+    meshRef.current.position.y = position[1] + Math.sin(time * 2 + delay) * 0.1;
+    meshRef.current.rotation.y = time * 0.5;
+  });
+
+  return (
+    <group position={position}>
+      <mesh
+        ref={meshRef}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+      >
+        <octahedronGeometry args={[0.4, 0]} />
+        <meshBasicMaterial color={color} wireframe transparent opacity={hovered ? 1 : 0.7} />
+      </mesh>
+      {hovered && (
+        <mesh position={[0, 0.8, 0]}>
+          <sphereGeometry args={[0.15, 16, 16]} />
+          <meshBasicMaterial color={color} transparent opacity={0.8} />
+        </mesh>
+      )}
+    </group>
+  );
+}
+
+function HolographicScene({ activeCategory }: { activeCategory: string }) {
+  const categorySkills = getSkillsByCategory(activeCategory);
+  const config = categoryConfig[activeCategory] || categoryConfig['Frontend'];
+  
+  const nodes = useMemo(() => {
+    const radius = 3;
+    return categorySkills.map((skill, i) => {
+      const angle = (i / categorySkills.length) * Math.PI * 2;
+      const seed = i * 1234.5678;
+      return {
+        skill,
+        position: [
+          Math.cos(angle) * radius * (0.8 + (Math.sin(seed) * 0.4 + 0.5)),
+          Math.sin(i * 0.8) * 0.8,
+          Math.sin(angle) * radius * (0.8 + (Math.cos(seed) * 0.4 + 0.5))
+        ] as [number, number, number],
+        color: config.primary,
+      };
+    });
+  }, [activeCategory, categorySkills, config.primary]);
+
+  return (
+    <>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={1} color={config.primary} />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color={config.secondary} />
+      
+      <group rotation={[0, 0, 0]}>
+        {nodes.map((node, i) => (
+          <HolographicNode
+            key={node.skill.name}
+            position={node.position}
+            skill={node.skill}
+            color={node.color}
+            delay={i * 0.5}
+          />
+        ))}
+      </group>
+
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
+        <ringGeometry args={[2.5, 3, 64]} />
+        <meshBasicMaterial color={config.primary} transparent opacity={0.1} side={THREE.DoubleSide} />
+      </mesh>
+      
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
+        <ringGeometry args={[3.5, 3.6, 64]} />
+        <meshBasicMaterial color={config.secondary} transparent opacity={0.05} side={THREE.DoubleSide} />
+      </mesh>
+    </>
+  );
+}
+
+function SkillMatrix({ category, primaryColor }: { category: string; primaryColor: string }) {
+  const skills = getSkillsByCategory(category);
+  
+  return (
+    <div className="relative overflow-hidden rounded-xl bg-black/40 border border-white/10 p-4 min-h-[300px]">
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,240,255,0.03)_50%)] bg-[length:100%_4px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,240,255,0.02)_50%)] bg-[length:4px_100%]" />
+      </div>
+      
+      <div className="relative z-10 grid grid-cols-2 gap-3">
+        {skills.map((skill, index) => (
+          <motion.div
+            key={skill.name}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.05 }}
+            className="group flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors"
+          >
+            <div 
+              className="w-2 h-2 rounded-full animate-pulse"
+              style={{ backgroundColor: primaryColor, boxShadow: `0 0 10px ${primaryColor}` }}
+            />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-medium text-foreground truncate">{skill.name}</span>
+                <span className="text-[10px] font-mono" style={{ color: primaryColor }}>{skill.level * 20}%</span>
+              </div>
+              <div className="h-0.5 bg-white/10 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ backgroundColor: primaryColor }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${skill.level * 20}%` }}
+                  transition={{ delay: index * 0.05 + 0.2, duration: 0.6 }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      
+      <div className="absolute bottom-2 right-2 flex items-center gap-1 text-[10px] font-mono" style={{ color: primaryColor, opacity: 0.5 }}>
+        <Activity className="w-3 h-3" />
+        <span>{category} MODE</span>
+      </div>
+    </div>
+  );
+}
+
+function TerminalSkills({ category, primaryColor }: { category: string; primaryColor: string }) {
+  const skills = getSkillsByCategory(category);
+  
+  const commands = useMemo(() => {
+    return skills.map(skill => ({
+      cmd: `> skill.load("${skill.name}")`,
+      status: skill.level >= 4 ? 'READY' : skill.level >= 3 ? 'ACTIVE' : 'LOADING',
+      level: skill.level * 20
+    }));
+  }, [skills]);
+
+  return (
+    <div className="relative overflow-hidden rounded-xl bg-black/60 border border-white/10 font-mono text-xs">
+      <div className="flex items-center gap-2 px-4 py-2 border-b border-white/10 bg-white/5">
+        <div className="w-3 h-3 rounded-full bg-red-500/50" />
+        <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+        <div className="w-3 h-3 rounded-full bg-green-500/50" />
+        <span className="ml-2 text-muted-foreground">system_skills.exe</span>
+      </div>
+      
+      <div className="p-4 space-y-1 max-h-[280px] overflow-y-auto">
+        {commands.map((cmd, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: i * 0.1 }}
+            className="flex items-center justify-between py-0.5"
+          >
+            <span className="text-muted-foreground">{cmd.cmd}</span>
+            <div className="flex items-center gap-2">
+              <span 
+                className="px-1.5 py-0.5 text-[9px] rounded"
+                style={{ 
+                  backgroundColor: `${primaryColor}20`, 
+                  color: primaryColor 
+                }}
+              >
+                {cmd.status}
+              </span>
+              <span style={{ color: primaryColor, opacity: 0.7 }}>[{cmd.level}%]</span>
+            </div>
+          </motion.div>
+        ))}
+        
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ duration: 1, repeat: Infinity }}
+          className="pt-2"
+        >
+          <span style={{ color: primaryColor }}>›</span> <span className="text-muted-foreground">_</span>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
 
 export default function Skills() {
   const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState(skillCategories[0]);
-  const [isAutoRotating, setIsAutoRotating] = useState(true);
+  const [viewMode, setViewMode] = useState<'3d' | 'matrix' | 'terminal'>('3d');
 
-  // 自动轮播逻辑
   useEffect(() => {
-    if (!isAutoRotating) return;
-
     const interval = setInterval(() => {
-      setActiveCategory((current) => {
-        const currentIndex = skillCategories.indexOf(current);
-        const nextIndex = (currentIndex + 1) % skillCategories.length;
-        return skillCategories[nextIndex];
+      setActiveCategory(current => {
+        const idx = skillCategories.indexOf(current);
+        return skillCategories[(idx + 1) % skillCategories.length];
       });
-    }, 5000); // Slower interval for 3D view
-
+    }, 6000);
     return () => clearInterval(interval);
-  }, [isAutoRotating]);
+  }, []);
 
-  const handleCategoryManualSelect = (category: string) => {
-    setActiveCategory(category);
-    setIsAutoRotating(false); // 用户手动选择后暂停自动轮播
-  };
-
-  const toggleAutoRotate = () => {
-    setIsAutoRotating(!isAutoRotating);
-  };
+  const config = categoryConfig[activeCategory] || categoryConfig['Frontend'];
+  const IconComponent = config.icon;
 
   return (
     <section id="skills" className="relative py-20 sm:py-32 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-cyan/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-0 w-[500px] h-[500px]" style={{ 
+          background: `radial-gradient(circle, ${config.primary}15 0%, transparent 70%)`,
+          filter: 'blur(60px)'
+        }} />
+        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px]" style={{ 
+          background: `radial-gradient(circle, ${config.secondary}15 0%, transparent 70%)`,
+          filter: 'blur(60px)'
+        }} />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
+          className="text-center mb-12"
         >
-          <h2 className="section-title">{t('Skills.title')}</h2>
-          <p className="section-subtitle mx-auto">{t('Skills.subtitle')}</p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 mb-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+            <Lightning className="w-4 h-4" style={{ color: config.primary }} />
+            <span className="text-xs font-mono uppercase tracking-wider" style={{ color: config.primary }}>
+              {t('Skills.title')}
+            </span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 tracking-tight">
+            <span className="bg-gradient-to-r from-white via-white to-white/50 bg-clip-text text-transparent">
+              Technical
+            </span>
+            <span className="bg-gradient-to-r" style={{ backgroundImage: `linear-gradient(90deg, ${config.primary}, ${config.secondary})` }}> Expertise</span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">{t('Skills.subtitle')}</p>
         </motion.div>
 
-        <motion.div
-          key="holographic"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center"
-        >
-          {/* Category Selector */}
-          <div className="flex flex-col items-center gap-6 mb-4 relative z-20">
-            <div className="flex flex-wrap justify-center gap-2">
-              {skillCategories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => handleCategoryManualSelect(category)}
-                  className={`relative px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 overflow-hidden group border ${activeCategory === category
-                    ? 'text-black bg-cyber-cyan border-cyber-cyan shadow-[0_0_15px_rgb(var(--cyber-cyan)/0.5)]'
-                    : 'text-muted-foreground border-white/10 bg-black/40 hover:border-cyber-cyan/50 hover:text-white'
-                    }`}
-                >
-                  <span className="relative z-10">{t(skillCategoryTitles[category])}</span>
-                </button>
-              ))}
-            </div>
-
-            {/* Auto-rotate toggle */}
-            <button
-              onClick={toggleAutoRotate}
-              className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-mono transition-all duration-300 ${isAutoRotating
-                ? 'border-cyber-cyan/50 text-cyber-cyan bg-cyber-cyan/10'
-                : 'border-white/10 text-muted-foreground hover:border-white/30'
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {skillCategories.map((category) => {
+            const Icon = skillCategoryIcons[category];
+            const isActive = activeCategory === category;
+            const catConfig = categoryConfig[category];
+            
+            return (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`relative px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                  isActive
+                    ? 'text-black shadow-lg'
+                    : 'text-muted-foreground hover:text-white'
                 }`}
+                style={isActive ? { 
+                  backgroundColor: catConfig.primary,
+                  boxShadow: `0 0 30px ${catConfig.primary}40`
+                } : {}}
+              >
+                <span className="flex items-center gap-2">
+                  <Icon className="w-4 h-4" />
+                  {t(skillCategoryTitles[category])}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="flex justify-center gap-2 mb-8">
+          {(['3d', 'matrix', 'terminal'] as const).map((mode) => (
+            <button
+              key={mode}
+              onClick={() => setViewMode(mode)}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-mono uppercase tracking-wider transition-all ${
+                viewMode === mode 
+                  ? 'bg-white/10 text-white border border-white/20' 
+                  : 'text-muted-foreground hover:text-white/70'
+              }`}
             >
-              {isAutoRotating ? (
-                <>
-                  <Pause className="w-3 h-3" />
-                  <span>Cycle Active</span>
-                </>
-              ) : (
-                <>
-                  <Play className="w-3 h-3" />
-                  <span>Cycle Paused</span>
-                </>
-              )}
+              {mode === '3d' && <Box className="w-3 h-3 inline mr-1" />}
+              {mode === 'matrix' && <Hash className="w-3 h-3 inline mr-1" />}
+              {mode === 'terminal' && <Terminal className="w-3 h-3 inline mr-1" />}
+              {mode}
             </button>
-          </div>
+          ))}
+        </div>
 
-          <div className="w-full flex justify-center items-center -mt-10">
-            <HolographicSkillChart activeCategory={skillCategoriesData[skillCategories.indexOf(activeCategory)] || skillCategoriesData[0]} />
-          </div>
-        </motion.div>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative h-[400px] rounded-2xl overflow-hidden border border-white/10"
+            style={{
+              background: `linear-gradient(135deg, ${config.primary}10 0%, transparent 50%)`,
+            }}
+          >
+            <div className="absolute inset-0">
+              <Canvas camera={{ position: [0, 2, 8], fov: 45 }}>
+                <HolographicScene activeCategory={activeCategory} />
+              </Canvas>
+            </div>
+            
+            <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/50 backdrop-blur-sm border border-white/10">
+              <IconComponent className="w-4 h-4" style={{ color: config.primary }} />
+              <span className="text-xs font-mono text-white">{activeCategory}</span>
+            </div>
+            
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between px-3 py-2 rounded-lg bg-black/50 backdrop-blur-sm border border-white/10">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[10px] font-mono text-green-500">ONLINE</span>
+                </div>
+                <span className="text-[10px] font-mono text-muted-foreground">
+                  {getSkillsByCategory(activeCategory).length} MODULES
+                </span>
+              </div>
+              <span className="text-[10px] font-mono" style={{ color: config.primary }}>
+                v2.0.2048
+              </span>
+            </div>
+          </motion.div>
 
-        {/* Floating badges (Fallback/Accessibility) */}
+          <div className="space-y-4">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${activeCategory}-${viewMode}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {viewMode === 'matrix' && (
+                  <SkillMatrix category={activeCategory} primaryColor={config.primary} />
+                )}
+                {viewMode === 'terminal' && (
+                  <TerminalSkills category={activeCategory} primaryColor={config.primary} />
+                )}
+                {viewMode === '3d' && (
+                  <div className="space-y-4">
+                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                      <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                        <Zap className="w-4 h-4" style={{ color: config.primary }} />
+                        Proficiency Level
+                      </h3>
+                      <div className="space-y-3">
+                        {getSkillsByCategory(activeCategory).slice(0, 5).map((skill, i) => (
+                          <div key={skill.name} className="flex items-center gap-3">
+                            <span className="text-xs text-muted-foreground w-24 truncate">{skill.name}</span>
+                            <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                              <motion.div
+                                className="h-full rounded-full"
+                                style={{ backgroundColor: config.primary }}
+                                initial={{ width: 0 }}
+                                animate={{ width: `${skill.level * 20}%` }}
+                                transition={{ delay: i * 0.1, duration: 0.5 }}
+                              />
+                            </div>
+                            <span className="text-xs font-mono w-12 text-right" style={{ color: config.primary }}>
+                              {skill.level * 20}%
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-3 gap-3">
+                      {[
+                        { label: 'EXP', value: '12.5K', icon: Activity },
+                        { label: 'RANK', value: '#42', icon: Hash },
+                        { label: 'STREAK', value: '7D', icon: Zap },
+                      ].map((stat, i) => (
+                        <div 
+                          key={stat.label}
+                          className="p-3 rounded-xl bg-white/5 border border-white/10 text-center"
+                        >
+                          <stat.icon className="w-4 h-4 mx-auto mb-1" style={{ color: config.primary }} />
+                          <div className="text-lg font-bold" style={{ color: config.primary }}>{stat.value}</div>
+                          <div className="text-[10px] font-mono text-muted-foreground">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
         <motion.div
-          className="flex flex-wrap justify-center gap-2 mt-8 max-w-5xl mx-auto opacity-60 hover:opacity-100 transition-opacity"
+          className="flex flex-wrap justify-center gap-2 mt-12"
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.6 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          {skills.map((skill) => (
+          {skills.slice(0, 12).map((skill) => (
             <span
               key={skill.name}
-              className="px-2 py-1 text-[10px] text-muted-foreground/50 font-mono"
+              className="px-3 py-1.5 text-[10px] font-mono text-muted-foreground/60 bg-white/5 border border-white/10 rounded-full hover:border-white/20 transition-all cursor-default"
             >
               {skill.name}
             </span>
           ))}
+          {skills.length > 12 && (
+            <span className="px-3 py-1.5 text-[10px] font-mono text-muted-foreground/40">
+              +{skills.length - 12}
+            </span>
+          )}
         </motion.div>
       </div>
     </section>

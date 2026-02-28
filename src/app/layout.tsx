@@ -1,18 +1,17 @@
 import type { Metadata } from 'next';
-import { Outfit, Orbitron } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { ThemeProvider } from '@/lib/ThemeProvider';
 import { heroContent } from '@/data';
-import CustomCursor from '@/components/CustomCursor';
 
-const outfit = Outfit({
-  subsets: ['latin'],
+const outfit = localFont({
+  src: './fonts/Outfit-Variable.woff2',
   variable: '--font-sans',
   display: 'swap',
 });
 
-const orbitron = Orbitron({
-  subsets: ['latin'],
+const orbitron = localFont({
+  src: './fonts/Orbitron-Variable.woff2',
   variable: '--font-display',
   display: 'swap',
 });
@@ -26,6 +25,16 @@ export const metadata: Metadata = {
     title: `${heroContent.name} | ${heroContent.title}`,
     description: heroContent.description,
     type: 'website',
+    url: 'https://udefined.cc',
+    siteName: heroContent.name,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${heroContent.name} | ${heroContent.title}`,
+    description: heroContent.description,
+  },
+  alternates: {
+    canonical: 'https://udefined.cc',
   },
 };
 
@@ -43,7 +52,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CustomCursor />
           <div className="noise-overlay" />
           {children}
         </ThemeProvider>

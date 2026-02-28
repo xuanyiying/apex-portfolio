@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "npx serve out -p 3001",
     "lint": "next lint",
-    "update-projects": "tsx scripts/fetch-github-projects.ts"
+    "update-projects": "tsx scripts/fetch-github-projects.ts",
+    "deploy": "npm run build && npx vercel deploy --prod",
+    "deploy:preview": "npm run build && npx vercel",
+    "deploy:static": "npm run build && npm run start",
+    "deploy:tencent": "chmod +x scripts/deploy-tencent.sh && ./scripts/deploy-tencent.sh"
   },
   "dependencies": {
     "@react-three/drei": "^9.107.2",

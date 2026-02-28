@@ -135,14 +135,14 @@ export default function Contact() {
             {/* Social links */}
             <motion.div variants={itemVariants}>
               <h4 className="text-sm text-muted-foreground mb-4">{t('Contact.social')}</h4>
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 {socialLinks.map((social) => (
                   <motion.a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 flex items-center justify-center bg-muted/20 border border-border rounded-xl text-muted-foreground hover:text-cyber-cyan hover:border-cyber-cyan/30 transition-all duration-300"
+                    className="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl text-muted-foreground hover:text-cyber-cyan hover:border-cyber-cyan/30 hover:bg-cyber-cyan/10 transition-all duration-300"
                     whileHover={{ scale: 1.1, y: -3 }}
                     whileTap={{ scale: 0.95 }}
                   >

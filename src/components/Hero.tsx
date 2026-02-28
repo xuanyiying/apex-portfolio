@@ -2,68 +2,78 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial, Float, GradientTexture, Stars } from '@react-three/drei';
-import * as THREE from 'three';
 import { useLanguage } from '@/lib/LanguageContext';
 import { Github, Mail } from 'lucide-react';
 import { heroContentEn, heroContentZh } from '@/data';
 import { useTheme } from 'next-themes';
 import GlitchText from './GlitchText';
+import { Canvas, useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 
-function AnimatedSphere() {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const { theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+function HeroParticles() {
+  const pointsRef = useRef<THREE.Points>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
+
+  const positions = useRef(new Float32Array(2000 * 3));
 
   useEffect(() => {
-    setMounted(true);
+    for (let i = 0; i < 2000 * 3; i += 3) {
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      const r = 6 + Math.random() * 6;
+
+      positions.current[i] = r * Math.sin(phi) * Math.cos(theta);
+      positions.current[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+      positions.current[i + 2] = r * Math.cos(phi);
+    }
   }, []);
 
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
+    if (!pointsRef.current) return;
+    const time = state.clock.getElapsedTime();
+    pointsRef.current.rotation.y = time * 0.15;
+    pointsRef.current.rotation.x = Math.sin(time * 0.1) * 0.15;
+    pointsRef.current.rotation.z = Math.cos(time * 0.08) * 0.1;
+
+    if (ringRef.current) {
+      ringRef.current.rotation.x = time * 0.3;
+      ringRef.current.rotation.y = time * 0.2;
     }
   });
 
-  if (!mounted) return null;
-
-  const currentTheme = resolvedTheme || theme;
-
-  // Vibrant Cyberpunk Colors
-  const colors = currentTheme === 'light'
-    ? ['#00B4D8', '#7209B7', '#F72585'] // Cyan -> Purple -> Pink (Light)
-    : ['#00F0FF', '#7000FF', '#FF0080']; // Cyber Cyan -> Cyber Purple -> Neon Pink (Dark)
-
   return (
-    <Float
-      speed={4}
-      rotationIntensity={1}
-      floatIntensity={2}
-    >
-      <Sphere args={[1, 256, 256]} ref={meshRef} scale={1.8}>
-        <MeshDistortMaterial
-          distort={0.4}
-          speed={3}
-          roughness={0.2}
-          metalness={0.8}
-          bumpScale={0.05}
-        >
-          <GradientTexture
-            stops={[0, 0.5, 1]}
-            colors={colors}
-            size={1024}
+    <>
+      <points ref={pointsRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={2000}
+            array={positions.current}
+            itemSize={3}
           />
-        </MeshDistortMaterial>
-      </Sphere>
-
-      {/* Surrounding Particles/Stars for depth */}
-      <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={2} />
-
-      {/* Inner glow light */}
-      <pointLight intensity={5} distance={10} color={colors[0]} />
-    </Float>
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.06}
+          color="#00F0FF"
+          transparent
+          opacity={0.9}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </points>
+      <mesh ref={ringRef}>
+        <torusGeometry args={[5, 0.02, 16, 100]} />
+        <meshBasicMaterial color="#B400FF" transparent opacity={0.6} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[4, 0.015, 16, 100]} />
+        <meshBasicMaterial color="#00F0FF" transparent opacity={0.5} />
+      </mesh>
+      <mesh>
+        <torusGeometry args={[6, 0.01, 16, 100]} />
+        <meshBasicMaterial color="#FF0080" transparent opacity={0.4} />
+      </mesh>
+    </>
   );
 }
 
@@ -75,13 +85,25 @@ function HeroScene() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-
-  const currentTheme = resolvedTheme || theme;
-  const lightIntensity = currentTheme === 'light' ? 1.2 : 2;
+  if (!mounted) {
+    return (
+      <div className="w-full h-full min-h-[400px] lg:min-h-[500px] flex items-center justify-center">
+        <div className="w-32 h-32 border-2 border-cyber-cyan/30 border-t-cyber-cyan rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full min-h-[400px] lg:min-h-[500px]">
+      <Canvas
+        camera={{ position: [0, 0, 15], fov: 50 }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        dpr={[1, 2]}
+      >
+        <HeroParticles />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} intensity={1} color="#00F0FF" />
+      </Canvas>
     </div>
   );
 }
@@ -93,6 +115,7 @@ export default function Hero() {
 
   const roles = ['Full Stack Developer', 'UI/UX Designer', 'Creative Technologist'];
   const [currentRole, setCurrentRole] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const role = roles[currentRole];
@@ -111,14 +134,25 @@ export default function Hero() {
       }
     }, 80);
 
-    return () => clearInterval(typeInterval);
+    intervalRef.current = typeInterval;
+
+    return () => {
+      clearInterval(typeInterval);
+    };
   }, [currentRole]);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden cyber-grid-bg">
       {/* Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyber-purple/20 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyber-cyan/20 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyber-purple/20 blur-[120px] rounded-full pointer-events-none animate-pulse" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-cyber-cyan/20 blur-[120px] rounded-full pointer-events-none animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-cyber-pink/10 blur-[80px] rounded-full pointer-events-none animate-pulse" style={{ animationDelay: '2s' }} />
+
+      {/* Animated Grid Lines */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,240,255,0.03)_50%)] bg-[length:100%_4px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,240,255,0.02)_50%)] bg-[length:4px_100%]" />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -144,6 +178,7 @@ export default function Hero() {
               <GlitchText
                 text={heroContent.name}
                 className="animate-gradient-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-pink bg-clip-text text-transparent"
+                delay={200}
               />
             </h1>
 
@@ -153,11 +188,11 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              <span>{displayedText}</span>
+              <span className="min-w-[200px] sm:min-w-[280px]">{displayedText}</span>
               <motion.span
-                className="inline-block w-3 h-8 bg-cyber-pink ml-2"
+                className="inline-block w-1 h-6 sm:h-8 bg-cyber-pink ml-1"
                 animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 0.5, repeat: Infinity }}
+                transition={{ duration: 0.8, repeat: Infinity }}
               />
             </motion.div>
 
@@ -180,18 +215,18 @@ export default function Hero() {
               <a href="#projects" className="btn-primary">
                 View Work
               </a>
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 {[
-                  { icon: Github, href: heroContent.socialLinks.github },
-                  { icon: Mail, href: `mailto:${heroContent.email}` },
+                  { icon: Github, href: heroContent.socialLinks.github, color: 'hover:bg-white hover:text-black' },
+                  { icon: Mail, href: `mailto:${heroContent.email}`, color: 'hover:bg-cyber-pink hover:text-white hover:border-cyber-pink' },
                 ].map((social) => (
                   <motion.a
                     key={social.href}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-14 h-14 flex items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white hover:bg-cyber-cyan hover:text-black hover:border-cyber-cyan transition-all duration-300 backdrop-blur-sm"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className={`w-14 h-14 flex items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition-all duration-300 backdrop-blur-sm ${social.color}`}
+                    whileHover={{ scale: 1.1, rotate: 5, boxShadow: '0 0 30px rgba(0,240,255,0.4)' }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <social.icon className="w-6 h-6" />
