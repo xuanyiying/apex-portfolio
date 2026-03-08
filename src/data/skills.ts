@@ -118,25 +118,25 @@ export const skills: Skill[] = [
     category: 'Backend',
     icon: 'devicon-apachekafka-plain'
   },
-  // AI & LLM
+  // AI 
   {
     name: 'LangChain',
     level: 4,
-    category: 'AI & LLM',
+    category: 'AI ',
     icon: 'devicon-python-plain'
   },
   {
     name: 'Vector DB',
     fullName: 'Vector DB (Pinecone/Milvus)',
     level: 4,
-    category: 'AI & LLM',
+    category: 'AI ',
     icon: 'devicon-postgresql-plain'
   },
   {
     name: 'AI Tools',
-    fullName: 'AI Tools (Cursor/Claude Code)',
+    fullName: 'Claude Code/Cursor/CodeX',
     level: 5,
-    category: 'AI & LLM',
+    category: 'AI ',
     icon: 'devicon-vscode-plain'
   },
   // DevOps & Cloud
@@ -198,7 +198,7 @@ export const skillCategories = [
   'Frontend',
   'Backend',
   'Database',
-  'AI & LLM',
+  'AI ',
   'DevOps',
   'Cloud'
 ];

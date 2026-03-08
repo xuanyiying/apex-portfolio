@@ -153,6 +153,7 @@ interface ProjectData {
     description: string;
     longDescription: string;
     image: string;
+    images: string[];
     tags: string[];
     architecture: {
         frontend: string[];
@@ -257,6 +258,10 @@ async function fetchGithubProjects() {
             const projectBase = {
                 id: repo.id.toString(),
                 image: `/images/projects/${repo.name.toLowerCase()}.svg`,
+                images: [
+                    `/images/projects/${repo.name.toLowerCase()}.svg`,
+                    `/images/projects/${repo.name.toLowerCase()}.png`
+                ],
                 github: repo.html_url,
                 demo: repo.homepage || '',
                 featured: repo.stargazers_count > 0,
@@ -315,6 +320,7 @@ export interface Project {
     description: string;
     longDescription: string;
     image: string;
+    images: string[];
     tags: string[];
     architecture: FullStackArchitecture;
     metrics: ProjectMetrics;

@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-SERVER_HOST="your-server-ip"
+SERVER_HOST="150.158.20.143"
 SERVER_PORT="22"
 SERVER_USER="root"
 SERVER_PATH="/var/www/udefined.cc"
@@ -62,54 +62,47 @@ scp -o StrictHostKeyChecking=no -P $SERVER_PORT -r "$TEMP_DIR"/* $SERVER_USER@$S
 # Step 5: Setup Nginx
 echo -e "${GREEN}[5/5] Configuring Nginx...${NC}"
 
-ssh -o StrictHostKeyChecking=no -p $SERVER_PORT $SERVER_USER@$SERVER_HOST << EOF
+ssh -o StrictHostKeyChecking=no -p $SERVER_PORT $SERVER_USER@$SERVER_HOST << 'EOF'
     echo "Creating Nginx configuration..."
-    
-    # Create nginx config
-    sudo tee /etc/nginx/sites-available/udefined.cc > /dev/null << 'NGINX'
+    sudo tee /etc/nginx/conf.d/udefined.cc.conf > /dev/null << 'NGINX'
 server {
-    listen 80;
-    listen [::]:80;
-    server_name udefined.cc www.udefined.cc;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name udefined.cc www.udefined.cc 150.158.20.143;
 
     root /var/www/udefined.cc;
     index index.html;
 
-    # Gzip compression
     gzip on;
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 
-    # Security headers
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header X-XSS-Protection "1; mode=block" always;
 
-    # Cache static assets
     location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
         expires 1y;
         add_header Cache-Control "public, immutable";
     }
 
-    # Redirect to index.html for SPA
     location / {
-        try_files \$uri \$uri/ /index.html;
+        try_files $uri $uri/ /index.html;
     }
 
-    # Disable access to hidden files
     location ~ /\. {
         deny all;
     }
 }
 NGINX
 
-    echo "Enabling site..."
-    sudo ln -sf /etc/nginx/sites-available/udefined.cc /etc/nginx/sites-enabled/
+    echo "Removing default server block from nginx.conf if exists..."
+    sudo sed -i '/^server {/,/^}/d' /etc/nginx/nginx.conf
     
     echo "Testing Nginx config..."
     sudo nginx -t
     
-    echo "Restarting Nginx..."
-    sudo systemctl restart nginx
+    echo "Reloading Nginx..."
+    sudo systemctl reload nginx || sudo nginx -s reload
     
     echo "Deployment complete!"
 EOF

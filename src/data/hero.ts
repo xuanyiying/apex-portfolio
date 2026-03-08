@@ -26,7 +26,7 @@ export const heroContentEn: HeroContent = {
   avatar: '/images/avatar.jpg',
   socialLinks: {
     github: 'https://github.com/xuanyiying',
-    portfolio: 'https://xuanyiying.dev'
+    portfolio: 'https://udefined.cc'
   }
 };
 
@@ -41,7 +41,7 @@ export const heroContentZh: HeroContent = {
   avatar: '/images/avatar.jpg',
   socialLinks: {
     github: 'https://github.com/xuanyiying',
-    portfolio: 'https://xuanyiying.dev'
+    portfolio: 'https://udefined.cc'
   }
 };
 

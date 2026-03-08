@@ -2,8 +2,8 @@
 
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Html, Float, MeshDistortMaterial, Billboard } from '@react-three/drei';
-import { motion, AnimatePresence } from 'framer-motion';
+import { OrbitControls, Html, Float, Billboard } from '@react-three/drei';
+import { motion } from 'framer-motion';
 import * as THREE from 'three';
 import { useTheme } from 'next-themes';
 

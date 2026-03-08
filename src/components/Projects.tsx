@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import { Github, ExternalLink, Code2, Zap, Server, Database, Activity, Layout } from 'lucide-react';
 import { projectsEn, projectsZh } from '@/data';
+import ProjectCarousel from './ProjectCarousel';
 
 // 为项目分配颜色
 const getProjectColor = (index: number): string => {
@@ -167,11 +168,7 @@ export default function Projects() {
 
                 {/* Image container */}
                 <div className="relative h-56 overflow-hidden">
-                  <motion.img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                  <ProjectCarousel images={project.images || [project.image]} alt={project.title} />
 
                   {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
