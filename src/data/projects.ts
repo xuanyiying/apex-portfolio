@@ -69,9 +69,9 @@ export const projectsEn: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 89,
-            "apiDesign": 90,
-            "deployment": 90
+            "codeQuality": 85,
+            "apiDesign": 93,
+            "deployment": 91
         },
         "title": "IntervAI",
         "description": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。",
@@ -103,9 +103,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 86,
-            "deployment": 80
+            "codeQuality": 93,
+            "apiDesign": 93,
+            "deployment": 82
         },
         "title": "cleanup-cli",
         "description": "A full-stack application built with modern technologies.",
@@ -135,9 +135,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 91,
-            "apiDesign": 87,
-            "deployment": 81
+            "codeQuality": 93,
+            "apiDesign": 83,
+            "deployment": 88
         },
         "title": "ezento",
         "description": "A full-stack application built with modern technologies.",
@@ -167,9 +167,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 81,
-            "apiDesign": 83,
-            "deployment": 93
+            "codeQuality": 93,
+            "apiDesign": 82,
+            "deployment": 83
         },
         "title": "WedMaster",
         "description": "A full-stack application built with modern technologies.",
@@ -213,9 +213,9 @@ export const projectsZh: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 89,
-            "apiDesign": 90,
-            "deployment": 90
+            "codeQuality": 85,
+            "apiDesign": 93,
+            "deployment": 91
         },
         "title": "IntervAI",
         "description": "人工智能相关项目",
@@ -247,9 +247,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 86,
-            "deployment": 80
+            "codeQuality": 93,
+            "apiDesign": 93,
+            "deployment": 82
         },
         "title": "cleanup-cli",
         "description": "命令行工具",
@@ -279,9 +279,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 91,
-            "apiDesign": 87,
-            "deployment": 81
+            "codeQuality": 93,
+            "apiDesign": 83,
+            "deployment": 88
         },
         "title": "MedAI-Consultant",
         "description": "基于现代 AI 的全栈对话式应用，用于辅助医疗诊断，具有智能分型、预诊咨询和报告解读功能。",
@@ -311,9 +311,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 81,
-            "apiDesign": 83,
-            "deployment": 93
+            "codeQuality": 93,
+            "apiDesign": 82,
+            "deployment": 83
         },
         "title": "wedding",
         "description": "使用现代技术构建的全栈应用程序。",
