@@ -69,9 +69,9 @@ export const projectsEn: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 85,
-            "apiDesign": 93,
-            "deployment": 91
+            "codeQuality": 91,
+            "apiDesign": 84,
+            "deployment": 89
         },
         "title": "IntervAI",
         "description": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。",
@@ -103,9 +103,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 93,
-            "apiDesign": 93,
-            "deployment": 82
+            "codeQuality": 92,
+            "apiDesign": 86,
+            "deployment": 94
         },
         "title": "cleanup-cli",
         "description": "A full-stack application built with modern technologies.",
@@ -135,8 +135,8 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 93,
-            "apiDesign": 83,
+            "codeQuality": 82,
+            "apiDesign": 80,
             "deployment": 88
         },
         "title": "ezento",
@@ -167,9 +167,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 93,
-            "apiDesign": 82,
-            "deployment": 83
+            "codeQuality": 89,
+            "apiDesign": 85,
+            "deployment": 92
         },
         "title": "WedMaster",
         "description": "A full-stack application built with modern technologies.",
@@ -213,9 +213,9 @@ export const projectsZh: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 85,
-            "apiDesign": 93,
-            "deployment": 91
+            "codeQuality": 91,
+            "apiDesign": 84,
+            "deployment": 89
         },
         "title": "IntervAI",
         "description": "人工智能相关项目",
@@ -247,9 +247,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 93,
-            "apiDesign": 93,
-            "deployment": 82
+            "codeQuality": 92,
+            "apiDesign": 86,
+            "deployment": 94
         },
         "title": "cleanup-cli",
         "description": "命令行工具",
@@ -279,8 +279,8 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 93,
-            "apiDesign": 83,
+            "codeQuality": 82,
+            "apiDesign": 80,
             "deployment": 88
         },
         "title": "MedAI-Consultant",
@@ -311,9 +311,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 93,
-            "apiDesign": 82,
-            "deployment": 83
+            "codeQuality": 89,
+            "apiDesign": 85,
+            "deployment": 92
         },
         "title": "wedding",
         "description": "使用现代技术构建的全栈应用程序。",
