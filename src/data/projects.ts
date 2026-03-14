@@ -35,36 +35,47 @@ export interface Project {
 
 export const projectsEn: Project[] = [
     {
-        "id": "1032539488",
-        "image": "/images/projects/wedding-timeline.svg",
+        "id": "1105497096",
+        "image": "/images/projects/intervai.svg",
         "images": [
-            "/images/projects/wedding-timeline.svg",
-            "/images/projects/wedding-timeline.png"
+            "/images/projects/intervai.svg",
+            "/images/projects/intervai.png"
         ],
-        "github": "https://github.com/xuanyiying/wedding-timeline",
-        "demo": "",
-        "featured": false,
-        "stars": 0,
+        "github": "https://github.com/xuanyiying/IntervAI",
+        "demo": "https://udefined.cc",
+        "featured": true,
+        "stars": 3,
         "forks": 0,
-        "updatedAt": "2026-03-11",
+        "updatedAt": "2026-03-12",
         "language": "TypeScript",
         "tags": [
-            "TypeScript"
+            "TypeScript",
+            "interview-ai"
         ],
         "architecture": {
-            "frontend": [],
-            "backend": [],
+            "frontend": [
+                "Parser",
+                "TypeScript"
+            ],
+            "backend": [
+                "Eslint-plugin"
+            ],
             "database": [],
-            "devops": []
+            "devops": [
+                "Eslint",
+                "Eslint-config-prettier",
+                "Eslint-plugin-prettier",
+                "Prettier"
+            ]
         },
         "metrics": {
-            "codeQuality": 82,
-            "apiDesign": 88,
-            "deployment": 89
+            "codeQuality": 81,
+            "apiDesign": 90,
+            "deployment": 88
         },
-        "title": "wedding-timeline",
-        "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
-        "longDescription": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。"
+        "title": "IntervAI",
+        "description": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。",
+        "longDescription": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。"
     },
     {
         "id": "1124076346",
@@ -78,7 +89,7 @@ export const projectsEn: Project[] = [
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2026-03-11",
+        "updatedAt": "2026-03-12",
         "language": "Go",
         "tags": [
             "Go"
@@ -90,9 +101,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 85,
-            "apiDesign": 92,
-            "deployment": 83
+            "codeQuality": 82,
+            "apiDesign": 91,
+            "deployment": 92
         },
         "title": "quant-trader",
         "description": "A full-stack application built with modern technologies.",
@@ -110,7 +121,7 @@ export const projectsEn: Project[] = [
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2026-03-11",
+        "updatedAt": "2026-03-12",
         "language": "TypeScript",
         "tags": [
             "TypeScript"
@@ -132,126 +143,14 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 91,
-            "apiDesign": 84,
-            "deployment": 89
+            "codeQuality": 86,
+            "apiDesign": 94,
+            "deployment": 82
         },
         "title": "apex-portfolio",
         "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
         "longDescription": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。"
     },
-    {
-        "id": "1105497096",
-        "image": "/images/projects/intervai.svg",
-        "images": [
-            "/images/projects/intervai.svg",
-            "/images/projects/intervai.png"
-        ],
-        "github": "https://github.com/xuanyiying/IntervAI",
-        "demo": "https://udefined.cc",
-        "featured": true,
-        "stars": 3,
-        "forks": 0,
-        "updatedAt": "2026-03-04",
-        "language": "TypeScript",
-        "tags": [
-            "TypeScript",
-            "interview-ai"
-        ],
-        "architecture": {
-            "frontend": [
-                "Parser",
-                "TypeScript"
-            ],
-            "backend": [
-                "Eslint-plugin"
-            ],
-            "database": [],
-            "devops": [
-                "Eslint",
-                "Eslint-config-prettier",
-                "Eslint-plugin-prettier",
-                "Prettier"
-            ]
-        },
-        "metrics": {
-            "codeQuality": 87,
-            "apiDesign": 85,
-            "deployment": 88
-        },
-        "title": "IntervAI",
-        "description": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。",
-        "longDescription": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。"
-    },
-    {
-        "id": "1123603049",
-        "image": "/images/projects/cleanup-cli.svg",
-        "images": [
-            "/images/projects/cleanup-cli.svg",
-            "/images/projects/cleanup-cli.png"
-        ],
-        "github": "https://github.com/xuanyiying/cleanup-cli",
-        "demo": "",
-        "featured": true,
-        "stars": 1,
-        "forks": 0,
-        "updatedAt": "2026-01-19",
-        "language": "Go",
-        "tags": [
-            "Go"
-        ],
-        "architecture": {
-            "frontend": [
-                "Cobra"
-            ],
-            "backend": [],
-            "database": [],
-            "devops": []
-        },
-        "metrics": {
-            "codeQuality": 83,
-            "apiDesign": 90,
-            "deployment": 80
-        },
-        "title": "cleanup-cli",
-        "description": "A full-stack application built with modern technologies.",
-        "longDescription": "A full-stack application built with modern technologies."
-    },
-    {
-        "id": "1123960731",
-        "image": "/images/projects/ezento.svg",
-        "images": [
-            "/images/projects/ezento.svg",
-            "/images/projects/ezento.png"
-        ],
-        "github": "https://github.com/xuanyiying/ezento",
-        "demo": "",
-        "featured": true,
-        "stars": 1,
-        "forks": 0,
-        "updatedAt": "2025-12-30",
-        "language": "TypeScript",
-        "tags": [
-            "TypeScript"
-        ],
-        "architecture": {
-            "frontend": [],
-            "backend": [],
-            "database": [],
-            "devops": []
-        },
-        "metrics": {
-            "codeQuality": 82,
-            "apiDesign": 88,
-            "deployment": 88
-        },
-        "title": "ezento",
-        "description": "A full-stack application built with modern technologies.",
-        "longDescription": "A full-stack application built with modern technologies."
-    }
-];
-
-export const projectsZh: Project[] = [
     {
         "id": "1032539488",
         "image": "/images/projects/wedding-timeline.svg",
@@ -277,129 +176,12 @@ export const projectsZh: Project[] = [
         },
         "metrics": {
             "codeQuality": 82,
-            "apiDesign": 88,
-            "deployment": 89
+            "apiDesign": 83,
+            "deployment": 93
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
         "longDescription": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。"
-    },
-    {
-        "id": "1124076346",
-        "image": "/images/projects/quant-trader.svg",
-        "images": [
-            "/images/projects/quant-trader.svg",
-            "/images/projects/quant-trader.png"
-        ],
-        "github": "https://github.com/xuanyiying/quant-trader",
-        "demo": "",
-        "featured": true,
-        "stars": 1,
-        "forks": 0,
-        "updatedAt": "2026-03-11",
-        "language": "Go",
-        "tags": [
-            "Go"
-        ],
-        "architecture": {
-            "frontend": [],
-            "backend": [],
-            "database": [],
-            "devops": []
-        },
-        "metrics": {
-            "codeQuality": 85,
-            "apiDesign": 92,
-            "deployment": 83
-        },
-        "title": "Quant-Trader",
-        "description": "专为高并发、低延迟设计的高性能量化交易引擎，支持 WASM 隔离的策略执行。",
-        "longDescription": "专业的算法交易基础设施，提供从基于 NATS JetStream 的实时行情接入到基于 WASM 沙箱 (wazero) 的策略隔离执行的完整流水线。包含模拟交易、风控系统以及集成 Stripe 的策略市场。"
-    },
-    {
-        "id": "1124046322",
-        "image": "/images/projects/apex-portfolio.svg",
-        "images": [
-            "/images/projects/apex-portfolio.svg",
-            "/images/projects/apex-portfolio.png"
-        ],
-        "github": "https://github.com/xuanyiying/apex-portfolio",
-        "demo": "https://apex-portfolio-flax.vercel.app",
-        "featured": true,
-        "stars": 1,
-        "forks": 0,
-        "updatedAt": "2026-03-11",
-        "language": "TypeScript",
-        "tags": [
-            "TypeScript"
-        ],
-        "architecture": {
-            "frontend": [
-                "Drei",
-                "Framer Motion",
-                "Lucide",
-                "Next.js",
-                "Next-themes",
-                "React",
-                "Tailwind-merge"
-            ],
-            "backend": [
-                "Fiber"
-            ],
-            "database": [],
-            "devops": []
-        },
-        "metrics": {
-            "codeQuality": 91,
-            "apiDesign": 84,
-            "deployment": 89
-        },
-        "title": "apex-portfolio",
-        "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
-        "longDescription": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。"
-    },
-    {
-        "id": "1105497096",
-        "image": "/images/projects/intervai.svg",
-        "images": [
-            "/images/projects/intervai.svg",
-            "/images/projects/intervai.png"
-        ],
-        "github": "https://github.com/xuanyiying/IntervAI",
-        "demo": "https://udefined.cc",
-        "featured": true,
-        "stars": 3,
-        "forks": 0,
-        "updatedAt": "2026-03-04",
-        "language": "TypeScript",
-        "tags": [
-            "TypeScript",
-            "interview-ai"
-        ],
-        "architecture": {
-            "frontend": [
-                "Parser",
-                "TypeScript"
-            ],
-            "backend": [
-                "Eslint-plugin"
-            ],
-            "database": [],
-            "devops": [
-                "Eslint",
-                "Eslint-config-prettier",
-                "Eslint-plugin-prettier",
-                "Prettier"
-            ]
-        },
-        "metrics": {
-            "codeQuality": 87,
-            "apiDesign": 85,
-            "deployment": 88
-        },
-        "title": "IntervAI",
-        "description": "人工智能相关项目",
-        "longDescription": "人工智能相关项目"
     },
     {
         "id": "1123603049",
@@ -427,27 +209,147 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 83,
-            "apiDesign": 90,
-            "deployment": 80
+            "codeQuality": 82,
+            "apiDesign": 82,
+            "deployment": 89
         },
         "title": "cleanup-cli",
-        "description": "命令行工具",
-        "longDescription": "命令行工具"
+        "description": "A full-stack application built with modern technologies.",
+        "longDescription": "A full-stack application built with modern technologies."
+    }
+];
+
+export const projectsZh: Project[] = [
+    {
+        "id": "1105497096",
+        "image": "/images/projects/intervai.svg",
+        "images": [
+            "/images/projects/intervai.svg",
+            "/images/projects/intervai.png"
+        ],
+        "github": "https://github.com/xuanyiying/IntervAI",
+        "demo": "https://udefined.cc",
+        "featured": true,
+        "stars": 3,
+        "forks": 0,
+        "updatedAt": "2026-03-12",
+        "language": "TypeScript",
+        "tags": [
+            "TypeScript",
+            "interview-ai"
+        ],
+        "architecture": {
+            "frontend": [
+                "Parser",
+                "TypeScript"
+            ],
+            "backend": [
+                "Eslint-plugin"
+            ],
+            "database": [],
+            "devops": [
+                "Eslint",
+                "Eslint-config-prettier",
+                "Eslint-plugin-prettier",
+                "Prettier"
+            ]
+        },
+        "metrics": {
+            "codeQuality": 81,
+            "apiDesign": 90,
+            "deployment": 88
+        },
+        "title": "IntervAI",
+        "description": "人工智能相关项目",
+        "longDescription": "人工智能相关项目"
     },
     {
-        "id": "1123960731",
-        "image": "/images/projects/ezento.svg",
+        "id": "1124076346",
+        "image": "/images/projects/quant-trader.svg",
         "images": [
-            "/images/projects/ezento.svg",
-            "/images/projects/ezento.png"
+            "/images/projects/quant-trader.svg",
+            "/images/projects/quant-trader.png"
         ],
-        "github": "https://github.com/xuanyiying/ezento",
+        "github": "https://github.com/xuanyiying/quant-trader",
         "demo": "",
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2025-12-30",
+        "updatedAt": "2026-03-12",
+        "language": "Go",
+        "tags": [
+            "Go"
+        ],
+        "architecture": {
+            "frontend": [],
+            "backend": [],
+            "database": [],
+            "devops": []
+        },
+        "metrics": {
+            "codeQuality": 82,
+            "apiDesign": 91,
+            "deployment": 92
+        },
+        "title": "Quant-Trader",
+        "description": "专为高并发、低延迟设计的高性能量化交易引擎，支持 WASM 隔离的策略执行。",
+        "longDescription": "专业的算法交易基础设施，提供从基于 NATS JetStream 的实时行情接入到基于 WASM 沙箱 (wazero) 的策略隔离执行的完整流水线。包含模拟交易、风控系统以及集成 Stripe 的策略市场。"
+    },
+    {
+        "id": "1124046322",
+        "image": "/images/projects/apex-portfolio.svg",
+        "images": [
+            "/images/projects/apex-portfolio.svg",
+            "/images/projects/apex-portfolio.png"
+        ],
+        "github": "https://github.com/xuanyiying/apex-portfolio",
+        "demo": "https://apex-portfolio-flax.vercel.app",
+        "featured": true,
+        "stars": 1,
+        "forks": 0,
+        "updatedAt": "2026-03-12",
+        "language": "TypeScript",
+        "tags": [
+            "TypeScript"
+        ],
+        "architecture": {
+            "frontend": [
+                "Drei",
+                "Framer Motion",
+                "Lucide",
+                "Next.js",
+                "Next-themes",
+                "React",
+                "Tailwind-merge"
+            ],
+            "backend": [
+                "Fiber"
+            ],
+            "database": [],
+            "devops": []
+        },
+        "metrics": {
+            "codeQuality": 86,
+            "apiDesign": 94,
+            "deployment": 82
+        },
+        "title": "apex-portfolio",
+        "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
+        "longDescription": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。"
+    },
+    {
+        "id": "1032539488",
+        "image": "/images/projects/wedding-timeline.svg",
+        "images": [
+            "/images/projects/wedding-timeline.svg",
+            "/images/projects/wedding-timeline.png"
+        ],
+        "github": "https://github.com/xuanyiying/wedding-timeline",
+        "demo": "",
+        "featured": false,
+        "stars": 0,
+        "forks": 0,
+        "updatedAt": "2026-03-11",
         "language": "TypeScript",
         "tags": [
             "TypeScript"
@@ -460,12 +362,46 @@ export const projectsZh: Project[] = [
         },
         "metrics": {
             "codeQuality": 82,
-            "apiDesign": 88,
-            "deployment": 88
+            "apiDesign": 83,
+            "deployment": 93
         },
-        "title": "MedAI-Consultant",
-        "description": "基于现代 AI 的全栈对话式应用，用于辅助医疗诊断，具有智能分型、预诊咨询和报告解读功能。",
-        "longDescription": "MedAI-Consultant 是一个先进的医疗保健解决方案，利用大语言模型 (LLM) 自动化患者指导和临床数据解读。它具有智能分型算法、结构化的预诊工作流程以及基于 RAG 架构的高精度医疗报告分析功能。"
+        "title": "wedding-timeline",
+        "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
+        "longDescription": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。"
+    },
+    {
+        "id": "1123603049",
+        "image": "/images/projects/cleanup-cli.svg",
+        "images": [
+            "/images/projects/cleanup-cli.svg",
+            "/images/projects/cleanup-cli.png"
+        ],
+        "github": "https://github.com/xuanyiying/cleanup-cli",
+        "demo": "",
+        "featured": true,
+        "stars": 1,
+        "forks": 0,
+        "updatedAt": "2026-01-19",
+        "language": "Go",
+        "tags": [
+            "Go"
+        ],
+        "architecture": {
+            "frontend": [
+                "Cobra"
+            ],
+            "backend": [],
+            "database": [],
+            "devops": []
+        },
+        "metrics": {
+            "codeQuality": 82,
+            "apiDesign": 82,
+            "deployment": 89
+        },
+        "title": "cleanup-cli",
+        "description": "命令行工具",
+        "longDescription": "命令行工具"
     }
 ];
 
