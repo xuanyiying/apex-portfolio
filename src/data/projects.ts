@@ -46,7 +46,7 @@ export const projectsEn: Project[] = [
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2026-03-18",
+        "updatedAt": "2026-03-19",
         "language": "TypeScript",
         "tags": [
             "TypeScript"
@@ -68,9 +68,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 83,
-            "apiDesign": 90,
-            "deployment": 84
+            "codeQuality": 88,
+            "apiDesign": 93,
+            "deployment": 91
         },
         "title": "apex-portfolio",
         "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
@@ -112,7 +112,7 @@ export const projectsEn: Project[] = [
         },
         "metrics": {
             "codeQuality": 84,
-            "apiDesign": 89,
+            "apiDesign": 82,
             "deployment": 89
         },
         "title": "IntervAI",
@@ -145,7 +145,7 @@ export const projectsEn: Project[] = [
         "metrics": {
             "codeQuality": 82,
             "apiDesign": 81,
-            "deployment": 80
+            "deployment": 84
         },
         "title": "quant-trader",
         "description": "A full-stack application built with modern technologies.",
@@ -175,9 +175,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 86,
-            "apiDesign": 93,
-            "deployment": 87
+            "codeQuality": 82,
+            "apiDesign": 83,
+            "deployment": 86
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
@@ -209,9 +209,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 93,
-            "apiDesign": 87,
-            "deployment": 82
+            "codeQuality": 89,
+            "apiDesign": 91,
+            "deployment": 94
         },
         "title": "cleanup-cli",
         "description": "A full-stack application built with modern technologies.",
@@ -232,7 +232,7 @@ export const projectsZh: Project[] = [
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2026-03-18",
+        "updatedAt": "2026-03-19",
         "language": "TypeScript",
         "tags": [
             "TypeScript"
@@ -254,9 +254,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 83,
-            "apiDesign": 90,
-            "deployment": 84
+            "codeQuality": 88,
+            "apiDesign": 93,
+            "deployment": 91
         },
         "title": "apex-portfolio",
         "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
@@ -298,7 +298,7 @@ export const projectsZh: Project[] = [
         },
         "metrics": {
             "codeQuality": 84,
-            "apiDesign": 89,
+            "apiDesign": 82,
             "deployment": 89
         },
         "title": "IntervAI",
@@ -331,7 +331,7 @@ export const projectsZh: Project[] = [
         "metrics": {
             "codeQuality": 82,
             "apiDesign": 81,
-            "deployment": 80
+            "deployment": 84
         },
         "title": "Quant-Trader",
         "description": "专为高并发、低延迟设计的高性能量化交易引擎，支持 WASM 隔离的策略执行。",
@@ -361,9 +361,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 86,
-            "apiDesign": 93,
-            "deployment": 87
+            "codeQuality": 82,
+            "apiDesign": 83,
+            "deployment": 86
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
@@ -395,9 +395,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 93,
-            "apiDesign": 87,
-            "deployment": 82
+            "codeQuality": 89,
+            "apiDesign": 91,
+            "deployment": 94
         },
         "title": "cleanup-cli",
         "description": "命令行工具",
