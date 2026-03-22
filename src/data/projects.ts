@@ -35,6 +35,48 @@ export interface Project {
 
 export const projectsEn: Project[] = [
     {
+        "id": "1124046322",
+        "image": "/images/projects/apex-portfolio.svg",
+        "images": [
+            "/images/projects/apex-portfolio.svg",
+            "/images/projects/apex-portfolio.png"
+        ],
+        "github": "https://github.com/xuanyiying/apex-portfolio",
+        "demo": "https://apex-portfolio-flax.vercel.app",
+        "featured": true,
+        "stars": 1,
+        "forks": 0,
+        "updatedAt": "2026-03-21",
+        "language": "TypeScript",
+        "tags": [
+            "TypeScript"
+        ],
+        "architecture": {
+            "frontend": [
+                "Drei",
+                "Framer Motion",
+                "Lucide",
+                "Next.js",
+                "Next-themes",
+                "React",
+                "Tailwind-merge"
+            ],
+            "backend": [
+                "Fiber"
+            ],
+            "database": [],
+            "devops": []
+        },
+        "metrics": {
+            "codeQuality": 92,
+            "apiDesign": 88,
+            "deployment": 92
+        },
+        "title": "apex-portfolio",
+        "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
+        "longDescription": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。"
+    },
+    {
         "id": "1186818238",
         "image": "/images/projects/skills-engine.svg",
         "images": [
@@ -62,55 +104,13 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 92,
-            "deployment": 80
+            "codeQuality": 94,
+            "apiDesign": 87,
+            "deployment": 84
         },
         "title": "skills-engine",
         "description": "A full-stack application built with modern technologies.",
         "longDescription": "A full-stack application built with modern technologies."
-    },
-    {
-        "id": "1124046322",
-        "image": "/images/projects/apex-portfolio.svg",
-        "images": [
-            "/images/projects/apex-portfolio.svg",
-            "/images/projects/apex-portfolio.png"
-        ],
-        "github": "https://github.com/xuanyiying/apex-portfolio",
-        "demo": "https://apex-portfolio-flax.vercel.app",
-        "featured": true,
-        "stars": 1,
-        "forks": 0,
-        "updatedAt": "2026-03-20",
-        "language": "TypeScript",
-        "tags": [
-            "TypeScript"
-        ],
-        "architecture": {
-            "frontend": [
-                "Drei",
-                "Framer Motion",
-                "Lucide",
-                "Next.js",
-                "Next-themes",
-                "React",
-                "Tailwind-merge"
-            ],
-            "backend": [
-                "Fiber"
-            ],
-            "database": [],
-            "devops": []
-        },
-        "metrics": {
-            "codeQuality": 80,
-            "apiDesign": 80,
-            "deployment": 90
-        },
-        "title": "apex-portfolio",
-        "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
-        "longDescription": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。"
     },
     {
         "id": "1105497096",
@@ -147,8 +147,8 @@ export const projectsEn: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 94,
-            "apiDesign": 90,
+            "codeQuality": 91,
+            "apiDesign": 94,
             "deployment": 80
         },
         "title": "IntervAI",
@@ -179,8 +179,8 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 84,
-            "apiDesign": 87,
+            "codeQuality": 83,
+            "apiDesign": 91,
             "deployment": 80
         },
         "title": "quant-trader",
@@ -212,8 +212,8 @@ export const projectsEn: Project[] = [
         },
         "metrics": {
             "codeQuality": 90,
-            "apiDesign": 86,
-            "deployment": 82
+            "apiDesign": 81,
+            "deployment": 92
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
@@ -245,9 +245,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 81,
-            "apiDesign": 92,
-            "deployment": 85
+            "codeQuality": 84,
+            "apiDesign": 87,
+            "deployment": 88
         },
         "title": "cleanup-cli",
         "description": "A full-stack application built with modern technologies.",
@@ -256,6 +256,48 @@ export const projectsEn: Project[] = [
 ];
 
 export const projectsZh: Project[] = [
+    {
+        "id": "1124046322",
+        "image": "/images/projects/apex-portfolio.svg",
+        "images": [
+            "/images/projects/apex-portfolio.svg",
+            "/images/projects/apex-portfolio.png"
+        ],
+        "github": "https://github.com/xuanyiying/apex-portfolio",
+        "demo": "https://apex-portfolio-flax.vercel.app",
+        "featured": true,
+        "stars": 1,
+        "forks": 0,
+        "updatedAt": "2026-03-21",
+        "language": "TypeScript",
+        "tags": [
+            "TypeScript"
+        ],
+        "architecture": {
+            "frontend": [
+                "Drei",
+                "Framer Motion",
+                "Lucide",
+                "Next.js",
+                "Next-themes",
+                "React",
+                "Tailwind-merge"
+            ],
+            "backend": [
+                "Fiber"
+            ],
+            "database": [],
+            "devops": []
+        },
+        "metrics": {
+            "codeQuality": 92,
+            "apiDesign": 88,
+            "deployment": 92
+        },
+        "title": "apex-portfolio",
+        "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
+        "longDescription": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。"
+    },
     {
         "id": "1186818238",
         "image": "/images/projects/skills-engine.svg",
@@ -284,55 +326,13 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 92,
-            "deployment": 80
+            "codeQuality": 94,
+            "apiDesign": 87,
+            "deployment": 84
         },
         "title": "skills-engine",
         "description": "使用现代技术构建的全栈应用程序。",
         "longDescription": "使用现代技术构建的全栈应用程序。"
-    },
-    {
-        "id": "1124046322",
-        "image": "/images/projects/apex-portfolio.svg",
-        "images": [
-            "/images/projects/apex-portfolio.svg",
-            "/images/projects/apex-portfolio.png"
-        ],
-        "github": "https://github.com/xuanyiying/apex-portfolio",
-        "demo": "https://apex-portfolio-flax.vercel.app",
-        "featured": true,
-        "stars": 1,
-        "forks": 0,
-        "updatedAt": "2026-03-20",
-        "language": "TypeScript",
-        "tags": [
-            "TypeScript"
-        ],
-        "architecture": {
-            "frontend": [
-                "Drei",
-                "Framer Motion",
-                "Lucide",
-                "Next.js",
-                "Next-themes",
-                "React",
-                "Tailwind-merge"
-            ],
-            "backend": [
-                "Fiber"
-            ],
-            "database": [],
-            "devops": []
-        },
-        "metrics": {
-            "codeQuality": 80,
-            "apiDesign": 80,
-            "deployment": 90
-        },
-        "title": "apex-portfolio",
-        "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
-        "longDescription": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。"
     },
     {
         "id": "1105497096",
@@ -369,8 +369,8 @@ export const projectsZh: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 94,
-            "apiDesign": 90,
+            "codeQuality": 91,
+            "apiDesign": 94,
             "deployment": 80
         },
         "title": "IntervAI",
@@ -401,8 +401,8 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 84,
-            "apiDesign": 87,
+            "codeQuality": 83,
+            "apiDesign": 91,
             "deployment": 80
         },
         "title": "Quant-Trader",
@@ -434,8 +434,8 @@ export const projectsZh: Project[] = [
         },
         "metrics": {
             "codeQuality": 90,
-            "apiDesign": 86,
-            "deployment": 82
+            "apiDesign": 81,
+            "deployment": 92
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
@@ -467,9 +467,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 81,
-            "apiDesign": 92,
-            "deployment": 85
+            "codeQuality": 84,
+            "apiDesign": 87,
+            "deployment": 88
         },
         "title": "cleanup-cli",
         "description": "命令行工具",
