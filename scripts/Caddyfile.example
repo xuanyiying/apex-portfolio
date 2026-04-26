@@ -1,0 +1,39 @@
+# Caddyfile for apex-portfolio
+# This file is auto-applied by deploy-tencent.sh
+# For manual deployment, copy this to /etc/caddy/Caddyfile on your server
+
+{
+    email admin@udefined.cc
+}
+
+udefined.cc, www.udefined.cc {
+    root * /var/www/udefined.cc
+    encode gzip
+
+    header {
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    }
+
+    file_server {
+        index index.html
+    }
+
+    handle_errors {
+        respond "{err.status_code} {err.status_text}"
+    }
+
+    log {
+        output file /var/log/caddy/udefined.cc.log
+    }
+}
+
+150.158.20.143 {
+    root * /var/www/udefined.cc
+    encode gzip
+    file_server {
+        index index.html
+    }
+}

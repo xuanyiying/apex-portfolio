@@ -1,0 +1,28 @@
+# Checklist
+
+- [ ] Global styles simplified — background animation slower, opacity reduced, grid overlays removed from non-Skills sections
+- [ ] Section spacing unified — all sections use py-20 sm:py-28
+- [ ] Title sizing consistent — text-3xl sm:text-4xl lg:text-5xl with unified gradient
+- [ ] Hero section clarified — single background gradient, no competing orbs/grids, name/role prominent
+- [ ] Hero mobile layout fixed — vertical stack, 3D scene reduced or hidden on small screens
+- [ ] Skills section restructured — no 3D/terminal/matrix toggle, all skills visible in clean grid
+- [ ] Skills proficiency bars clear — percentage labels readable, bars animate on scroll
+- [ ] Skills category tabs manual only — auto-rotate removed
+- [ ] Skills mobile grid responsive — no horizontal overflow, proper wrapping
+- [ ] Project cards polished — consistent 16:9 images, simplified hover (lift + glow)
+- [ ] Project corner SVGs removed — hover state doesn't use corner decorations
+- [ ] Project architecture badges readable — text size adequate, no overflow
+- [ ] Project tags mobile-friendly — wrap properly, don't overflow card
+- [ ] Experience timeline simplified — reduced gradient backgrounds, cleaner nodes
+- [ ] Experience mobile layout fixed — single column, left-aligned, no timeline center line issues
+- [ ] Experience stats row readable — values and labels clear
+- [ ] Contact section balanced — left/right visual weight even
+- [ ] Contact form fields consistent — uniform sizing and spacing
+- [ ] Contact mobile stacking correct — info first, form second
+- [ ] Footer styling unified — matches section backgrounds, consistent hover states
+- [ ] Three.js particles optimized — count reduced to 2000
+- [ ] 3D rendering pauses off-screen — IntersectionObserver implemented
+- [ ] Unused GSAP classes removed — no orphaned animation classes in components
+- [ ] Color palette simplified — cyber-cyan primary, cyber-purple secondary, pink reserved for hovers
+- [ ] No visual regression in dark mode — all changes work in both themes
+- [ ] Build passes — npm run build succeeds without errors
