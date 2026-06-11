@@ -46,7 +46,7 @@ export const projectsEn: Project[] = [
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2026-06-09",
+        "updatedAt": "2026-06-10",
         "language": "TypeScript",
         "tags": [
             "TypeScript"
@@ -68,9 +68,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 80,
-            "deployment": 88
+            "codeQuality": 91,
+            "apiDesign": 88,
+            "deployment": 87
         },
         "title": "apex-portfolio",
         "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
@@ -100,9 +100,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 82,
-            "apiDesign": 82,
-            "deployment": 88
+            "codeQuality": 86,
+            "apiDesign": 88,
+            "deployment": 92
         },
         "title": "hospital-followuping",
         "description": "医院随访管理系统",
@@ -144,8 +144,8 @@ export const projectsEn: Project[] = [
         },
         "metrics": {
             "codeQuality": 92,
-            "apiDesign": 93,
-            "deployment": 94
+            "apiDesign": 90,
+            "deployment": 87
         },
         "title": "IntervAI",
         "description": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。",
@@ -180,8 +180,8 @@ export const projectsEn: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 92,
-            "apiDesign": 85,
+            "codeQuality": 88,
+            "apiDesign": 81,
             "deployment": 93
         },
         "title": "one-recycle",
@@ -216,9 +216,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 86,
-            "apiDesign": 88,
-            "deployment": 86
+            "codeQuality": 94,
+            "apiDesign": 81,
+            "deployment": 81
         },
         "title": "skills-engine",
         "description": "A full-stack application built with modern technologies.",
@@ -251,9 +251,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 83,
-            "apiDesign": 93,
-            "deployment": 91
+            "codeQuality": 80,
+            "apiDesign": 91,
+            "deployment": 84
         },
         "title": "quant-trader",
         "description": "Quant-Trader is a production-grade algorithmic trading platform that combines high-performance market data processing, sophisticated trading simulation, and enterprise-level risk management. Built with Go and React, it provides a complete infrastructure for quantitative trading strategies.",
@@ -293,9 +293,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 85,
-            "apiDesign": 87,
-            "deployment": 88
+            "codeQuality": 83,
+            "apiDesign": 94,
+            "deployment": 94
         },
         "title": "smart-park",
         "description": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼",
@@ -327,9 +327,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 90,
-            "apiDesign": 82,
-            "deployment": 85
+            "codeQuality": 92,
+            "apiDesign": 91,
+            "deployment": 92
         },
         "title": "cleanup-cli",
         "description": "智能文件整理命令行工具，通过本地 Ollama 模型实现文件的智能分类、重命名和归档。",
@@ -359,9 +359,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 92,
-            "deployment": 85
+            "codeQuality": 86,
+            "apiDesign": 94,
+            "deployment": 88
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
@@ -382,7 +382,7 @@ export const projectsZh: Project[] = [
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2026-06-09",
+        "updatedAt": "2026-06-10",
         "language": "TypeScript",
         "tags": [
             "TypeScript"
@@ -404,9 +404,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 80,
-            "deployment": 88
+            "codeQuality": 91,
+            "apiDesign": 88,
+            "deployment": 87
         },
         "title": "apex-portfolio",
         "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
@@ -436,9 +436,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 82,
-            "apiDesign": 82,
-            "deployment": 88
+            "codeQuality": 86,
+            "apiDesign": 88,
+            "deployment": 92
         },
         "title": "hospital-followuping",
         "description": "医院随访管理系统",
@@ -480,8 +480,8 @@ export const projectsZh: Project[] = [
         },
         "metrics": {
             "codeQuality": 92,
-            "apiDesign": 93,
-            "deployment": 94
+            "apiDesign": 90,
+            "deployment": 87
         },
         "title": "IntervAI",
         "description": "人工智能相关项目",
@@ -516,8 +516,8 @@ export const projectsZh: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 92,
-            "apiDesign": 85,
+            "codeQuality": 88,
+            "apiDesign": 81,
             "deployment": 93
         },
         "title": "one-recycle",
@@ -552,9 +552,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 86,
-            "apiDesign": 88,
-            "deployment": 86
+            "codeQuality": 94,
+            "apiDesign": 81,
+            "deployment": 81
         },
         "title": "skills-engine",
         "description": "使用现代技术构建的全栈应用程序。",
@@ -587,9 +587,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 83,
-            "apiDesign": 93,
-            "deployment": 91
+            "codeQuality": 80,
+            "apiDesign": 91,
+            "deployment": 84
         },
         "title": "Quant-Trader",
         "description": "专为高并发、低延迟设计的高性能量化交易引擎，支持 WASM 隔离的策略执行。",
@@ -629,9 +629,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 85,
-            "apiDesign": 87,
-            "deployment": 88
+            "codeQuality": 83,
+            "apiDesign": 94,
+            "deployment": 94
         },
         "title": "smart-park",
         "description": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼",
@@ -663,9 +663,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 90,
-            "apiDesign": 82,
-            "deployment": 85
+            "codeQuality": 92,
+            "apiDesign": 91,
+            "deployment": 92
         },
         "title": "cleanup-cli",
         "description": "命令行工具",
@@ -695,9 +695,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 92,
-            "deployment": 85
+            "codeQuality": 86,
+            "apiDesign": 94,
+            "deployment": 88
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
