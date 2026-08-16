@@ -35,6 +35,91 @@ export interface Project {
 
 export const projectsEn: Project[] = [
     {
+        "id": "1105497096",
+        "image": "/images/projects/intervai.svg",
+        "images": [
+            "/images/projects/intervai.svg",
+            "/images/projects/intervai.png"
+        ],
+        "github": "https://github.com/xuanyiying/IntervAI",
+        "demo": "https://udefined.cc",
+        "featured": true,
+        "stars": 6,
+        "forks": 0,
+        "updatedAt": "2026-08-15",
+        "language": "JavaScript",
+        "tags": [
+            "JavaScript",
+            "interview-ai"
+        ],
+        "architecture": {
+            "frontend": [
+                "Parser",
+                "TypeScript"
+            ],
+            "backend": [
+                "Eslint-plugin"
+            ],
+            "database": [],
+            "devops": [
+                "Eslint",
+                "Eslint-config-prettier",
+                "Eslint-plugin-prettier",
+                "Prettier"
+            ]
+        },
+        "metrics": {
+            "codeQuality": 93,
+            "apiDesign": 83,
+            "deployment": 88
+        },
+        "title": "IntervAI",
+        "description": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。",
+        "longDescription": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。"
+    },
+    {
+        "id": "1193415760",
+        "image": "/images/projects/smart-park.svg",
+        "images": [
+            "/images/projects/smart-park.svg",
+            "/images/projects/smart-park.png"
+        ],
+        "github": "https://github.com/xuanyiying/smart-park",
+        "demo": "",
+        "featured": true,
+        "stars": 22,
+        "forks": 5,
+        "updatedAt": "2026-08-15",
+        "language": "Go",
+        "tags": [
+            "Go",
+            "smart-parking",
+            "smart-parking-system"
+        ],
+        "architecture": {
+            "frontend": [
+                "Pq",
+                "Otlptracegrpc",
+                "Zap",
+                "Grpc",
+                "Websocket"
+            ],
+            "backend": [
+                "Nats.go"
+            ],
+            "database": [],
+            "devops": []
+        },
+        "metrics": {
+            "codeQuality": 83,
+            "apiDesign": 88,
+            "deployment": 93
+        },
+        "title": "smart-park",
+        "description": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼",
+        "longDescription": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼"
+    },
+    {
         "id": "1124046322",
         "image": "/images/projects/apex-portfolio.svg",
         "images": [
@@ -46,7 +131,7 @@ export const projectsEn: Project[] = [
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2026-08-14",
+        "updatedAt": "2026-08-15",
         "language": "TypeScript",
         "tags": [
             "TypeScript"
@@ -69,8 +154,8 @@ export const projectsEn: Project[] = [
         },
         "metrics": {
             "codeQuality": 88,
-            "apiDesign": 81,
-            "deployment": 90
+            "apiDesign": 80,
+            "deployment": 87
         },
         "title": "apex-portfolio",
         "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
@@ -100,55 +185,13 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 83,
-            "apiDesign": 91,
+            "codeQuality": 88,
+            "apiDesign": 88,
             "deployment": 89
         },
         "title": "wordmatch",
         "description": "A full-stack application built with modern technologies.",
         "longDescription": "A full-stack application built with modern technologies."
-    },
-    {
-        "id": "1193415760",
-        "image": "/images/projects/smart-park.svg",
-        "images": [
-            "/images/projects/smart-park.svg",
-            "/images/projects/smart-park.png"
-        ],
-        "github": "https://github.com/xuanyiying/smart-park",
-        "demo": "",
-        "featured": true,
-        "stars": 20,
-        "forks": 5,
-        "updatedAt": "2026-08-09",
-        "language": "Go",
-        "tags": [
-            "Go",
-            "smart-parking",
-            "smart-parking-system"
-        ],
-        "architecture": {
-            "frontend": [
-                "Pq",
-                "Otlptracegrpc",
-                "Zap",
-                "Grpc",
-                "Websocket"
-            ],
-            "backend": [
-                "Nats.go"
-            ],
-            "database": [],
-            "devops": []
-        },
-        "metrics": {
-            "codeQuality": 87,
-            "apiDesign": 93,
-            "deployment": 86
-        },
-        "title": "smart-park",
-        "description": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼",
-        "longDescription": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼"
     },
     {
         "id": "1258377426",
@@ -174,9 +217,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 94,
+            "codeQuality": 83,
             "apiDesign": 82,
-            "deployment": 87
+            "deployment": 91
         },
         "title": "hospital-followuping",
         "description": "医院随访管理系统",
@@ -208,56 +251,13 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 89,
-            "apiDesign": 94,
-            "deployment": 94
+            "codeQuality": 94,
+            "apiDesign": 82,
+            "deployment": 80
         },
         "title": "cleanup-cli",
         "description": "智能文件整理命令行工具，通过本地 Ollama 模型实现文件的智能分类、重命名和归档。",
         "longDescription": "智能文件整理命令行工具，通过本地 Ollama 模型实现文件的智能分类、重命名和归档。"
-    },
-    {
-        "id": "1105497096",
-        "image": "/images/projects/intervai.svg",
-        "images": [
-            "/images/projects/intervai.svg",
-            "/images/projects/intervai.png"
-        ],
-        "github": "https://github.com/xuanyiying/IntervAI",
-        "demo": "https://udefined.cc",
-        "featured": true,
-        "stars": 5,
-        "forks": 0,
-        "updatedAt": "2026-06-02",
-        "language": "JavaScript",
-        "tags": [
-            "JavaScript",
-            "interview-ai"
-        ],
-        "architecture": {
-            "frontend": [
-                "Parser",
-                "TypeScript"
-            ],
-            "backend": [
-                "Eslint-plugin"
-            ],
-            "database": [],
-            "devops": [
-                "Eslint",
-                "Eslint-config-prettier",
-                "Eslint-plugin-prettier",
-                "Prettier"
-            ]
-        },
-        "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 91,
-            "deployment": 85
-        },
-        "title": "IntervAI",
-        "description": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。",
-        "longDescription": "Interview AI 是一站式智能求职辅助平台，聚焦简历优化与模拟面试闭环。系统通过多模型协作、结构化评估与可视化反馈，帮助候选人快速识别差距、提升表达质量并完成投递准备。"
     },
     {
         "id": "1077670783",
@@ -288,9 +288,9 @@ export const projectsEn: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 94,
-            "apiDesign": 94,
-            "deployment": 88
+            "codeQuality": 80,
+            "apiDesign": 89,
+            "deployment": 91
         },
         "title": "one-recycle",
         "description": "A full-stack application built with modern technologies.",
@@ -324,9 +324,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 91,
-            "apiDesign": 94,
-            "deployment": 81
+            "codeQuality": 82,
+            "apiDesign": 82,
+            "deployment": 94
         },
         "title": "skills-engine",
         "description": "A full-stack application built with modern technologies.",
@@ -359,8 +359,8 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 86,
-            "apiDesign": 85,
+            "codeQuality": 88,
+            "apiDesign": 92,
             "deployment": 92
         },
         "title": "quant-trader",
@@ -391,9 +391,9 @@ export const projectsEn: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 84,
-            "apiDesign": 83,
-            "deployment": 82
+            "codeQuality": 89,
+            "apiDesign": 88,
+            "deployment": 94
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
@@ -402,6 +402,91 @@ export const projectsEn: Project[] = [
 ];
 
 export const projectsZh: Project[] = [
+    {
+        "id": "1105497096",
+        "image": "/images/projects/intervai.svg",
+        "images": [
+            "/images/projects/intervai.svg",
+            "/images/projects/intervai.png"
+        ],
+        "github": "https://github.com/xuanyiying/IntervAI",
+        "demo": "https://udefined.cc",
+        "featured": true,
+        "stars": 6,
+        "forks": 0,
+        "updatedAt": "2026-08-15",
+        "language": "JavaScript",
+        "tags": [
+            "JavaScript",
+            "interview-ai"
+        ],
+        "architecture": {
+            "frontend": [
+                "Parser",
+                "TypeScript"
+            ],
+            "backend": [
+                "Eslint-plugin"
+            ],
+            "database": [],
+            "devops": [
+                "Eslint",
+                "Eslint-config-prettier",
+                "Eslint-plugin-prettier",
+                "Prettier"
+            ]
+        },
+        "metrics": {
+            "codeQuality": 93,
+            "apiDesign": 83,
+            "deployment": 88
+        },
+        "title": "IntervAI",
+        "description": "人工智能相关项目",
+        "longDescription": "人工智能相关项目"
+    },
+    {
+        "id": "1193415760",
+        "image": "/images/projects/smart-park.svg",
+        "images": [
+            "/images/projects/smart-park.svg",
+            "/images/projects/smart-park.png"
+        ],
+        "github": "https://github.com/xuanyiying/smart-park",
+        "demo": "",
+        "featured": true,
+        "stars": 22,
+        "forks": 5,
+        "updatedAt": "2026-08-15",
+        "language": "Go",
+        "tags": [
+            "Go",
+            "smart-parking",
+            "smart-parking-system"
+        ],
+        "architecture": {
+            "frontend": [
+                "Pq",
+                "Otlptracegrpc",
+                "Zap",
+                "Grpc",
+                "Websocket"
+            ],
+            "backend": [
+                "Nats.go"
+            ],
+            "database": [],
+            "devops": []
+        },
+        "metrics": {
+            "codeQuality": 83,
+            "apiDesign": 88,
+            "deployment": 93
+        },
+        "title": "smart-park",
+        "description": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼",
+        "longDescription": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼"
+    },
     {
         "id": "1124046322",
         "image": "/images/projects/apex-portfolio.svg",
@@ -414,7 +499,7 @@ export const projectsZh: Project[] = [
         "featured": true,
         "stars": 1,
         "forks": 0,
-        "updatedAt": "2026-08-14",
+        "updatedAt": "2026-08-15",
         "language": "TypeScript",
         "tags": [
             "TypeScript"
@@ -437,8 +522,8 @@ export const projectsZh: Project[] = [
         },
         "metrics": {
             "codeQuality": 88,
-            "apiDesign": 81,
-            "deployment": 90
+            "apiDesign": 80,
+            "deployment": 87
         },
         "title": "apex-portfolio",
         "description": "Apex Portfolio 是一个为现代开发者量身定制的、极具视觉冲击力的个人作品集网站。它融合了赛博朋克美学与玻璃拟态（Glassmorphism）设计风格，旨在通过流畅的交互和 3D 视觉元素，全方位展示开发者的技能、项目和经历。",
@@ -468,55 +553,13 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 83,
-            "apiDesign": 91,
+            "codeQuality": 88,
+            "apiDesign": 88,
             "deployment": 89
         },
         "title": "wordmatch",
         "description": "使用现代技术构建的全栈应用程序。",
         "longDescription": "使用现代技术构建的全栈应用程序。"
-    },
-    {
-        "id": "1193415760",
-        "image": "/images/projects/smart-park.svg",
-        "images": [
-            "/images/projects/smart-park.svg",
-            "/images/projects/smart-park.png"
-        ],
-        "github": "https://github.com/xuanyiying/smart-park",
-        "demo": "",
-        "featured": true,
-        "stars": 20,
-        "forks": 5,
-        "updatedAt": "2026-08-09",
-        "language": "Go",
-        "tags": [
-            "Go",
-            "smart-parking",
-            "smart-parking-system"
-        ],
-        "architecture": {
-            "frontend": [
-                "Pq",
-                "Otlptracegrpc",
-                "Zap",
-                "Grpc",
-                "Websocket"
-            ],
-            "backend": [
-                "Nats.go"
-            ],
-            "database": [],
-            "devops": []
-        },
-        "metrics": {
-            "codeQuality": 87,
-            "apiDesign": 93,
-            "deployment": 86
-        },
-        "title": "smart-park",
-        "description": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼",
-        "longDescription": "Smart Park - 开源智慧停车管理系统 | 基于 Go + Kratos 微服务架构 | 支持车牌识别、智能计费、微信支付、支付宝支付 | 适用于商业综合体、住宅小区、写字楼"
     },
     {
         "id": "1258377426",
@@ -542,9 +585,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 94,
+            "codeQuality": 83,
             "apiDesign": 82,
-            "deployment": 87
+            "deployment": 91
         },
         "title": "hospital-followuping",
         "description": "医院随访管理系统",
@@ -576,56 +619,13 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 89,
-            "apiDesign": 94,
-            "deployment": 94
+            "codeQuality": 94,
+            "apiDesign": 82,
+            "deployment": 80
         },
         "title": "cleanup-cli",
         "description": "命令行工具",
         "longDescription": "命令行工具"
-    },
-    {
-        "id": "1105497096",
-        "image": "/images/projects/intervai.svg",
-        "images": [
-            "/images/projects/intervai.svg",
-            "/images/projects/intervai.png"
-        ],
-        "github": "https://github.com/xuanyiying/IntervAI",
-        "demo": "https://udefined.cc",
-        "featured": true,
-        "stars": 5,
-        "forks": 0,
-        "updatedAt": "2026-06-02",
-        "language": "JavaScript",
-        "tags": [
-            "JavaScript",
-            "interview-ai"
-        ],
-        "architecture": {
-            "frontend": [
-                "Parser",
-                "TypeScript"
-            ],
-            "backend": [
-                "Eslint-plugin"
-            ],
-            "database": [],
-            "devops": [
-                "Eslint",
-                "Eslint-config-prettier",
-                "Eslint-plugin-prettier",
-                "Prettier"
-            ]
-        },
-        "metrics": {
-            "codeQuality": 88,
-            "apiDesign": 91,
-            "deployment": 85
-        },
-        "title": "IntervAI",
-        "description": "人工智能相关项目",
-        "longDescription": "人工智能相关项目"
     },
     {
         "id": "1077670783",
@@ -656,9 +656,9 @@ export const projectsZh: Project[] = [
             ]
         },
         "metrics": {
-            "codeQuality": 94,
-            "apiDesign": 94,
-            "deployment": 88
+            "codeQuality": 80,
+            "apiDesign": 89,
+            "deployment": 91
         },
         "title": "one-recycle",
         "description": "使用现代技术构建的全栈应用程序。",
@@ -692,9 +692,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 91,
-            "apiDesign": 94,
-            "deployment": 81
+            "codeQuality": 82,
+            "apiDesign": 82,
+            "deployment": 94
         },
         "title": "skills-engine",
         "description": "使用现代技术构建的全栈应用程序。",
@@ -727,8 +727,8 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 86,
-            "apiDesign": 85,
+            "codeQuality": 88,
+            "apiDesign": 92,
             "deployment": 92
         },
         "title": "Quant-Trader",
@@ -759,9 +759,9 @@ export const projectsZh: Project[] = [
             "devops": []
         },
         "metrics": {
-            "codeQuality": 84,
-            "apiDesign": 83,
-            "deployment": 82
+            "codeQuality": 89,
+            "apiDesign": 88,
+            "deployment": 94
         },
         "title": "wedding-timeline",
         "description": "一个现代化的婚礼日程管理系统，包含客户展示端和管理后台，采用前后端分离架构开发。",
